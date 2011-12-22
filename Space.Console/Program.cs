@@ -25,7 +25,7 @@ namespace Space.Console
             var game = new Game.Game(playerRepository, planetRepository);
 
             var player = CreatePlayer(playerRepository);
-            player = playerRepository.Get(player.ID);
+            //player = playerRepository.Get(player.ID);
             
             var solarSystem = solarSystemRepository.Create();
             solarSystemRepository.SaveChanges();
@@ -79,6 +79,7 @@ namespace Space.Console
             var player = playerRepository.Create();
             player.TotalNetValue = new NetValue();
             player.ResearchPoints = new ResearchPoints();
+            player.Race = new Race();
             playerRepository.SaveChanges();
 
             return player;
@@ -87,16 +88,12 @@ namespace Space.Console
         private static void CreatePlanet(IPlanetRepository planetRepository, Player player, int ssID)
         {
             var p = planetRepository.Create();
-            p.CashFactoryCount = 10;
+            p.CashFactoryCount = 2;
             p.EnergyLabCount = 5;
             p.FarmCount = 20;
-            p.LivingQuartersCount = 20;
+            p.LivingQuartersCount = 2;
             p.SolarSystemID = ssID;
-            planetRepository.SaveChanges();
-
-            // update navigation property
             p.Owner = player;
-            planetRepository.Update(p);
             planetRepository.SaveChanges();
         }
 
@@ -104,7 +101,7 @@ namespace Space.Console
         {
             player = playerRepository.Get(player.ID);
             System.Console.WriteLine("Cash - ${0}", player.TotalNetValue.Cash);
-            System.Console.WriteLine("Food - {0}", player.TotalNetValue.Population);
+            System.Console.WriteLine("Food - {0}", player.TotalNetValue.Food);
             System.Console.WriteLine("Population - {0}", player.TotalNetValue.Population);
         }
     }

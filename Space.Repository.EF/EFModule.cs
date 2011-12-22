@@ -9,7 +9,7 @@ namespace Space.Repository.EF
 
         public override void Load()
         {
-            Bind<DbContext>().To<EFDBContext>().InSingletonScope();
+            Bind<EFDBContext>().ToSelf().InSingletonScope();
             Bind<IPlayerRepository>().To<PlayerRepository>();
             Bind<ISolarSystemRepository>().To<SolarSystemRepository>();
             Bind<IPlanetRepository>().To<PlanetRepository>();

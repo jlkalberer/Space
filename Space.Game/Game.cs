@@ -50,9 +50,9 @@ namespace Space.Game
                                 }
 
                                 user.Update(netTotalValue);
-                                _playerRepository.Update(user);
+                                //_playerRepository.Update(user);
                             });
-
+            _playerRepository.SaveChanges();
         }
 
         public bool[] GalaxyGrid { get; set; }

@@ -65,6 +65,10 @@ namespace Space.DTO
             // Add new values
             TotalNetValue.Add(netValue);
 
+            // these values aren't generated each tick --
+            TotalNetValue.BuildingCount = netValue.BuildingCount;
+            TotalNetValue.Population = netValue.Population;
+
             // let them eat cake!
             TotalNetValue.Food -= TotalNetValue.Population/10 + UnitCount;
 
@@ -74,7 +78,7 @@ namespace Space.DTO
 
         private float CalculateResearchValue(int researchPoints)
         {
-            return 100*(1 - (float)Math.Exp(-(float)researchPoints/100*NetWorth));
+            return 1 + (1 - (float)Math.Exp(-(float)researchPoints/100*NetWorth));
         }
     }
 }
