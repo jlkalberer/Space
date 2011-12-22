@@ -1,0 +1,462 @@
+<Configuration>
+  <SettingsComponent>
+    <string />
+    <integer />
+    <boolean>
+      <setting name="livetemplates.csharp.usevar">True</setting>
+      <setting name="SolutionAnalysisEnabled">False</setting>
+    </boolean>
+  </SettingsComponent>
+  <RecentFiles>
+    <RecentFiles>
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/d:Buildings/f:Farm.cs" caret="388" fromTop="13" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/d:Buildings/f:EnergyLab.cs" caret="393" fromTop="13" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/d:Buildings/f:CashFactory.cs" caret="0" fromTop="0" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/f:Race.cs" caret="707" fromTop="26" />
+      <File id="B1E3719F-2086-4819-B4E9-4FF0F7FE0A95/f:IRaceRepository.cs" caret="195" fromTop="8" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/d:Units/f:Agent.cs" caret="413" fromTop="14" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/d:Units/f:Bomber.cs" caret="416" fromTop="14" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/d:Units/f:Explorer.cs" caret="418" fromTop="14" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/d:Units/f:Fighter.cs" caret="417" fromTop="14" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/d:Units/f:Soldier.cs" caret="417" fromTop="14" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/d:Units/f:Transport.cs" caret="419" fromTop="14" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/d:Units/f:Wizard.cs" caret="516" fromTop="17" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/d:Units/f:Droid.cs" caret="415" fromTop="14" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/f:NetValue.cs" caret="677" fromTop="23" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/f:Fleet.cs" caret="532" fromTop="23" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/f:SolarSystem.cs" caret="33" fromTop="0" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/f:PlayerBonuses.cs" caret="133" fromTop="0" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/f:ResearchPoints.cs" caret="133" fromTop="7" />
+      <File id="B1E3719F-2086-4819-B4E9-4FF0F7FE0A95/f:IPlayerRepository.cs" caret="185" fromTop="8" />
+      <File id="B1E3719F-2086-4819-B4E9-4FF0F7FE0A95/f:ISolarSystemRepository.cs" caret="198" fromTop="8" />
+      <File id="91AC2368-ABD5-4360-8F5E-10771D784FAB/f:Game.cs" caret="973" fromTop="25" />
+      <File id="B1E3719F-2086-4819-B4E9-4FF0F7FE0A95/f:ICrud.cs" caret="299" fromTop="12" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:EFDBContext.cs" caret="1868" fromTop="41" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:SolarSystemRepository.cs" caret="557" fromTop="21" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/f:Planet.cs" caret="234" fromTop="9" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlanetRepository.cs" caret="945" fromTop="32" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:EFModule.cs" caret="218" fromTop="9" />
+      <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/f:Player.cs" caret="660" fromTop="11" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="3530" fromTop="26" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlayerRepository.cs" caret="735" fromTop="28" />
+    </RecentFiles>
+    <RecentEdits>
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="393" fromTop="14" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlanetRepository.cs" caret="1313" fromTop="44" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="1473" fromTop="20" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="3902" fromTop="48" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="2167" fromTop="23" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlayerRepository.cs" caret="1100" fromTop="28" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlayerRepository.cs" caret="1205" fromTop="32" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:SolarSystemRepository.cs" caret="321" fromTop="12" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:SolarSystemRepository.cs" caret="1212" fromTop="47" />
+      <File id="B1E3719F-2086-4819-B4E9-4FF0F7FE0A95/f:ISolarSystemRepository.cs" caret="209" fromTop="8" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:SolarSystemRepository.cs" caret="482" fromTop="19" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:SolarSystemRepository.cs" caret="785" fromTop="29" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:SolarSystemRepository.cs" caret="1016" fromTop="39" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="3663" fromTop="36" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:EFModule.cs" caret="297" fromTop="11" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:EFDBContext.cs" caret="2000" fromTop="41" />
+      <File id="91AC2368-ABD5-4360-8F5E-10771D784FAB/f:Game.cs" caret="350" fromTop="7" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="839" fromTop="24" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="2924" fromTop="18" />
+      <File id="B1E3719F-2086-4819-B4E9-4FF0F7FE0A95/f:ICrud.cs" caret="299" fromTop="12" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="2856" fromTop="16" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="984" fromTop="26" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlayerRepository.cs" caret="540" fromTop="22" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:SolarSystemRepository.cs" caret="557" fromTop="21" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:EFDBContext.cs" caret="1868" fromTop="41" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlanetRepository.cs" caret="567" fromTop="22" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="3189" fromTop="26" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="3444" fromTop="33" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlanetRepository.cs" caret="945" fromTop="32" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlayerRepository.cs" caret="735" fromTop="28" />
+    </RecentEdits>
+  </RecentFiles>
+  <NAntValidationSettings>
+    <NAntPath value="" />
+  </NAntValidationSettings>
+  <UnitTestRunner>
+    <Providers />
+  </UnitTestRunner>
+  <UnitTestRunnerNUnit>
+    <NUnitInstallDir IsNull="False">
+    </NUnitInstallDir>
+    <UseAddins>Never</UseAddins>
+  </UnitTestRunnerNUnit>
+  <CompletionStatisticsManager>
+    <ItemStatistics item="Default">
+      <Item value="int" priority="22" />
+      <Item value="prop" priority="13" />
+      <Item value="float" priority="11" />
+      <Item value="IDataObject`0" priority="2" />
+      <Item value="public" priority="38" />
+      <Item value="IQueryable" priority="4" />
+      <Item value="Planet`0" priority="11" />
+      <Item value="void" priority="13" />
+      <Item value="ISpatialEntity`0" priority="0" />
+      <Item value="TValue`0" priority="5" />
+      <Item value="TKey`0" priority="1" />
+      <Item value="bool" priority="7" />
+      <Item value="using" priority="1" />
+      <Item value="ICrud" priority="0" />
+      <Item value="private" priority="11" />
+      <Item value="List" priority="0" />
+      <Item value="_planets" priority="5" />
+      <Item value="value" priority="12" />
+      <Item value="return" priority="24" />
+      <Item value="true" priority="7" />
+      <Item value="p" priority="35" />
+      <Item value="key" priority="2" />
+      <Item value="var" priority="31" />
+      <Item value="Get`0" priority="1" />
+      <Item value="tplanet" priority="0" />
+      <Item value="Game`0" priority="4" />
+      <Item value="planetRepository" priority="5" />
+      <Item value="_planetRepository" priority="1" />
+      <Item value="IUnit`0" priority="1" />
+      <Item value="Fleet`0" priority="3" />
+      <Item value="_fleetRepository" priority="0" />
+      <Item value="fleets" priority="0" />
+      <Item value="foreach" priority="2" />
+      <Item value="fleet" priority="0" />
+      <Item value="planet" priority="7" />
+      <Item value="IPlanetRepository`0" priority="4" />
+      <Item value="UpdatePlanet`0" priority="0" />
+      <Item value="Fleets" priority="0" />
+      <Item value="set" priority="0" />
+      <Item value="NetValue`0" priority="8" />
+      <Item value="new" priority="16" />
+      <Item value="output" priority="10" />
+      <Item value="netTotalValue" priority="1" />
+      <Item value="netValue" priority="3" />
+      <Item value="this" priority="2" />
+      <Item value="Cash" priority="0" />
+      <Item value="CashFactoryCount" priority="2" />
+      <Item value="properties" priority="4" />
+      <Item value="CashBonus" priority="2" />
+      <Item value="FoodBonus" priority="2" />
+      <Item value="IronBonus" priority="1" />
+      <Item value="PlutoniumBonus" priority="1" />
+      <Item value="FarmCount" priority="1" />
+      <Item value="EnergyLabCount" priority="1" />
+      <Item value="out" priority="0" />
+      <Item value="MineCount" priority="0" />
+      <Item value="Population" priority="2" />
+      <Item value="const" priority="6" />
+      <Item value="PopulationGrowth" priority="0" />
+      <Item value="Math`0" priority="1" />
+      <Item value="BasePopulation" priority="1" />
+      <Item value="LivingQuartersCount" priority="1" />
+      <Item value="FoodOutput" priority="0" />
+      <Item value="PeoplePerLivingQuarter" priority="0" />
+      <Item value="ResearchLabCount" priority="1" />
+      <Item value="ResearchOutput" priority="0" />
+      <Item value="planetSet" priority="1" />
+      <Item value="Player`0" priority="6" />
+      <Item value="IPlayerRepository`0" priority="2" />
+      <Item value="playerRepository" priority="9" />
+      <Item value="_playerRepository" priority="1" />
+      <Item value="if" priority="2" />
+      <Item value="user" priority="5" />
+      <Item value="null" priority="1" />
+      <Item value="continue" priority="0" />
+      <Item value="for" priority="4" />
+      <Item value="planetsToUpdate" priority="0" />
+      <Item value="PlayerProperties`0" priority="4" />
+      <Item value="string" priority="1" />
+      <Item value="Race`0" priority="5" />
+      <Item value="IResearchPointsRepository`0" priority="0" />
+      <Item value="researchPointsRepository" priority="0" />
+      <Item value="_researchPointsRepository" priority="0" />
+      <Item value="ResearchPoints`0" priority="4" />
+      <Item value="researchPoints" priority="2" />
+      <Item value="Properties" priority="1" />
+      <Item value="PlayerProperties" priority="0" />
+      <Item value="PlanetRepository`0" priority="2" />
+      <Item value="List&lt;Planet&gt;" priority="0" />
+      <Item value="double" priority="0" />
+      <Item value="Race" priority="1" />
+      <Item value="NetWorth" priority="0" />
+      <Item value="CalculateResearchValue`0" priority="0" />
+      <Item value="TotalNetValue" priority="9" />
+      <Item value="Decay" priority="3" />
+      <Item value="LaserCount" priority="0" />
+      <Item value="BuildingCount" priority="0" />
+      <Item value="CashDecay" priority="0" />
+      <Item value="UnitCount" priority="0" />
+      <Item value="do" priority="0" />
+      <Item value="input" priority="0" />
+      <Item value="Console`0" priority="6" />
+      <Item value="ConsoleKeyInfo`0" priority="0" />
+      <Item value="ki" priority="1" />
+      <Item value="ConsoleKey`0" priority="2" />
+      <Item value="System" priority="2" />
+      <Item value="Width" priority="2" />
+      <Item value="Height" priority="2" />
+      <Item value="i" priority="6" />
+      <Item value="grid" priority="2" />
+      <Item value="Length" priority="0" />
+      <Item value="r" priority="1" />
+      <Item value="game" priority="3" />
+      <Item value="Game" priority="3" />
+      <Item value="static" priority="3" />
+      <Item value="switch" priority="0" />
+      <Item value="case" priority="2" />
+      <Item value="RenderGalaxy`0" priority="0" />
+      <Item value="break" priority="2" />
+      <Item value="Ninject" priority="1" />
+      <Item value="Modules" priority="1" />
+      <Item value="NinjectModule`0" priority="0" />
+      <Item value="Bind`0" priority="1" />
+      <Item value="DbSet`0" priority="2" />
+      <Item value="PlayerRepository`0" priority="2" />
+      <Item value="override" priority="0" />
+      <Item value="modelBuilder" priority="11" />
+      <Item value="n" priority="0" />
+      <Item value="ICollection" priority="1" />
+      <Item value="ID" priority="1" />
+      <Item value="f" priority="1" />
+      <Item value="SolarSystem`0" priority="3" />
+      <Item value="EFDBContext`0" priority="4" />
+      <Item value="db" priority="4" />
+      <Item value="player" priority="22" />
+      <Item value="KeyNotFoundException`0" priority="0" />
+      <Item value="_context" priority="17" />
+      <Item value="default" priority="1" />
+      <Item value="kernel" priority="3" />
+      <Item value="EFModule`0" priority="1" />
+      <Item value="CreatePlayer`0" priority="0" />
+      <Item value="PrintPlayerStats`0" priority="0" />
+      <Item value="NetValue" priority="0" />
+      <Item value="ISolarSystemRepository`0" priority="1" />
+      <Item value="SolarSystemRepository`0" priority="1" />
+      <Item value="context" priority="0" />
+      <Item value="entity" priority="0" />
+      <Item value="solarSystem" priority="3" />
+      <Item value="solarSystemRepository" priority="0" />
+      <Item value="ResearchPoints" priority="0" />
+      <Item value="SaveChanges`0" priority="0" />
+      <Item value="entry" priority="2" />
+      <Item value="TypedReference`0" priority="0" />
+      <Item value="Detached" priority="0" />
+      <Item value="Modified" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.List`1">
+      <Item value="Add`0" priority="0" />
+      <Item value="Where`1" priority="0" />
+      <Item value="RemoveAll`0" priority="0" />
+      <Item value="AsQueryable`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Space.DTO.Planet">
+      <Item value="ID" priority="4" />
+      <Item value="OwnerID" priority="2" />
+      <Item value="Update`0" priority="0" />
+      <Item value="Population" priority="0" />
+      <Item value="Owner" priority="5" />
+      <Item value="CashFactoryCount" priority="0" />
+      <Item value="EnergyLabCount" priority="0" />
+      <Item value="FarmCount" priority="0" />
+      <Item value="LivingQuartersCount" priority="0" />
+      <Item value="SolarSystemID" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Collections.Generic.IEnumerable`1">
+      <Item value="FirstOrDefault`1" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Space.Repository.IPlanetRepository">
+      <Item value="All" priority="0" />
+      <Item value="Update`0" priority="1" />
+      <Item value="Create`0" priority="0" />
+      <Item value="SaveChanges`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Nullable`1">
+      <Item value="HasValue" priority="0" />
+      <Item value="Value" priority="0" />
+      <Item value="GetValueOrDefault`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Space.Repository.IFleetRepository">
+      <Item value="All" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Space.DTO.Fleet">
+      <Item value="Update`0" priority="0" />
+      <Item value="ID" priority="2" />
+      <Item value="FleetID" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Space.DTO.NetValue">
+      <Item value="Cash" priority="5" />
+      <Item value="Food" priority="2" />
+      <Item value="Energy" priority="1" />
+      <Item value="Iron" priority="1" />
+      <Item value="Population" priority="7" />
+      <Item value="Research" priority="1" />
+      <Item value="Add`0" priority="0" />
+      <Item value="BuildinCount" priority="0" />
+      <Item value="BuildingCount" priority="1" />
+      <Item value="PlayerID" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Space.DTO.PlayerProperties">
+      <Item value="EconomyResearch" priority="0" />
+      <Item value="WelfareResearch" priority="2" />
+      <Item value="ConstructionBonus" priority="0" />
+      <Item value="EconomyBonus" priority="0" />
+      <Item value="MilitaryBonus" priority="0" />
+      <Item value="ResearchBonus" priority="0" />
+      <Item value="ResourceBonus" priority="0" />
+      <Item value="WelfareBonus" priority="0" />
+      <Item value="PlayerID" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Math">
+      <Item value="Min`0" priority="0" />
+      <Item value="Exp`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Linq.IQueryable`1">
+      <Item value="GroupBy`4" priority="0" />
+      <Item value="AsParallel`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Linq.IGrouping`2">
+      <Item value="Key" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Space.Repository.IPlayerRepository">
+      <Item value="Get`0" priority="3" />
+      <Item value="Update`0" priority="0" />
+      <Item value="Create`0" priority="0" />
+      <Item value="SaveChanges`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Linq.ParallelQuery`1">
+      <Item value="ForAll`1" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Space.Repository.IResearchPointsRepository">
+      <Item value="Get`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Space.DTO.Player">
+      <Item value="ID" priority="10" />
+      <Item value="Update`0" priority="0" />
+      <Item value="Race" priority="1" />
+      <Item value="Properties" priority="0" />
+      <Item value="Fleets" priority="3" />
+      <Item value="TotalNetValue" priority="4" />
+      <Item value="Planets" priority="1" />
+      <Item value="NetWorth" priority="0" />
+      <Item value="ResearchPoints" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Space.DTO.ResearchPoints">
+      <Item value="ConstructionPoints" priority="0" />
+      <Item value="EconomyPoints" priority="0" />
+      <Item value="MilitaryPoints" priority="0" />
+      <Item value="ResourcePoints" priority="0" />
+      <Item value="WelfarePoints" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Space.DTO.Race">
+      <Item value="IncomeBonus" priority="0" />
+      <Item value="AttackBonus" priority="0" />
+      <Item value="ScienceBonus" priority="0" />
+      <Item value="PopulationBonus" priority="0" />
+      <Item value="ID" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.String">
+      <Item value="Empty" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Console">
+      <Item value="ReadKey`0" priority="0" />
+      <Item value="Write`0" priority="1" />
+      <Item value="WriteLine`0" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.ConsoleKey">
+      <Item value="Escape" priority="0" />
+      <Item value="G" priority="0" />
+      <Item value="T" priority="0" />
+      <Item value="P" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.ConsoleKeyInfo">
+      <Item value="Key" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Random">
+      <Item value="NextDouble`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Space.Game.Game">
+      <Item value="GenerateGalaxy`0" priority="0" />
+      <Item value="GalaxyGrid" priority="0" />
+      <Item value="Update`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@Space.Game.Game">
+      <Item value="Height" priority="0" />
+      <Item value="Width" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Ninject.Syntax.IBindingToSyntax`1">
+      <Item value="To`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Data.Entity.DbModelBuilder">
+      <Item value="Entity`1" priority="11" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Data.Entity.ModelConfiguration.EntityTypeConfiguration`1">
+      <Item value="HasOptional`1" priority="7" />
+      <Item value="HasKey`1" priority="4" />
+      <Item value="HasMany`1" priority="4" />
+      <Item value="HasRequired`1" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Data.Entity.ModelConfiguration.Configuration.OptionalNavigationPropertyConfiguration`2">
+      <Item value="WithOptionalDependent`0" priority="0" />
+      <Item value="WithOptionalPrincipal`0" priority="3" />
+      <Item value="WithMany`0" priority="1" />
+      <Item value="WithRequired`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Data.Entity.ModelConfiguration.Configuration.ManyNavigationPropertyConfiguration`2">
+      <Item value="WithRequired`0" priority="2" />
+      <Item value="WithOptional`0" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Data.Entity.ModelConfiguration.Configuration.DependentNavigationPropertyConfiguration`1">
+      <Item value="HasForeignKey`1" priority="1" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Space.DTO.SolarSystem">
+      <Item value="Planets" priority="0" />
+      <Item value="ID" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Space.Repository.EF.EFDBContext">
+      <Item value="Players" priority="7" />
+      <Item value="SaveChanges`0" priority="4" />
+      <Item value="Database" priority="1" />
+      <Item value="Planets" priority="3" />
+      <Item value="SolarSystems" priority="1" />
+      <Item value="Entry`0" priority="3" />
+      <Item value="Set`0" priority="0" />
+      <Item value="ChangeTracker" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Data.Entity.DbSet`1">
+      <Item value="Create`1" priority="4" />
+      <Item value="Add`0" priority="6" />
+      <Item value="All`1" priority="0" />
+      <Item value="SingleOrDefault`1" priority="0" />
+      <Item value="Attach`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Data.Entity.Database">
+      <Item value="Create`0" priority="0" />
+      <Item value="Delete`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Ninject.IKernel">
+      <Item value="Get`0" priority="1" />
+      <Item value="AddBinding`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Space.Repository.ISolarSystemRepository">
+      <Item value="Create`0" priority="0" />
+      <Item value="SaveChanges`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:Ninject.Syntax.IBindingWhenInNamedWithOrOnSyntax`1">
+      <Item value="InSingletonScope`0" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Data.Entity.Infrastructure.DbEntityEntry`1">
+      <Item value="Entity" priority="0" />
+      <Item value="Property`1" priority="0" />
+      <Item value="Reference`1" priority="0" />
+      <Item value="State" priority="2" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Data.Entity.Infrastructure.DbPropertyEntry`2">
+      <Item value="IsModified" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:System.Data.Entity.Infrastructure.DbReferenceEntry`2">
+      <Item value="EntityEntry" priority="0" />
+    </ItemStatistics>
+    <ItemStatistics item="Qualified:@System.Data.EntityState">
+      <Item value="Modified" priority="0" />
+    </ItemStatistics>
+  </CompletionStatisticsManager>
+</Configuration>
