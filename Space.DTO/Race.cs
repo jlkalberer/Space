@@ -8,6 +8,16 @@ namespace Space.DTO
 {
     public class Race : IDataObject
     {
+        public Race()
+        {
+            MagicBonus = 1;
+            AttackBonus = 1;
+            ScienceBonus = 1;
+            IncomeBonus = 1;
+            PopulationBonus = 1;
+            SpeedBonus = 1;
+        }
+
         #region Implementation of IDataObject
 
         public int ID { get; set; }

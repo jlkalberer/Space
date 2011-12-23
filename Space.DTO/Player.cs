@@ -54,7 +54,7 @@ namespace Space.DTO
         /// </summary>
         public int UnitCount { get; set; }
 
-        public void Update(NetValue netValue)
+        public virtual void Update(NetValue netValue)
         {
             // Decay existing values from last tick
             TotalNetValue.Cash *= Decay;
@@ -65,6 +65,9 @@ namespace Space.DTO
             // Add new values
             TotalNetValue.Add(netValue);
 
+            TotalNetValue.BuildingCount = netValue.BuildingCount;
+            TotalNetValue.Population = netValue.Population;
+
             // let them eat cake!
             TotalNetValue.Food -= TotalNetValue.Population/10 + UnitCount;
 
@@ -74,7 +77,7 @@ namespace Space.DTO
 
         private float CalculateResearchValue(int researchPoints)
         {
-            return 100*(1 - (float)Math.Exp(-(float)researchPoints/100*NetWorth));
+            return 1+(1 - (float)Math.Exp(-(float)researchPoints/100*NetWorth));
         }
     }
 }

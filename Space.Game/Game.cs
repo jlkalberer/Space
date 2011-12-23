@@ -2,6 +2,7 @@
 using System.Linq;
 using Space.DTO;
 using Space.Repository;
+using System.Collections.Generic;
 
 namespace Space.Game
 {
@@ -50,24 +51,30 @@ namespace Space.Game
                                 }
 
                                 user.Update(netTotalValue);
-                                _playerRepository.Update(user);
                             });
 
+            _playerRepository.SaveChanges();
         }
-
-        public bool[] GalaxyGrid { get; set; }
 
         public void GenerateGalaxy()
         {
-            GalaxyGrid = new bool[Width * Height];
-
+            var solarSystems = new List<SolarSystem>();
             var r = new Random();
 
             for(var i = 0; i < Width; i += 1)
             {
                 for(var j = 0; j < Height; j += 1)
                 {
-                    GalaxyGrid[i * Width + j] = r.NextDouble() > .9;
+                    if (r.NextDouble() > .9)
+                    {
+                        // create a solar system here...
+                        var solarSystem = new SolarSystem();
+                        solarSystem.Latitude = i;
+                        solarSystem.Longitude = j;
+
+                        // randomly create star -- some solar systems will not have stars but instead, large gas giants
+                        solarSystem.Star = new Star();
+                    }
                 }
             }
         }

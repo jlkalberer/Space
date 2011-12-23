@@ -40,6 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AI.cs" />
     <Compile Include="Buildings\CashFactory.cs" />
     <Compile Include="Buildings\EnergyLab.cs" />
     <Compile Include="Buildings\Farm.cs" />
@@ -50,13 +51,15 @@
     <Compile Include="Buildings\ResearchLab.cs" />
     <Compile Include="Fleet.cs" />
     <Compile Include="NetValue.cs" />
-    <Compile Include="Planet.cs" />
+    <Compile Include="Spatial\AsteroidBelt.cs" />
+    <Compile Include="Spatial\Planet.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerBonuses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Race.cs" />
     <Compile Include="ResearchPoints.cs" />
-    <Compile Include="SolarSystem.cs" />
+    <Compile Include="Spatial\SolarSystem.cs" />
+    <Compile Include="Spatial\Star.cs" />
     <Compile Include="Units\Agent.cs" />
     <Compile Include="Units\Bomber.cs" />
     <Compile Include="Units\Droid.cs" />

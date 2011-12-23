@@ -1,0 +1,39 @@
+Solar Systems
+	usercan have gas giant as center
+	can have gas giant orbiting spatial entity
+	gas giants can be converted into stars
+	stars can go supernova
+	user can run op to see how long the star has until it explodes -- becomes more accurate as it get closer to explosion
+	white dwarf
+
+Planets
+	Goods must be transported off of planet if there is no portal
+		Portalling goods costs large amount of money and more money based on distance.  This way users will want to use transport ships
+
+Empires
+	Warrior
+		Caster
+		Ops
+		Brute
+	Banker
+		Have bonuses so that they can boost population, raw materials, and/or build things more cheaply
+		Finance other classes
+		Trade in the market
+		Reliant on Traders to move their goods if they do not do so themselves
+	Pirate/Bandit - race still has planets/empire/army
+		Lower flag and attack traders so they don't know who attacked
+		Can cast ops to plant false information about who attacked
+		Can raid planets
+	Trader - race still has planets/empire/army
+		Can transport goods for other users
+		Trade in the market
+
+Galactic Federation
+	Keep strong players from preying in the week
+	Control the market
+	Located in a few places on the map and are used as a hub for sending goods for trade
+		Users can also trade on the "black market" but this is illegal and the Federation will fine/attack  the planet from which the cargo left and where it is heading
+
+
+Fleets
+	Can be combined so that Warriors can protect traders

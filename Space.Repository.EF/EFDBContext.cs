@@ -64,6 +64,12 @@ namespace Space.Repository.EF
                 .HasMany(s => s.Planets)
                 .WithRequired()
                 .HasForeignKey(p => p.SolarSystemID);
+
+            modelBuilder.Entity<SolarSystem>()
+                .HasOptional(s => s.Star);
+
+            modelBuilder.Entity<Star>()
+                .HasKey(s => s.ID);
         }
     }
 }
