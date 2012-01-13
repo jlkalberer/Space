@@ -32,6 +32,7 @@ namespace Space.Repository.EF
         public bool Update(Planet value)
         {
             var entry = _context.Entry(value);
+            entry.State = EntityState.Modified;
             if (value.Owner.ID != default(int))
             {
                 entry.State = EntityState.Modified;

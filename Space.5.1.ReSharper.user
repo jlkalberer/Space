@@ -31,21 +31,19 @@
       <File id="B1E3719F-2086-4819-B4E9-4FF0F7FE0A95/f:ISolarSystemRepository.cs" caret="198" fromTop="8" />
       <File id="91AC2368-ABD5-4360-8F5E-10771D784FAB/f:Game.cs" caret="973" fromTop="25" />
       <File id="B1E3719F-2086-4819-B4E9-4FF0F7FE0A95/f:ICrud.cs" caret="299" fromTop="12" />
-      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:EFDBContext.cs" caret="1868" fromTop="41" />
       <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:SolarSystemRepository.cs" caret="557" fromTop="21" />
       <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/f:Planet.cs" caret="234" fromTop="9" />
-      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlanetRepository.cs" caret="945" fromTop="32" />
       <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:EFModule.cs" caret="218" fromTop="9" />
       <File id="F7DCC309-53AC-41F0-ACE8-DD54ED548C58/f:Player.cs" caret="660" fromTop="11" />
-      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="3530" fromTop="26" />
       <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlayerRepository.cs" caret="735" fromTop="28" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="3511" fromTop="20" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlanetRepository.cs" caret="314" fromTop="8" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:EFDBContext.cs" caret="158" fromTop="7" />
     </RecentFiles>
     <RecentEdits>
-      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="393" fromTop="14" />
-      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlanetRepository.cs" caret="1313" fromTop="44" />
-      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="1473" fromTop="20" />
-      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="3902" fromTop="48" />
-      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="2167" fromTop="23" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="1475" fromTop="20" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="3904" fromTop="48" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="2169" fromTop="23" />
       <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlayerRepository.cs" caret="1100" fromTop="28" />
       <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlayerRepository.cs" caret="1205" fromTop="32" />
       <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:SolarSystemRepository.cs" caret="321" fromTop="12" />
@@ -54,23 +52,25 @@
       <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:SolarSystemRepository.cs" caret="482" fromTop="19" />
       <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:SolarSystemRepository.cs" caret="785" fromTop="29" />
       <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:SolarSystemRepository.cs" caret="1016" fromTop="39" />
-      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="3663" fromTop="36" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="3665" fromTop="36" />
       <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:EFModule.cs" caret="297" fromTop="11" />
-      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:EFDBContext.cs" caret="2000" fromTop="41" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:EFDBContext.cs" caret="2081" fromTop="41" />
       <File id="91AC2368-ABD5-4360-8F5E-10771D784FAB/f:Game.cs" caret="350" fromTop="7" />
       <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="839" fromTop="24" />
-      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="2924" fromTop="18" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="2926" fromTop="18" />
       <File id="B1E3719F-2086-4819-B4E9-4FF0F7FE0A95/f:ICrud.cs" caret="299" fromTop="12" />
-      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="2856" fromTop="16" />
-      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="984" fromTop="26" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="2858" fromTop="16" />
       <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlayerRepository.cs" caret="540" fromTop="22" />
       <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:SolarSystemRepository.cs" caret="557" fromTop="21" />
-      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:EFDBContext.cs" caret="1868" fromTop="41" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:EFDBContext.cs" caret="1949" fromTop="41" />
       <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlanetRepository.cs" caret="567" fromTop="22" />
-      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="3189" fromTop="26" />
-      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="3444" fromTop="33" />
-      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlanetRepository.cs" caret="945" fromTop="32" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="3191" fromTop="26" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="3446" fromTop="33" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlanetRepository.cs" caret="994" fromTop="32" />
       <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlayerRepository.cs" caret="735" fromTop="28" />
+      <File id="93B79600-6851-4460-B4D1-2890836B4087/f:Program.cs" caret="917" fromTop="27" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:PlanetRepository.cs" caret="862" fromTop="29" />
+      <File id="669CB55D-6E63-45F7-8BE5-79B6D2D19517/f:EFDBContext.cs" caret="196" fromTop="9" />
     </RecentEdits>
   </RecentFiles>
   <NAntValidationSettings>
@@ -90,7 +90,7 @@
       <Item value="prop" priority="13" />
       <Item value="float" priority="11" />
       <Item value="IDataObject`0" priority="2" />
-      <Item value="public" priority="38" />
+      <Item value="public" priority="39" />
       <Item value="IQueryable" priority="4" />
       <Item value="Planet`0" priority="11" />
       <Item value="void" priority="13" />
@@ -108,7 +108,7 @@
       <Item value="true" priority="7" />
       <Item value="p" priority="35" />
       <Item value="key" priority="2" />
-      <Item value="var" priority="31" />
+      <Item value="var" priority="32" />
       <Item value="Get`0" priority="1" />
       <Item value="tplanet" priority="0" />
       <Item value="Game`0" priority="4" />
@@ -218,7 +218,7 @@
       <Item value="ID" priority="1" />
       <Item value="f" priority="1" />
       <Item value="SolarSystem`0" priority="3" />
-      <Item value="EFDBContext`0" priority="4" />
+      <Item value="EFDBContext`0" priority="5" />
       <Item value="db" priority="4" />
       <Item value="player" priority="22" />
       <Item value="KeyNotFoundException`0" priority="0" />
@@ -237,10 +237,11 @@
       <Item value="solarSystemRepository" priority="0" />
       <Item value="ResearchPoints" priority="0" />
       <Item value="SaveChanges`0" priority="0" />
-      <Item value="entry" priority="2" />
+      <Item value="entry" priority="3" />
       <Item value="TypedReference`0" priority="0" />
       <Item value="Detached" priority="0" />
       <Item value="Modified" priority="0" />
+      <Item value="EntityState`0" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Collections.Generic.List`1">
       <Item value="Add`0" priority="0" />
@@ -447,7 +448,7 @@
       <Item value="Entity" priority="0" />
       <Item value="Property`1" priority="0" />
       <Item value="Reference`1" priority="0" />
-      <Item value="State" priority="2" />
+      <Item value="State" priority="3" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:System.Data.Entity.Infrastructure.DbPropertyEntry`2">
       <Item value="IsModified" priority="0" />
@@ -456,7 +457,7 @@
       <Item value="EntityEntry" priority="0" />
     </ItemStatistics>
     <ItemStatistics item="Qualified:@System.Data.EntityState">
-      <Item value="Modified" priority="0" />
+      <Item value="Modified" priority="1" />
     </ItemStatistics>
   </CompletionStatisticsManager>
 </Configuration>
