@@ -5,6 +5,7 @@ Solar Systems
 	stars can go supernova
 	user can run op to see how long the star has until it explodes -- becomes more accurate as it get closer to explosion
 	white dwarf
+	black holes mess with Detectors
 
 Planets
 	Goods must be transported off of planet if there is no portal
@@ -37,3 +38,7 @@ Galactic Federation
 
 Fleets
 	Can be combined so that Warriors can protect traders
+	Can build detectors to see other fleets - message/email/text will be sent to user telling them that they can attack and who it is if the fleet that was found has not lowered their flag(s)
+		Can be used when hiding in asteroid belts in order to get the drop on other players
+		Detectors give the estimated trajectory of fleets -- fleets may be set to always run away to cut losses when attacked. Transports are slower so they may not escape from attacking fleets.
+		Detectors can be viewed by raday and easily destroyed.

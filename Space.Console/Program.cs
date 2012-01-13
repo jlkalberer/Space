@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Ninject;
+using Ninject.Modules;
 using Space.DTO;
 using Space.Repository;
 using Space.Repository.EF;
@@ -13,7 +14,7 @@ namespace Space.Console
     {
         static void Main(string[] args)
         {
-            IKernel kernel = new StandardKernel(new[] {new EFModule()});
+            IKernel kernel = new StandardKernel(new NinjectModule[] {new EFModule(), new ConsoleModule()});
             var db = kernel.Get<EFDBContext>();
             db.Database.Delete(); // delete the database each time we run so we can start from scratch
             db.Database.Create();
@@ -22,7 +23,7 @@ namespace Space.Console
             var solarSystemRepository = kernel.Get<ISolarSystemRepository>();
             var planetRepository = kernel.Get<IPlanetRepository>();
 
-            var game = new Game.Game(playerRepository, planetRepository);
+            var game = kernel.Get<Game.Game>();
 
             var player = CreatePlayer(playerRepository);
             player = playerRepository.Get(player.ID);
@@ -68,7 +69,7 @@ namespace Space.Console
             {
                 for(var j = 0; j < Game.Game.Height; j += 1)
                 {
-                    System.Console.Write(game.GalaxyGrid[i * Game.Game.Width + j] ? "x " : "o ");
+                    //System.Console.Write(game.GalaxyGrid[i * Game.Game.Width + j] ? "x " : "o ");
                 }
                 System.Console.WriteLine();
             }

@@ -7,7 +7,7 @@ namespace Space.DTO
     {
         public ICollection<Planet> Planets { get; set; }
 
-        public Star Star { get; set; }
+        public ICollection<SpatialEntity> SpatialEntities { get; set; }
 
         #region IDataObject
 

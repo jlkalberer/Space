@@ -59,7 +59,8 @@
     <Compile Include="Race.cs" />
     <Compile Include="ResearchPoints.cs" />
     <Compile Include="Spatial\SolarSystem.cs" />
-    <Compile Include="Spatial\Star.cs" />
+    <Compile Include="Spatial\SpatialEntityType.cs" />
+    <Compile Include="Spatial\SpatialEntity.cs" />
     <Compile Include="Units\Agent.cs" />
     <Compile Include="Units\Bomber.cs" />
     <Compile Include="Units\Droid.cs" />

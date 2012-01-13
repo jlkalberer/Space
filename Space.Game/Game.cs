@@ -73,7 +73,8 @@ namespace Space.Game
                         solarSystem.Longitude = j;
 
                         // randomly create star -- some solar systems will not have stars but instead, large gas giants
-                        solarSystem.Star = new Star();
+                        solarSystem.SpatialEntities = new List<SpatialEntity>();
+                        var v = new SpatialEntity();
                     }
                 }
             }

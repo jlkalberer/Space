@@ -5,6 +5,11 @@ namespace Space.Repository.EF
 {
     public class EFDBContext : DbContext
     {
+        public EFDBContext()
+        {
+            var bleh = 1;
+        }
+
         public DbSet<Player> Players { get; set; }
         public DbSet<Fleet> Fleets { get; set; }
         public DbSet<ResearchPoints> ResearchPoints { get; set; }
@@ -66,9 +71,9 @@ namespace Space.Repository.EF
                 .HasForeignKey(p => p.SolarSystemID);
 
             modelBuilder.Entity<SolarSystem>()
-                .HasOptional(s => s.Star);
+                .HasRequired(s => s.SpatialEntities);
 
-            modelBuilder.Entity<Star>()
+            modelBuilder.Entity<SpatialEntity>()
                 .HasKey(s => s.ID);
         }
     }
