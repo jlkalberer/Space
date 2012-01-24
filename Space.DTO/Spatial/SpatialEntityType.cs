@@ -7,9 +7,18 @@ namespace Space.DTO.Spatial
 {
     public enum SpatialEntityType
     {
-        Star,
-        // different star types
+        Planet = 0,
         GasGiant,
-        BlackHole
+        // star types
+        Nebula,
+        Star,
+        RedGiant,
+        PlanetaryNebula,
+        WhiteDwarf,
+        BlackDwarf,
+        // what can happen to a star
+        NeutronStar,
+        BlackHole, // <-- eats things - nom nom nom
+        Supernova
     }
 }

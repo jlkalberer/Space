@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using Space.Repository.Entities;
-using Space.DTO.Spatial;
 
-namespace Space.DTO
+namespace Space.DTO.Spatial
 {
     public class SpatialEntity : IDataObject, ISpatialEntity
     {

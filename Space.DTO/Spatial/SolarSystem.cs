@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Space.Repository.Entities;
 
-namespace Space.DTO
+namespace Space.DTO.Spatial
 {
     public class SolarSystem : IDataObject, ISpatialEntity
     {

@@ -14,7 +14,7 @@ namespace Space.Console
     {
         static void Main(string[] args)
         {
-            IKernel kernel = new StandardKernel(new NinjectModule[] {new EFModule(), new ConsoleModule()});
+            IKernel kernel = new StandardKernel(new INinjectModule[] {new EFModule(), new ConsoleModule()});
             var db = kernel.Get<EFDBContext>();
             db.Database.Delete(); // delete the database each time we run so we can start from scratch
             db.Database.Create();

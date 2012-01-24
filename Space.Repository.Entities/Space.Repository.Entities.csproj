@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IBuilding.cs" />
+    <Compile Include="IConstantsProvider.cs" />
+    <Compile Include="ICosmicEntity.cs" />
     <Compile Include="IDataObject.cs" />
     <Compile Include="ISpatialEntity.cs" />
     <Compile Include="IUnit.cs" />

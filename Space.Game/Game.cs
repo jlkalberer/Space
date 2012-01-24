@@ -1,24 +1,30 @@
 ﻿using System;
 using System.Linq;
 using Space.DTO;
+using Space.DTO.Spatial;
 using Space.Repository;
 using System.Collections.Generic;
+using Space.Repository.Entities;
 
 namespace Space.Game
 {
     public class Game
     {
-        public const int Width = 12;
-        public const int Height = 12;
+        public const int Width = 120;
+        public const int Height = 120;
 
         private readonly IPlayerRepository _playerRepository;
+        private readonly ISolarSystemRepository _solarSystemRepository;
         private readonly IPlanetRepository _planetRepository;
+        private readonly IConstantsProvider _constantsProvider;
 
-        public Game(IPlayerRepository playerRepository, 
-            IPlanetRepository planetRepository)
+        public Game(IPlayerRepository playerRepository, ISolarSystemRepository solarSystemRepository,
+            IPlanetRepository planetRepository, IConstantsProvider constantsProvider)
         {
             _playerRepository = playerRepository;
+            _solarSystemRepository = solarSystemRepository;
             _planetRepository = planetRepository;
+            _constantsProvider = constantsProvider;
         }
 
         /// <summary>
@@ -77,6 +83,45 @@ namespace Space.Game
                         var v = new SpatialEntity();
                     }
                 }
+            }
+        }
+
+        private void CreateSolarSystem()
+        {
+            var solarSystem = _solarSystemRepository.Create();
+            
+            // get the type of solar system -- what type of central mass it has
+            var r = new Random();
+            var ssc = new SolarSystemConstants(_constantsProvider);
+
+            var numberOfEntities = r.Next(ssc.MinimumEntities, ssc.MaximumEntities);
+
+            // Create this array so we can use it to decide which entity is to be created
+            var probabilityArray = (from e in Enum.GetValues(typeof (SpatialEntityType)).Cast<SpatialEntityType>()
+                                    select new KeyValuePair<float, SpatialEntityType>(
+                                        ssc.SpawningProbability(e), e)).ToList();
+                                    
+            // Get the sum of the probability array
+            var sum = probabilityArray.Select(o => o.Key).Sum();
+
+            for(var i = 0; i < numberOfEntities; i += 1)
+            {
+                SpatialEntityType itemType;
+                var value = r.NextDouble()*sum;
+                var count = 0.0f;
+                
+                // Using the randomly generated value, get the item type from the array
+                for(var j = 0; j < probabilityArray.Count; j += 1)
+                {
+                    count += probabilityArray[j].Key;
+                    if (value < count)
+                    {
+                        itemType = probabilityArray[j].Value;
+                    }
+                }
+
+                // now create the entity!!!
+                
             }
         }
     }

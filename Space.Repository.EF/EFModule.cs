@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using Ninject.Modules;
+using Space.Repository.Entities;
 
 namespace Space.Repository.EF
 {
