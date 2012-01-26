@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Space.DTO.Spatial;
 using Space.Repository.Entities;
 
 namespace Space.DTO

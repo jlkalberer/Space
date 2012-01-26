@@ -1,10 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Space.Repository.Entities;
 
 namespace Space.DTO.Spatial
 {
     public class SolarSystem : IDataObject, ISpatialEntity
     {
+        public SolarSystem()
+        {
+            SpatialEntities = new Collection<SpatialEntity>();
+            Planets = new Collection<Planet>();
+        }
+
         public ICollection<Planet> Planets { get; set; }
 
         public ICollection<SpatialEntity> SpatialEntities { get; set; }

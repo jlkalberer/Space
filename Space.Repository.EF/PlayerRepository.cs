@@ -23,6 +23,16 @@ namespace Space.Repository.EF
             return _context.Players.Add(player);
         }
 
+        /// <summary>
+        /// Used to store a created item.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        public Player Add(Player entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public Player Get(int key)
         {
             var player = _context.Players.SingleOrDefault(p => p.ID == key);

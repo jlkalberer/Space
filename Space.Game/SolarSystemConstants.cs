@@ -95,7 +95,7 @@ namespace Space.Game
         /// <returns>Float value for calculating the radius of the entity.</returns>
         public float MinimumRadius<TEntityType>(TEntityType type)
         {
-            return _constantsProvider.Get<float>("SolarSystemConstants.Minimum." + type);
+            return _constantsProvider.Get<float>("SolarSystemConstants.MinimumRadius." + type);
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace Space.Game
         /// <param name="value">Float value for calculating the radius of the entity.</param>
         public void MinimumRadius<TEntityType>(TEntityType type, float value)
         {
-            _constantsProvider.Set("SolarSystemConstants.Minimum." + type, value);
+            _constantsProvider.Set("SolarSystemConstants.MinimumRadius." + type, value);
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace Space.Game
         /// <returns>Float value for calculating the mass of the entity.</returns>
         public float MinimumMass<TEntityType>(TEntityType type)
         {
-            return _constantsProvider.Get<float>("SolarSystemConstants.Minimum." + type);
+            return _constantsProvider.Get<float>("SolarSystemConstants.MinimumMass." + type);
         }
 
         /// <summary>
@@ -150,7 +150,7 @@ namespace Space.Game
         /// <param name="value">Float value for calculating the mass of the entity.</param>
         public void MinimumMass<TEntityType>(TEntityType type, float value)
         {
-            _constantsProvider.Set("SolarSystemConstants.Minimum." + type, value);
+            _constantsProvider.Set("SolarSystemConstants.MinimumMass." + type, value);
         }
     }
 }

@@ -49,8 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConstantsProvider.cs" />
+    <Compile Include="EntityRepository.cs" />
     <Compile Include="EFDBContext.cs" />
     <Compile Include="EFModule.cs" />
+    <Compile Include="Entities\Constant.cs" />
     <Compile Include="PlanetRepository.cs" />
     <Compile Include="PlayerRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -60,6 +63,10 @@
     <ProjectReference Include="..\Space.DTO\Space.DTO.csproj">
       <Project>{F7DCC309-53AC-41F0-ACE8-DD54ED548C58}</Project>
       <Name>Space.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Space.Infrastructure\Space.Infrastructure.csproj">
+      <Project>{C06BD5FC-4D83-470A-A6FE-77744B42CC41}</Project>
+      <Name>Space.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\Space.Repository.Entities\Space.Repository.Entities.csproj">
       <Project>{E04D7C17-D062-4180-B4F8-2E9DB3C723A6}</Project>

@@ -20,8 +20,12 @@ namespace Space.Repository.EF
 
         public SolarSystem Create()
         {
-            var solarSystem = _context.SolarSystems.Create();
-            return _context.SolarSystems.Add(solarSystem);
+            return _context.SolarSystems.Create();
+        }
+
+        public SolarSystem Add(SolarSystem entity)
+        {
+            return _context.SolarSystems.Add(entity);
         }
 
         public SolarSystem Get(int key)

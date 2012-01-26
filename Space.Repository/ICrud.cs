@@ -14,6 +14,13 @@ namespace Space.Repository
         TValue Create();
 
         /// <summary>
+        /// Used to store a created item.
+        /// </summary>
+        /// <param name="entity"></param>
+        /// <returns></returns>
+        TValue Add(TValue entity);
+
+        /// <summary>
         /// Gets an item from the datastore using the supplied key
         /// </summary>
         /// <param name="key"></param>

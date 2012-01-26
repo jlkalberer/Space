@@ -9,6 +9,5 @@ namespace Space.Repository
 {
     public interface ISolarSystemRepository : ICrud<int, SolarSystem>
     {
-
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 using Ninject;
 using Ninject.Modules;
 using Space.DTO;
+using Space.DTO.Spatial;
 using Space.Repository;
 using Space.Repository.EF;
 
@@ -21,17 +22,18 @@ namespace Space.Console
 
             var playerRepository = kernel.Get<IPlayerRepository>();
             var solarSystemRepository = kernel.Get<ISolarSystemRepository>();
-            var planetRepository = kernel.Get<IPlanetRepository>();
 
             var game = kernel.Get<Game.Game>();
 
             var player = CreatePlayer(playerRepository);
             player = playerRepository.Get(player.ID);
             
-            var solarSystem = solarSystemRepository.Create();
-            solarSystemRepository.SaveChanges();
+            //var solarSystem = solarSystemRepository.Create();
+            //solarSystemRepository.SaveChanges();
 
-            CreatePlanet(planetRepository, player, solarSystem.ID);
+            //CreatePlanet(planetRepository, player, solarSystem.ID);
+            var galaxy = game.GenerateGalaxy();
+            solarSystemRepository.SaveChanges();
 
             ConsoleKeyInfo ki;
             do
@@ -42,7 +44,6 @@ namespace Space.Console
                 System.Console.WriteLine("p -- print player stats");   
                 System.Console.WriteLine("t -- run tick");
                 System.Console.WriteLine("******");
-                game.GenerateGalaxy();
                 
                 ki = System.Console.ReadKey();
                 System.Console.WriteLine();
@@ -50,7 +51,7 @@ namespace Space.Console
                 switch (ki.Key)
                 {
                     case ConsoleKey.G:
-                        RenderGalaxy(game);
+                        RenderGalaxy(galaxy);
                         break;
                     case ConsoleKey.T:
                         game.Update();
@@ -63,13 +64,13 @@ namespace Space.Console
             } while (ki.Key != ConsoleKey.Escape);
         }
 
-        private static void RenderGalaxy(Game.Game game)
+        private static void RenderGalaxy(IEnumerable<SolarSystem> ss)
         {
             for (var i = 0; i < Game.Game.Width; i += 1)
             {
                 for(var j = 0; j < Game.Game.Height; j += 1)
                 {
-                    //System.Console.Write(game.GalaxyGrid[i * Game.Game.Width + j] ? "x " : "o ");
+                    System.Console.Write(ss.Any(s => (int)s.Latitude == i && (int)s.Longitude == j) ? "x " : "· ");
                 }
                 System.Console.WriteLine();
             }
@@ -86,19 +87,6 @@ namespace Space.Console
             playerRepository.SaveChanges();
 
             return player;
-        }
-
-        private static void CreatePlanet(IPlanetRepository planetRepository, Player player, int ssID)
-        {
-            var p = planetRepository.Create();
-            p.CashFactoryCount = 10;
-            p.EnergyLabCount = 5;
-            p.FarmCount = 20;
-            p.LivingQuartersCount = 20;
-            p.SolarSystemID = ssID;
-            // update navigation property
-            p.Owner = player;
-            planetRepository.SaveChanges();
         }
 
         private static void PrintPlayerStats(IPlayerRepository playerRepository, Player player)

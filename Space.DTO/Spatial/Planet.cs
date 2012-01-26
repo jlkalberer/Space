@@ -2,9 +2,9 @@
 using System.Linq;
 using Space.Repository.Entities;
 
-namespace Space.DTO
+namespace Space.DTO.Spatial
 {
-    public class Planet : IDataObject, ISpatialEntity
+    public class Planet : SpatialEntity
     {
         private const float PopulationGrowth = 5;
         private const int BasePopulation = 250;
@@ -22,25 +22,6 @@ namespace Space.DTO
 
             Population = BasePopulation;
         }
-
-        #region IDataObject
-
-        public int ID { get; set; }
-
-        #endregion IDataObject
-
-        #region ISpatialEntity
-
-        public float Latitude { get; set; }
-
-        public float Longitude { get; set; }
-
-        #endregion ISpatialEntity
-
-        /// <summary>
-        /// What solar system this planet belongs to
-        /// </summary>
-        public int SolarSystemID { get; set; }
 
         /// <summary>
         /// The owner of the planet -- Foreign Key

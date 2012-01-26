@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConsoleModule.cs" />
+    <Compile Include="ConstantsProvider.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -62,6 +63,10 @@
     <ProjectReference Include="..\Space.Game\Space.Game.csproj">
       <Project>{91AC2368-ABD5-4360-8F5E-10771D784FAB}</Project>
       <Name>Space.Game</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Space.Infrastructure\Space.Infrastructure.csproj">
+      <Project>{C06BD5FC-4D83-470A-A6FE-77744B42CC41}</Project>
+      <Name>Space.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\Space.Repository.EF\Space.Repository.EF.csproj">
       <Project>{669CB55D-6E63-45F7-8BE5-79B6D2D19517}</Project>

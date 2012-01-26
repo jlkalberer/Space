@@ -1,6 +1,7 @@
 ﻿using System.Data.Entity;
 using Space.DTO;
 using Space.DTO.Spatial;
+using Space.Repository.EF.Entities;
 
 namespace Space.Repository.EF
 {
@@ -10,9 +11,11 @@ namespace Space.Repository.EF
         public DbSet<Fleet> Fleets { get; set; }
         public DbSet<ResearchPoints> ResearchPoints { get; set; }
         public DbSet<SolarSystem> SolarSystems { get; set; }
-        public DbSet<Planet> Planets { get; set; }
+        public DbSet<SpatialEntity> SpatialEntities { get; set; }
         public DbSet<NetValue> PlayerNetValues { get; set; }
         public DbSet<Race> Races { get; set; }
+        public DbSet<Constant> Constants { get; set; }
+
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -51,9 +54,6 @@ namespace Space.Repository.EF
                 .WithOptionalPrincipal();
 
             modelBuilder.Entity<Planet>()
-                .HasKey(p => p.ID);
-
-            modelBuilder.Entity<Planet>()
                 .HasOptional(p => p.Owner)
                 .WithMany(p => p.Planets);
 
@@ -63,15 +63,13 @@ namespace Space.Repository.EF
 
             modelBuilder.Entity<SolarSystem>()
                 .HasMany(s => s.Planets)
-                .WithRequired()
-                .HasForeignKey(p => p.SolarSystemID);
-
-            modelBuilder.Entity<SolarSystem>()
-                .HasOptional(s => s.SpatialEntities)
                 .WithRequired();
 
-            modelBuilder.Entity<SpatialEntity>()
-                .HasKey(s => s.ID);
+            modelBuilder.Entity<SolarSystem>()
+                .HasMany(s => s.SpatialEntities)
+                .WithRequired()
+                .HasForeignKey(s => s.SolarSystemID)
+                .WillCascadeOnDelete(false);
         }
     }
 }

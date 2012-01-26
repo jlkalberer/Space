@@ -1,4 +1,5 @@
 ﻿using Ninject.Modules;
+using Space.Repository.Entities;
 
 namespace Space.Console
 {
@@ -11,7 +12,7 @@ namespace Space.Console
     {
         public override void Load()
         {
-            
+            Bind<IConstantsProvider>().To<ConstantsProvider>();
         }
     }
 }

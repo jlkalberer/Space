@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using Space.DTO;
+using Space.DTO.Spatial;
 
 namespace Space.Repository.EF
 {
@@ -20,8 +18,12 @@ namespace Space.Repository.EF
 
         public Planet Create()
         {
-            var planet = _context.Planets.Create();
-            return _context.Planets.Add(planet);
+            return _context.SpatialEntities.Create<Planet>();
+        }
+
+        public Planet Add(Planet entity)
+        {
+            return _context.SpatialEntities.Add(entity) as Planet;
         }
 
         public Planet Get(int key)
@@ -47,7 +49,7 @@ namespace Space.Repository.EF
 
         public IQueryable<Planet> All
         {
-            get { return _context.Planets; }
+            get { return _context.SpatialEntities.OfType<Planet>(); }
         }
 
         public bool SaveChanges()
