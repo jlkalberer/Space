@@ -8,6 +8,8 @@
 *.so
 *.user
 *.suo
+*.Cache
+*.nupkg
 
 # Packages #
 ############
