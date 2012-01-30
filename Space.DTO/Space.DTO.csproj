@@ -52,6 +52,7 @@
     <Compile Include="Fleet.cs" />
     <Compile Include="NetValue.cs" />
     <Compile Include="Spatial\AsteroidBelt.cs" />
+    <Compile Include="Spatial\Galaxy.cs" />
     <Compile Include="Spatial\Planet.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerBonuses.cs" />

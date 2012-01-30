@@ -12,6 +12,8 @@ namespace Space.Repository.EF
         {
             Bind<EFDBContext>().ToSelf().InSingletonScope();
             Bind<IPlayerRepository>().To<PlayerRepository>();
+
+            Bind<IGalaxyRepository>().To<GalaxyRepository>();
             Bind<ISolarSystemRepository>().To<SolarSystemRepository>();
             Bind<IEntityRepository>().To<EntityRepository>();
             Bind<IPlanetRepository>().To<PlanetRepository>();

@@ -10,10 +10,13 @@ namespace Space.Repository.EF
         public DbSet<Player> Players { get; set; }
         public DbSet<Fleet> Fleets { get; set; }
         public DbSet<ResearchPoints> ResearchPoints { get; set; }
-        public DbSet<SolarSystem> SolarSystems { get; set; }
-        public DbSet<SpatialEntity> SpatialEntities { get; set; }
         public DbSet<NetValue> PlayerNetValues { get; set; }
         public DbSet<Race> Races { get; set; }
+
+        public DbSet<Galaxy> Galaxies { get; set; }
+        public DbSet<SolarSystem> SolarSystems { get; set; }
+        public DbSet<SpatialEntity> SpatialEntities { get; set; }
+
         public DbSet<Constant> Constants { get; set; }
 
 
@@ -60,6 +63,11 @@ namespace Space.Repository.EF
             modelBuilder.Entity<Player>()
                 .HasMany(p => p.Planets)
                 .WithOptional(p => p.Owner);
+
+            modelBuilder.Entity<Galaxy>()
+                .HasMany(g => g.SolarSystems)
+                .WithRequired()
+                .HasForeignKey(s => s.GalaxyID);
 
             modelBuilder.Entity<SolarSystem>()
                 .HasMany(s => s.Planets)

@@ -3,7 +3,7 @@
     public interface IDataObject
     {
         /// <summary>
-        /// Used as the primary key for the planet
+        /// Used as the primary key for the entity
         /// </summary>
         int ID { get; set; }
     }

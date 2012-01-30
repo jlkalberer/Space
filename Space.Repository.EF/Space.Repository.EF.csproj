@@ -54,6 +54,7 @@
     <Compile Include="EFDBContext.cs" />
     <Compile Include="EFModule.cs" />
     <Compile Include="Entities\Constant.cs" />
+    <Compile Include="GalaxyRepository.cs" />
     <Compile Include="PlanetRepository.cs" />
     <Compile Include="PlayerRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

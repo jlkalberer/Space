@@ -51,7 +51,7 @@ namespace Space.Console
                 switch (ki.Key)
                 {
                     case ConsoleKey.G:
-                        RenderGalaxy(galaxy);
+                        RenderGalaxy(galaxy.SolarSystems);
                         break;
                     case ConsoleKey.T:
                         game.Update();

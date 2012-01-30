@@ -12,8 +12,19 @@ namespace Space.DTO.Spatial
             Planets = new Collection<Planet>();
         }
 
+        /// <summary>
+        /// The ID of the parent galaxy
+        /// </summary>
+        public int GalaxyID { get; set; }
+
+        /// <summary>
+        /// The planets in the system
+        /// </summary>
         public ICollection<Planet> Planets { get; set; }
 
+        /// <summary>
+        /// All spatial entities in the system
+        /// </summary>
         public ICollection<SpatialEntity> SpatialEntities { get; set; }
 
         #region IDataObject

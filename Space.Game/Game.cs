@@ -15,6 +15,16 @@ namespace Space.Game
         public const int Width = 35;
         public const int Height = 35;
         public const float SystemGenerationProbability = 0.94f;
+        public const float OrbitSpeedMaximum = 100000.0f;
+        public const float OrbitSpeedMinimum = 30000.0f;
+        public const double CircleCoefficient = 2 * Math.PI;
+        public float OrbitSpeedDifference { get { return OrbitSpeedMaximum - OrbitSpeedMinimum; } }
+
+        /// <summary>
+        /// This is used to scale how far apart the planets are relative to the solar 
+        /// </summary>
+        public const float SolarSystemScalar = 1;
+
 
         private readonly IPlayerRepository _playerRepository;
         private readonly ISolarSystemRepository _solarSystemRepository;
@@ -67,7 +77,7 @@ namespace Space.Game
             _playerRepository.SaveChanges();
         }
 
-        public IEnumerable<SolarSystem> GenerateGalaxy()
+        public Galaxy GenerateGalaxy()
         {
             var solarSystems = new List<SolarSystem>();
             var r = new Random();
@@ -86,20 +96,7 @@ namespace Space.Game
                                           solarSystems.Add(solarSystem);
                                       }
                                   }));
-            //for (var i = 0; i < Width; i += 1)
-            //{
-            //    for (var j = 0; j < Height; j += 1)
-            //    {
-            //        if (r.NextDouble() > SystemGenerationProbability)
-            //        {
-            //            // create a solar system here...
-            //            var solarSystem = CreateSolarSystem();
-            //            solarSystem.Latitude = i;
-            //            solarSystem.Longitude = j;
-            //            solarSystems.Add(solarSystem);
-            //        }
-            //    }
-            //}
+
             foreach (var solarSystem in solarSystems)
             {
                 foreach (var spatialEntity in solarSystem.SpatialEntities)
@@ -107,14 +104,12 @@ namespace Space.Game
                     _entityRepository.Add(spatialEntity);
                 }
 
-                //foreach (var planet in solarSystem.Planets)
-                //{
-                //    _planetRepository.Add(planet);
-                //}
-
                 _solarSystemRepository.Add(solarSystem);
             }
-            return solarSystems;
+
+            var output = new Galaxy {SolarSystems = solarSystems};
+
+            return output;
         }
 
         private SolarSystem CreateSolarSystem()
@@ -188,6 +183,26 @@ namespace Space.Game
             // find the largest entity to use as the center of the solar system
             // TODO: to make this more awesome we might allow multiple centers of gravity
             var largestEntity = solarSystem.SpatialEntities.MaxBy(e => e.Mass);
+
+            solarSystem.SpatialEntities.Remove(largestEntity);
+            solarSystem.SpatialEntities.Add(largestEntity);
+            var entities = solarSystem.SpatialEntities.Reverse().ToList();
+
+            // give all the spatial entities properties for placement and movement
+            for (var i = 1; i < entities.Count; i++)
+            {
+                var entity = entities[i];
+
+                entity.OrbitRadius = (float)Math.Pow(16*i, 2.2) * SolarSystemScalar;
+                
+                var randomRadians = r.NextDouble()*CircleCoefficient;
+                entity.Latitude = (float)(entity.OrbitRadius * Math.Cos(randomRadians));
+                entity.Longitude = (float)(entity.OrbitRadius * Math.Sin(randomRadians));
+
+                entity.OrbitSpeed = (float)(r.NextDouble() * OrbitSpeedDifference + OrbitSpeedMinimum) * SolarSystemScalar;
+            }
+
+            solarSystem.SpatialEntities = entities;
 
             return solarSystem;
         }
