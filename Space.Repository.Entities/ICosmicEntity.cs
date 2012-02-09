@@ -15,22 +15,22 @@ namespace Space.Repository.Entities
         /// <summary>
         /// The mass of the spatial entity
         /// </summary>
-        float Mass { get; set; }
+        double Mass { get; set; }
 
         /// <summary>
         /// The radius of the entity.  Used for scaling the planet's image
         /// </summary>
-        float Radius { get; set; }
+        double Radius { get; set; }
 
         /// <summary>
         /// The distance for the obit from the most massive entity.
         /// </summary>
-        float OrbitRadius { get; set; }
+        double OrbitRadius { get; set; }
 
         /// <summary>
         /// The speed as the planet orbits around the most massive entity.
         /// We could do a fancy calculation here but it's much nicer to do it this way
         /// </summary>
-        float OrbitSpeed { get; set; }
+        double OrbitSpeed { get; set; }
     }
 }
