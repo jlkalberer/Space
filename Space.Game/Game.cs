@@ -169,15 +169,15 @@ namespace Space.Game
                 max = ssc.MaximumRadius(itemType);
                 min = ssc.MinimumRadius(itemType);
 
-                entity.Radius = (float)r.NextDouble()*(max - min) + min;
+                entity.Radius = r.NextDouble()*(max - min) + min;
 
                 // make the mass
                 max = ssc.MaximumMass(itemType);
                 min = ssc.MinimumMass(itemType);
 
                 // Random mass * the area of the planet (could use volume but it doesn't really matter)
-                entity.Mass = (float)r.NextDouble() * (max - min) + min;
-                entity.Mass *= (float) (entity.Radius*entity.Radius*Math.PI);
+                entity.Mass = r.NextDouble() * (max - min) + min;
+                entity.Mass *= entity.Radius*entity.Radius*Math.PI;
             }
 
             // find the largest entity to use as the center of the solar system
