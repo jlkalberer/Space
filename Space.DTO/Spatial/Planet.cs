@@ -6,7 +6,7 @@ namespace Space.DTO.Spatial
 {
     public class Planet : SpatialEntity
     {
-        private const float PopulationGrowth = 5;
+        private const double PopulationGrowth = 5;
         private const int BasePopulation = 250;
         private const int FoodOutput = 100;
         private const int PeoplePerLivingQuarter = 650;
@@ -52,22 +52,22 @@ namespace Space.DTO.Spatial
         /// <summary>
         /// The bonus of Food when producing Food
         /// </summary>
-        public float FoodBonus { get; set; }
+        public double FoodBonus { get; set; }
 
         /// <summary>
         /// The bonus of Cash when producing Cash
         /// </summary>
-        public float CashBonus { get; set; }
+        public double CashBonus { get; set; }
 
         /// <summary>
         /// The bonus of Iron when producing Iron
         /// </summary>
-        public float IronBonus { get; set; }
+        public double IronBonus { get; set; }
 
         /// <summary>
         /// The bonus of Plutonium when producing Plutonium
         /// </summary>
-        public float PlutoniumBonus { get; set; }
+        public double PlutoniumBonus { get; set; }
 
         #endregion
 

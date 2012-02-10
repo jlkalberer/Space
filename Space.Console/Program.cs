@@ -21,19 +21,17 @@ namespace Space.Console
             db.Database.Create();
 
             var playerRepository = kernel.Get<IPlayerRepository>();
-            var solarSystemRepository = kernel.Get<ISolarSystemRepository>();
+            var galaxyRepository = kernel.Get<IGalaxyRepository>();
 
             var game = kernel.Get<Game.Game>();
 
             var player = CreatePlayer(playerRepository);
             player = playerRepository.Get(player.ID);
             
-            //var solarSystem = solarSystemRepository.Create();
-            //solarSystemRepository.SaveChanges();
-
-            //CreatePlanet(planetRepository, player, solarSystem.ID);
-            var galaxy = game.GenerateGalaxy();
-            solarSystemRepository.SaveChanges();
+            // These settings will be loaded from some default values + user created values.
+            var galaxySettings = new GalaxySettings();
+            var galaxy = game.GenerateGalaxy(galaxySettings);
+            galaxyRepository.SaveChanges();
 
             ConsoleKeyInfo ki;
             do
@@ -51,7 +49,7 @@ namespace Space.Console
                 switch (ki.Key)
                 {
                     case ConsoleKey.G:
-                        RenderGalaxy(galaxy.SolarSystems);
+                        RenderGalaxy(galaxy);
                         break;
                     case ConsoleKey.T:
                         game.Update();
@@ -64,13 +62,13 @@ namespace Space.Console
             } while (ki.Key != ConsoleKey.Escape);
         }
 
-        private static void RenderGalaxy(IEnumerable<SolarSystem> ss)
+        private static void RenderGalaxy(Galaxy galaxy)
         {
-            for (var i = 0; i < Game.Game.Width; i += 1)
+            for (var i = 0; i < galaxy.GalaxySettings.Width; i += 1)
             {
-                for(var j = 0; j < Game.Game.Height; j += 1)
+                for (var j = 0; j < galaxy.GalaxySettings.Height; j += 1)
                 {
-                    System.Console.Write(ss.Any(s => (int)s.Latitude == i && (int)s.Longitude == j) ? "x " : "· ");
+                    System.Console.Write(galaxy.SolarSystems.Any(s => (int)s.Latitude == i && (int)s.Longitude == j) ? "x " : "· ");
                 }
                 System.Console.WriteLine();
             }

@@ -18,31 +18,31 @@ namespace Space.DTO
         /// <summary>
         /// Increase attack/defend strength
         /// </summary>
-        public float MilitaryBonus { get; set; }
+        public double MilitaryBonus { get; set; }
 
         /// <summary>
         /// Increase the maximum population on a planet
         /// </summary>
-        public float WelfareBonus { get; set; }
+        public double WelfareBonus { get; set; }
 
         /// <summary>
         /// Income bonus
         /// </summary>
-        public float EconomyBonus { get; set; }
+        public double EconomyBonus { get; set; }
         
         /// <summary>
         /// Construction cost bonus - cheaper buildings/units and faster building speed
         /// </summary>
-        public float ConstructionBonus { get; set; }
+        public double ConstructionBonus { get; set; }
         
         /// <summary>
         /// Resource income bonus
         /// </summary>
-        public float ResourceBonus { get; set; }
+        public double ResourceBonus { get; set; }
 
         /// <summary>
         /// Reasearching bonus
         /// </summary>
-        public float ResearchBonus { get; set; }
+        public double ResearchBonus { get; set; }
     }
 }

@@ -12,30 +12,20 @@ namespace Space.Game
 {
     public class Game
     {
-        public const int Width = 35;
-        public const int Height = 35;
-        public const float SystemGenerationProbability = 0.94f;
-        public const float OrbitSpeedMaximum = 100000.0f;
-        public const float OrbitSpeedMinimum = 30000.0f;
         public const double CircleCoefficient = 2 * Math.PI;
-        public float OrbitSpeedDifference { get { return OrbitSpeedMaximum - OrbitSpeedMinimum; } }
-
-        /// <summary>
-        /// This is used to scale how far apart the planets are relative to the solar 
-        /// </summary>
-        public const float SolarSystemScalar = 1;
-
 
         private readonly IPlayerRepository _playerRepository;
+        private readonly IGalaxyRepository _galaxyRepository;
         private readonly ISolarSystemRepository _solarSystemRepository;
         private readonly IPlanetRepository _planetRepository;
         private readonly IEntityRepository _entityRepository;
         private readonly IConstantsProvider _constantsProvider;
 
-        public Game(IPlayerRepository playerRepository, ISolarSystemRepository solarSystemRepository,
+        public Game(IPlayerRepository playerRepository, IGalaxyRepository galaxyRepository, ISolarSystemRepository solarSystemRepository,
             IPlanetRepository planetRepository, IEntityRepository entityRepository, IConstantsProvider constantsProvider)
         {
             _playerRepository = playerRepository;
+            _galaxyRepository = galaxyRepository;
             _solarSystemRepository = solarSystemRepository;
             _planetRepository = planetRepository;
             _entityRepository = entityRepository;
@@ -77,20 +67,20 @@ namespace Space.Game
             _playerRepository.SaveChanges();
         }
 
-        public Galaxy GenerateGalaxy()
+        public Galaxy GenerateGalaxy(GalaxySettings settings)
         {
             var solarSystems = new List<SolarSystem>();
             var r = new Random();
 
-            Parallel.For(0, Width,
-                i => Parallel.For(0, Height,
+            Parallel.For(0, settings.Width,
+                i => Parallel.For(0, settings.Height,
                                   j =>
                                   {
                                       if (r.NextDouble() >
-                                          SystemGenerationProbability)
+                                          settings.SystemGenerationProbability)
                                       {
                                           // create a solar system here...
-                                          var solarSystem = CreateSolarSystem();
+                                          var solarSystem = CreateSolarSystem(settings);
                                           solarSystem.Latitude = i;
                                           solarSystem.Longitude = j;
                                           solarSystems.Add(solarSystem);
@@ -107,12 +97,18 @@ namespace Space.Game
                 _solarSystemRepository.Add(solarSystem);
             }
 
-            var output = new Galaxy {SolarSystems = solarSystems};
+            var output = new Galaxy
+                             {
+                                 GalaxySettings = settings,
+                                 SolarSystems = solarSystems
+                             };
+
+            output = _galaxyRepository.Add(output);
 
             return output;
         }
 
-        private SolarSystem CreateSolarSystem()
+        private SolarSystem CreateSolarSystem(GalaxySettings settings)
         {
             var solarSystem = _solarSystemRepository.Create();
             
@@ -193,13 +189,13 @@ namespace Space.Game
             {
                 var entity = entities[i];
 
-                entity.OrbitRadius = (float)Math.Pow(16*i, 2.2) * SolarSystemScalar;
+                entity.OrbitRadius = (float)Math.Pow(16*i, 2.2) * settings.SolarSystemScalar;
                 
                 var randomRadians = r.NextDouble()*CircleCoefficient;
                 entity.Latitude = (float)(entity.OrbitRadius * Math.Cos(randomRadians));
                 entity.Longitude = (float)(entity.OrbitRadius * Math.Sin(randomRadians));
 
-                entity.OrbitSpeed = (float)(r.NextDouble() * OrbitSpeedDifference + OrbitSpeedMinimum) * SolarSystemScalar;
+                entity.OrbitSpeed = (float)(r.NextDouble() * settings.OrbitSpeedDifference + settings.OrbitSpeedMinimum) * settings.SolarSystemScalar;
             }
 
             solarSystem.SpatialEntities = entities;

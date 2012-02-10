@@ -25,12 +25,12 @@
         /// </summary>
         public int PlayerID { get; set; }
 
-        public float Cash { get; set; }
-        public float Energy { get; set; }
-        public float Food { get; set; }
+        public double Cash { get; set; }
+        public double Energy { get; set; }
+        public double Food { get; set; }
         public int Population { get; set; }
-        public float Iron { get; set; }
-        public float Research { get; set; }
+        public double Iron { get; set; }
+        public double Research { get; set; }
 
         public int BuildingCount { get; set; }
     }

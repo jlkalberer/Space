@@ -18,6 +18,13 @@ namespace Space.Repository.EF
     /// </summary>
     public class GalaxyRepository : IGalaxyRepository
     {
+        private readonly EFDBContext _context;
+
+        public GalaxyRepository(EFDBContext context)
+        {
+            _context = context;
+        }
+
         #region Implementation of ICrud<in int,Galaxy>
 
         /// <summary>
@@ -26,7 +33,7 @@ namespace Space.Repository.EF
         /// <returns></returns>
         public Galaxy Create()
         {
-            throw new NotImplementedException();
+            return _context.Galaxies.Create();
         }
 
         /// <summary>
@@ -36,7 +43,7 @@ namespace Space.Repository.EF
         /// <returns></returns>
         public Galaxy Add(Galaxy entity)
         {
-            throw new NotImplementedException();
+            return _context.Galaxies.Add(entity);
         }
 
         /// <summary>
@@ -74,7 +81,7 @@ namespace Space.Repository.EF
         /// </summary>
         public IQueryable<Galaxy> All
         {
-            get { throw new NotImplementedException(); }
+            get { return _context.Galaxies; }
         }
 
         /// <summary>
@@ -83,7 +90,8 @@ namespace Space.Repository.EF
         /// <returns></returns>
         public bool SaveChanges()
         {
-            throw new NotImplementedException();
+            _context.SaveChanges();
+            return true;
         }
 
         #endregion

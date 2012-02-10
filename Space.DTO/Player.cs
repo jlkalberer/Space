@@ -21,20 +21,32 @@ namespace Space.DTO
 
         public ResearchPoints ResearchPoints { get; set; }
 
+        private PlayerBonuses _bonuses;
+
+        /// <summary>
+        /// The calculated player bonuses this tick.
+        /// </summary>
         public PlayerBonuses Bonuses
         {
             get
             {
-                return new PlayerBonuses
-                {
-                    ConstructionBonus = CalculateResearchValue(ResearchPoints.ConstructionPoints),
-                    EconomyBonus = CalculateResearchValue(ResearchPoints.EconomyPoints) * Race.IncomeBonus,
-                    MilitaryBonus = CalculateResearchValue(ResearchPoints.MilitaryPoints) * Race.AttackBonus,
-                    ResearchBonus = Race.ScienceBonus,
-                    ResourceBonus = CalculateResearchValue(ResearchPoints.ResourcePoints),
-                    WelfareBonus =
-                        CalculateResearchValue(ResearchPoints.WelfarePoints) * Race.PopulationBonus
-                };
+                return _bonuses ?? (_bonuses = new PlayerBonuses
+                                                   {
+                                                       ConstructionBonus =
+                                                           CalculateResearchValue(ResearchPoints.ConstructionPoints),
+                                                       EconomyBonus =
+                                                           CalculateResearchValue(ResearchPoints.EconomyPoints)*
+                                                           Race.IncomeBonus,
+                                                       MilitaryBonus =
+                                                           CalculateResearchValue(ResearchPoints.MilitaryPoints)*
+                                                           Race.AttackBonus,
+                                                       ResearchBonus = Race.ScienceBonus,
+                                                       ResourceBonus =
+                                                           CalculateResearchValue(ResearchPoints.ResourcePoints),
+                                                       WelfareBonus =
+                                                           CalculateResearchValue(ResearchPoints.WelfarePoints)*
+                                                           Race.PopulationBonus
+                                                   });
             }
         }
 
@@ -76,9 +88,9 @@ namespace Space.DTO
             TotalNetValue.Cash -= TotalNetValue.BuildingCount + UnitCount;
         }
 
-        private float CalculateResearchValue(int researchPoints)
+        private double CalculateResearchValue(double researchPoints)
         {
-            return 1+(1 - (float)Math.Exp(-(float)researchPoints/100*NetWorth));
+            return 1+(1 - Math.Exp(-researchPoints/100*NetWorth));
         }
     }
 }
