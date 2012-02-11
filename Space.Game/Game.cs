@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using MoreLinq;
 using Space.DTO;
@@ -30,6 +31,13 @@ namespace Space.Game
             _planetRepository = planetRepository;
             _entityRepository = entityRepository;
             _constantsProvider = constantsProvider;
+
+            var type = typeof (Planet);
+            var v=type.GetField("PopulationGrowth");
+            foreach (var m in type.GetFields(BindingFlags.NonPublic | BindingFlags.Static))
+            {
+                m.SetValue(null, 10);
+            }
         }
 
         /// <summary>
@@ -54,9 +62,11 @@ namespace Space.Game
                                     return;
                                 }
 
+                                var galaxySettings = user.Galaxy.GalaxySettings;
+
                                 foreach (var planet in planetSet)
                                 {
-                                    var netValue = planet.Update(user.Bonuses);
+                                    var netValue = planet.Update(galaxySettings, user.Bonuses);
                                     netTotalValue.Add(netValue);
                                     _planetRepository.Update(planet);
                                 }
@@ -152,6 +162,10 @@ namespace Space.Game
                 {
                     entity = _planetRepository.Create();
                     solarSystem.Planets.Add((Planet)entity);
+                    var planet = entity as Planet;
+
+                    // TODO: figure out the planet building capacity and bonuses here....
+                    planet.BuildingCapacity = r.Next(150, 350);
                 }
                 else
                 {

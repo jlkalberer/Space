@@ -6,12 +6,6 @@ namespace Space.DTO.Spatial
 {
     public class Planet : SpatialEntity
     {
-        private const double PopulationGrowth = 5;
-        private const int BasePopulation = 250;
-        private const int FoodOutput = 100;
-        private const int PeoplePerLivingQuarter = 650;
-        private const int ResearchOutput = 20;
-
         public Planet()
         {
             // Initiailize all the bonuses to 1 -- 100% for calculations
@@ -19,8 +13,6 @@ namespace Space.DTO.Spatial
             CashBonus = 1;
             IronBonus = 1;
             PlutoniumBonus = 1;
-
-            Population = BasePopulation;
         }
 
         /// <summary>
@@ -84,18 +76,24 @@ namespace Space.DTO.Spatial
 
         #endregion
 
-        public NetValue Update(PlayerBonuses bonuses)
+        public NetValue Update(GalaxySettings settings, PlayerBonuses bonuses)
         {
             var output = new NetValue();
 
-            output.Cash = (100 + Population / 30 + CashFactoryCount * 8) * bonuses.EconomyBonus * CashBonus;
+            output.Cash = (100 + Population / 30 + CashFactoryCount * settings.CashOutput) * bonuses.EconomyBonus * CashBonus;
             output.Energy = EnergyLabCount * PlutoniumBonus;
-            output.Food = FoodOutput * FarmCount * FoodBonus;
+            output.Food = settings.FoodOutput * FarmCount * FoodBonus;
             output.Iron = MineCount * IronBonus;
-            output.Population = (int)Math.Min(Population * (1 + PopulationGrowth * bonuses.WelfareBonus * 0.01f),// multiply by 0.01 to convert to percentage
-                                         BasePopulation +
-                                         LivingQuartersCount * PeoplePerLivingQuarter * bonuses.WelfareBonus); // cap the population
-            output.Research = ResearchOutput * ResearchLabCount * bonuses.ResearchBonus;
+            
+            // Set the base population
+            if(Population == 0)
+            {
+                Population = settings.BasePopulation;
+            }
+            output.Population = (int)Math.Min(Population * (1 + settings.PopulationGrowth * bonuses.WelfareBonus * 0.01f),// multiply by 0.01 to convert to percentage
+                                         settings.BasePopulation + settings.MaxPopulationPerBuildings * BuildingCapacity +
+                                         LivingQuartersCount * settings.PeoplePerLivingQuarter * bonuses.WelfareBonus); // cap the population
+            output.Research = settings.ResearchOutput * ResearchLabCount * bonuses.ResearchBonus;
 
             output.BuildingCount = CashFactoryCount + EnergyLabCount + FarmCount + LaserCount + LivingQuartersCount +
                                    ResearchLabCount;

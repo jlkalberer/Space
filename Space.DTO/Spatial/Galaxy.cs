@@ -28,6 +28,11 @@ namespace Space.DTO.Spatial
         #endregion
 
         /// <summary>
+        /// The collection of players in the galaxy.
+        /// </summary>
+        public ICollection<Player> Players { get; set; } 
+
+        /// <summary>
         /// The collection of solar systems in the galaxy
         /// </summary>
         public ICollection<SolarSystem> SolarSystems { get; set; }

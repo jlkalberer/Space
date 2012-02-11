@@ -31,7 +31,26 @@ namespace Space.Console
             // These settings will be loaded from some default values + user created values.
             var galaxySettings = new GalaxySettings();
             var galaxy = game.GenerateGalaxy(galaxySettings);
+            galaxy.Players = new List<Player>
+                                 {
+                                     player
+                                 };
+            player.Galaxy = galaxy;
+
             galaxyRepository.SaveChanges();
+
+
+            var r = new Random();
+            var ss = galaxy.SolarSystems.ElementAt(r.Next(galaxy.SolarSystems.Count - 1));
+            var se =
+                ss.SpatialEntities.Where(e => e is Planet);
+            var planet = se.ElementAt(r.Next(se.Count() - 1)) as Planet;
+
+            if (planet != null)
+            {
+                planet.Owner = player;
+                playerRepository.SaveChanges();
+            }
 
             ConsoleKeyInfo ki;
             do

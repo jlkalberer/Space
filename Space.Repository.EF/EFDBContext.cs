@@ -69,6 +69,10 @@ namespace Space.Repository.EF
                 .HasKey(g => g.ID);
 
             modelBuilder.Entity<Galaxy>()
+                .HasMany(p => p.Players)
+                .WithRequired(g => g.Galaxy);
+
+            modelBuilder.Entity<Galaxy>()
                 .HasMany(g => g.SolarSystems)
                 .WithRequired()
                 .HasForeignKey(s => s.GalaxyID);
