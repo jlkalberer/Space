@@ -56,11 +56,6 @@ namespace Space.DTO.Players
             }
         }
 
-        /// <summary>
-        /// The net worth of the player.  This is the sum of all infrastructure, population, and units.
-        /// </summary>
-        public double NetWorth { get; set; }
-
         #region Implementation of IDataObject
 
         public int ID { get; set; }
@@ -89,7 +84,7 @@ namespace Space.DTO.Players
         
         private double CalculateResearchValue(double researchPoints)
         {
-            return 1+(1 - Math.Exp(-researchPoints/100*NetWorth));
+            return 1+(1 - Math.Exp(-researchPoints/100* TotalNetValue.Networth));
         }
     }
 }

@@ -14,8 +14,14 @@ namespace Space.Console
 {
     class Program
     {
+        static void Setup()
+        {
+            System.Console.SetWindowSize(System.Console.WindowWidth*2, System.Console.WindowHeight);
+        }
         static void Main(string[] args)
         {
+            Setup();
+
             IKernel kernel = new StandardKernel(new INinjectModule[] {new EFModule(), new ConsoleModule()});
             var db = kernel.Get<EFDBContext>();
             db.Database.Delete(); // delete the database each time we run so we can start from scratch
@@ -168,10 +174,15 @@ namespace Space.Console
 
         private static void PrintPlayerStats(IPlayerRepository playerRepository, Player player)
         {
-            player = playerRepository.Get(player.ID);
-            System.Console.WriteLine("Cash - ${0}", player.TotalNetValue.Cash);
-            System.Console.WriteLine("Food - {0}", player.TotalNetValue.Food);
-            System.Console.WriteLine("Population - {0}", player.TotalNetValue.Population);
+            System.Console.WriteLine("\r\n*********");
+            player.TotalNetValue.Print();
+            System.Console.WriteLine("******");
+            player.TickValue.Print();
+            System.Console.WriteLine("*********\r\n");
+            //player = playerRepository.Get(player.ID);
+            //System.Console.WriteLine("Cash - ${0}", player.TotalNetValue.Cash);
+            //System.Console.WriteLine("Food - {0}", player.TotalNetValue.Food);
+            //System.Console.WriteLine("Population - {0}", player.TotalNetValue.Population);
         }
     }
 }

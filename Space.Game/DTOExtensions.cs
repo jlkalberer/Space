@@ -82,7 +82,8 @@ namespace Space.Game
             tickValue.DecayedIron = player.TotalNetValue.Iron * decay;
 
             // Produced
-            tickValue.ProducedBuildings = totalPlanetValue.BuildingCount;
+            tickValue.Buildings = totalPlanetValue.BuildingCount;
+            tickValue.Units = player.UnitCount;
             tickValue.ProducedCashFactoryCash = totalPlanetValue.CashFactoryCash;
             tickValue.ProducedPopulationCash = totalPlanetValue.PopulationCash;
             tickValue.ProducedTaxOfficeCash = totalPlanetValue.TaxOfficeCash;
@@ -117,8 +118,8 @@ namespace Space.Game
             }
 
             // building maintainance & unit upkeep
-            player.TotalNetValue.Cash = Math.Max(0, player.TotalNetValue.Cash - player.TotalNetValue.BuildingCount + player.UnitCount);
-
+            player.TotalNetValue.Cash = Math.Max(0, player.TotalNetValue.Cash - (player.TotalNetValue.BuildingCount + player.UnitCount));
+            
             // TODO - allocate the research points...
         }
 

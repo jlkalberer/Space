@@ -1,5 +1,6 @@
 ﻿using System.Data.Entity;
 using Space.DTO;
+using Space.DTO.Players;
 using Space.DTO.Spatial;
 using Space.Repository.EF.Entities;
 
@@ -98,8 +99,7 @@ namespace Space.Repository.EF
 
             modelBuilder.Entity<SolarSystem>()
                 .HasMany(s => s.SpatialEntities)
-                .WithRequired()
-                .HasForeignKey(s => s.SolarSystemID)
+                .WithRequired(s =>s.SolarSystem)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<GalaxySettings>()

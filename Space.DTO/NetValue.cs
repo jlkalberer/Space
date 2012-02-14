@@ -10,6 +10,10 @@
         /// </summary>
         public int PlayerID { get; set; }
 
+        /// <summary>
+        /// The net worth of the player.  This is the sum of all infrastructure, population, and units.
+        /// </summary>
+        public double Networth { get; set; }
         public double Cash { get; set; }
         public double Energy { get; set; }
         public double Food { get; set; }

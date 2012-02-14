@@ -40,7 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AI.cs" />
+    <Compile Include="Players\AI.cs" />
+    <Compile Include="Buildings\BuildingType.cs" />
     <Compile Include="Buildings\CashFactory.cs" />
     <Compile Include="Buildings\EnergyLab.cs" />
     <Compile Include="Buildings\Farm.cs" />
@@ -56,11 +57,11 @@
     <Compile Include="Spatial\AsteroidBelt.cs" />
     <Compile Include="Spatial\Galaxy.cs" />
     <Compile Include="Spatial\Planet.cs" />
-    <Compile Include="Player.cs" />
-    <Compile Include="PlayerBonuses.cs" />
+    <Compile Include="Players\Player.cs" />
+    <Compile Include="Players\PlayerBonuses.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Race.cs" />
-    <Compile Include="ResearchPoints.cs" />
+    <Compile Include="Players\Race.cs" />
+    <Compile Include="Players\ResearchPoints.cs" />
     <Compile Include="Spatial\SolarSystem.cs" />
     <Compile Include="Spatial\SpatialEntityType.cs" />
     <Compile Include="Spatial\SpatialEntity.cs" />
@@ -80,6 +81,7 @@
       <Name>Space.Repository.Entities</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

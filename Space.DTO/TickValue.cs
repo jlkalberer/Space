@@ -60,6 +60,11 @@ namespace Space.DTO
         /// How much cash was produced during the tick.
         /// </summary>
         public double ProducedCash { get; set; }
+        
+        /// <summary>
+        /// How much cash was produced during the tick.
+        /// </summary>
+        public double NetCash { get; set; }
 
         /// <summary>
         /// How much energy was produced during the tick.
@@ -87,8 +92,13 @@ namespace Space.DTO
         public double ProducedResearch { get; set; }
 
         /// <summary>
-        /// How many buildings were produced during the tick.
+        /// How many buildings were maintained during the tick.
         /// </summary>
-        public double ProducedBuildings { get; set; }
+        public double Buildings { get; set; }
+
+        /// <summary>
+        /// How many units were maintained during the tick.
+        /// </summary>
+        public double Units { get; set; }
     }
 }
