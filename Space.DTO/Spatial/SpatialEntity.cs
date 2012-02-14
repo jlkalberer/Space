@@ -2,6 +2,9 @@
 
 namespace Space.DTO.Spatial
 {
+    /// <summary>
+    /// Any type of cosmic entity.
+    /// </summary>
     public class SpatialEntity : IDataObject, ISpatialEntity, ICosmicEntity
     {
         /// <summary>
@@ -12,7 +15,7 @@ namespace Space.DTO.Spatial
         /// <summary>
         /// What solar system this planet belongs to
         /// </summary>
-        public int SolarSystemID { get; set; }
+        public SolarSystem SolarSystem { get; set; }
 
         #region IDataObject
 

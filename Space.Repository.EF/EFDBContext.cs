@@ -11,6 +11,7 @@ namespace Space.Repository.EF
         public DbSet<Fleet> Fleets { get; set; }
         public DbSet<ResearchPoints> ResearchPoints { get; set; }
         public DbSet<NetValue> PlayerNetValues { get; set; }
+        public DbSet<TickValue> PlayerTickValues { get; set; }
         public DbSet<Race> Races { get; set; }
 
         public DbSet<Galaxy> Galaxies { get; set; }
@@ -36,11 +37,18 @@ namespace Space.Repository.EF
                 .WithRequired();
 
             modelBuilder.Entity<NetValue>()
-                .HasKey(n => n.PlayerID);
+                .HasKey(nv => nv.PlayerID);
 
             modelBuilder.Entity<Player>()
-                .HasOptional(p => p.TotalNetValue)
-                .WithRequired();
+                .HasRequired(p => p.TotalNetValue)
+                .WithRequiredPrincipal();
+
+            modelBuilder.Entity<TickValue>()
+                .HasKey(tv => tv.PlayerID);
+
+            modelBuilder.Entity<Player>()
+                .HasRequired(p => p.TickValue)
+                .WithRequiredPrincipal();
 
             modelBuilder.Entity<Fleet>()
                 .HasKey(n => n.FleetID );

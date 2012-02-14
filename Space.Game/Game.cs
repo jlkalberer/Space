@@ -55,13 +55,13 @@ namespace Space.Game
                 .AsParallel()
                 .ForAll(planetSet =>
                             {
-                                var netTotalValue = new NetValue();
                                 var user = _playerRepository.Get(planetSet.Key);
                                 if (user == null)
                                 {
                                     return;
                                 }
 
+                                var netTotalValue = new PlanetValue();
                                 var galaxySettings = user.Galaxy.GalaxySettings;
 
                                 foreach (var planet in planetSet)
@@ -71,7 +71,7 @@ namespace Space.Game
                                     _planetRepository.Update(planet);
                                 }
 
-                                user.Update(netTotalValue);
+                                user.Update(netTotalValue, galaxySettings);
                             });
 
             _playerRepository.SaveChanges();

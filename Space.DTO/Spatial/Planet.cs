@@ -1,5 +1,5 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
+using Space.DTO.Players;
 using Space.Repository.Entities;
 
 namespace Space.DTO.Spatial
@@ -23,22 +23,33 @@ namespace Space.DTO.Spatial
         /// <summary>
         /// The population on the planet
         /// </summary>
-        public int Population { get; set; }
+        public double Population { get; set; }
+
+        /// <summary>
+        /// The growth in population between the last tick and this tick.
+        /// </summary>
+        public double PopulationGrowth { get; set; }
 
         /// <summary>
         /// The number of buildings a planet can hold
         /// </summary>
         public int BuildingCapacity { get; set; }
 
-        /// <summary>
-        /// The buildings found on the planet
-        /// </summary>
-        public IQueryable<IBuilding> Buildings { get; set; }
+        // probably don't need this...
+        ///// <summary>
+        ///// The buildings found on the planet
+        ///// </summary>
+        //public IQueryable<IBuilding> Buildings { get; set; }
 
         /// <summary>
         /// The buildings found on the planet
         /// </summary>
         public IQueryable<IUnit> Units { get; set; }
+
+        /// <summary>
+        /// The planet's number in order of distance from the system's gravitational mass.
+        /// </summary>
+        public int PlanetNumber { get; set; }
 
         #region Bonuses
         /// <summary>
@@ -71,37 +82,10 @@ namespace Space.DTO.Spatial
         public int LaserCount { get; set; }
         public int LivingQuartersCount { get; set; }
         public int MineCount { get; set; }
+        public int TaxOfficeCount { get; set; }
         public bool HasPortal { get; set; }
         public int ResearchLabCount { get; set; }
 
         #endregion
-
-        public NetValue Update(GalaxySettings settings, PlayerBonuses bonuses)
-        {
-            var output = new NetValue();
-
-            output.Cash = (100 + Population / 30 + CashFactoryCount * settings.CashOutput) * bonuses.EconomyBonus * CashBonus;
-            output.Energy = EnergyLabCount * PlutoniumBonus;
-            output.Food = settings.FoodOutput * FarmCount * FoodBonus;
-            output.Iron = MineCount * IronBonus;
-            
-            // Set the base population
-            if(Population == 0)
-            {
-                Population = settings.BasePopulation;
-            }
-            output.Population = (int)Math.Min(Population * (1 + settings.PopulationGrowth * bonuses.WelfareBonus * 0.01f),// multiply by 0.01 to convert to percentage
-                                         settings.BasePopulation + settings.MaxPopulationPerBuildings * BuildingCapacity +
-                                         LivingQuartersCount * settings.PeoplePerLivingQuarter * bonuses.WelfareBonus); // cap the population
-            output.Research = settings.ResearchOutput * ResearchLabCount * bonuses.ResearchBonus;
-
-            output.BuildingCount = CashFactoryCount + EnergyLabCount + FarmCount + LaserCount + LivingQuartersCount +
-                                   ResearchLabCount;
-
-            Population = output.Population;
-            
-
-            return output;
-        }
     }
 }

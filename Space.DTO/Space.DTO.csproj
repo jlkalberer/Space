@@ -52,6 +52,7 @@
     <Compile Include="Fleet.cs" />
     <Compile Include="GalaxySettings.cs" />
     <Compile Include="NetValue.cs" />
+    <Compile Include="PlanetValue.cs" />
     <Compile Include="Spatial\AsteroidBelt.cs" />
     <Compile Include="Spatial\Galaxy.cs" />
     <Compile Include="Spatial\Planet.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Spatial\SolarSystem.cs" />
     <Compile Include="Spatial\SpatialEntityType.cs" />
     <Compile Include="Spatial\SpatialEntity.cs" />
+    <Compile Include="TickValue.cs" />
     <Compile Include="Units\Agent.cs" />
     <Compile Include="Units\Bomber.cs" />
     <Compile Include="Units\Droid.cs" />

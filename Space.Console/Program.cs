@@ -5,6 +5,7 @@ using System.Text;
 using Ninject;
 using Ninject.Modules;
 using Space.DTO;
+using Space.DTO.Players;
 using Space.DTO.Spatial;
 using Space.Repository;
 using Space.Repository.EF;
@@ -26,7 +27,6 @@ namespace Space.Console
             var game = kernel.Get<Game.Game>();
 
             var player = CreatePlayer(playerRepository);
-            player = playerRepository.Get(player.ID);
             
             // These settings will be loaded from some default values + user created values.
             var galaxySettings = new GalaxySettings();
@@ -76,6 +76,16 @@ namespace Space.Console
                     case ConsoleKey.P:
                         PrintPlayerStats(playerRepository, player);
                         break;
+                        case ConsoleKey.B:
+                        {
+                            var planetToBuildOn = SelectPlanet(player.Planets);
+                            if(planetToBuildOn == null)
+                            {
+                                break;
+                            }
+
+                        }
+                        break;
                 }
 
             } while (ki.Key != ConsoleKey.Escape);
@@ -100,10 +110,60 @@ namespace Space.Console
             player.TotalNetValue.Iron = player.ID;
             player.ResearchPoints = new ResearchPoints();
             player.ResearchPoints.PlayerID = player.ID;
+            player.TickValue = new TickValue();
+            player.TickValue.PlayerID = player.ID;
             player.Race = new Race();
-            playerRepository.SaveChanges();
 
             return player;
+        }
+
+        private static Planet SelectPlanet(ICollection<Planet> planets)
+        {
+            Planet output = null;
+
+            System.Console.WriteLine("\r\n******");
+            System.Console.WriteLine("Select a planet from the list:");
+            for (var i = 0; i < planets.Count; i += 1 )
+            {
+                var p = planets.ElementAt(i);
+                var ss = p.SolarSystem;                
+                System.Console.WriteLine(string.Format("{0} -- System: {1},{2} Planet: {3} ", i, ss.Latitude, ss.Longitude, p.PlanetNumber));
+            }
+            System.Console.WriteLine("******");
+
+
+            var ki = System.Console.ReadKey();
+            int planetNumber;
+            if(int.TryParse(ki.KeyChar + "", out planetNumber))
+            {
+                output = planets.ElementAt(planetNumber);
+            }
+
+            return output;
+        }
+
+        private static void BuildBuildings(Planet planet)
+        {
+            ConsoleKeyInfo ki;
+            do
+            {
+                System.Console.WriteLine("\r\n******");
+                System.Console.WriteLine("g -- render galaxy");
+                System.Console.WriteLine("c -- create player");
+                System.Console.WriteLine("p -- print player stats");
+                System.Console.WriteLine("Escape -- Finished building");
+                System.Console.WriteLine("******");
+
+                ki = System.Console.ReadKey();
+                System.Console.WriteLine();
+
+                switch (ki.Key)
+                {
+                    case ConsoleKey.B:
+                        break;
+                }
+
+            } while (ki.Key != ConsoleKey.Escape);
         }
 
         private static void PrintPlayerStats(IPlayerRepository playerRepository, Player player)

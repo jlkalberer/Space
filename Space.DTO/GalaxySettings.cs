@@ -48,6 +48,11 @@ namespace Space.DTO
         public double SolarSystemScalar = 1;
 
         /// <summary>
+        /// The decay of resources each tick in the galaxy
+        /// </summary>
+        public double Decay = 0.005f;
+
+        /// <summary>
         /// Used multiple times in calculations to get the difference between the orbit speed maximum and minimum.
         /// </summary>
         public double OrbitSpeedDifference { get { return OrbitSpeedMaximum - OrbitSpeedMinimum; } }

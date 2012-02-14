@@ -4,17 +4,15 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Space.DTO.Players;
 using Space.Repository.Entities;
 
 namespace Space.DTO.Spatial
 {
-    using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// A container for the current game session.
     /// </summary>
     public class Galaxy : IDataObject
     {
