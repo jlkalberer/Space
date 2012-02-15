@@ -36,11 +36,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DTOExtensions.cs" />
@@ -56,10 +51,6 @@
     <ProjectReference Include="..\Space.DTO\Space.DTO.csproj">
       <Project>{F7DCC309-53AC-41F0-ACE8-DD54ED548C58}</Project>
       <Name>Space.DTO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Space.Infrastructure\Space.Infrastructure.csproj">
-      <Project>{C06BD5FC-4D83-470A-A6FE-77744B42CC41}</Project>
-      <Name>Space.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\Space.Repository\Space.Repository.csproj">
       <Project>{B1E3719F-2086-4819-B4E9-4FF0F7FE0A95}</Project>
