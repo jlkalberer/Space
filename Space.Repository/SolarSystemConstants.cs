@@ -1,27 +1,29 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SolarSystemConstants.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-using Space.Repository.Entities;
-
-namespace Space.Game
+﻿namespace Space.Repository
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using Space.Repository.Entities;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Constants for the solar systems
     /// </summary>
-    public class SolarSystemConstants
+    public sealed class SolarSystemConstants
     {
+        /// <summary>
+        /// Key to assosciate the buiding costs with.
+        /// </summary>
+        private readonly string _key;
+
+        /// <summary>
+        /// Access constants stored in a datastore.
+        /// </summary>
         private readonly IConstantsProvider _constantsProvider;
 
-        public SolarSystemConstants(IConstantsProvider constantsProvider)
+        public SolarSystemConstants(string key, IConstantsProvider constantsProvider)
         {
+            _key = key;
             _constantsProvider = constantsProvider;
         }
 
@@ -30,8 +32,8 @@ namespace Space.Game
         /// </summary>
         public int MinimumEntities
         {
-            get { return _constantsProvider.Get<int>("SolarSystemConstants.MinimumEntities"); }
-            set { _constantsProvider.Set("SolarSystemConstants.MinimumEntities", value); }
+            get { return _constantsProvider.Get<int>(_key + "MinimumEntities"); }
+            set { _constantsProvider.Set(_key + "MinimumEntities", value); }
         }
 
         /// <summary>
@@ -39,8 +41,8 @@ namespace Space.Game
         /// </summary>
         public int MaximumEntities
         {
-            get { return _constantsProvider.Get<int>("SolarSystemConstants.MaximumEntities"); }
-            set { _constantsProvider.Set("SolarSystemConstants.MaximumEntities", value); }
+            get { return _constantsProvider.Get<int>(_key + "MaximumEntities"); }
+            set { _constantsProvider.Set(_key + "MaximumEntities", value); }
         }
 
         /// <summary>
@@ -51,7 +53,7 @@ namespace Space.Game
         /// <returns>Float value for calculating if the entity should be spawned.</returns>
         public float SpawningProbability<TEntityType>(TEntityType type)
         {
-            return _constantsProvider.Get<float>("SolarSystemConstants.SpawningProbability." + type);
+            return _constantsProvider.Get<float>(_key + "SpawningProbability." + type);
         }
 
         /// <summary>
@@ -62,7 +64,7 @@ namespace Space.Game
         /// <param name="value">Float value for calculating if the entity should be spawned.</param>
         public void SpawningProbability<TEntityType>(TEntityType type, float value)
         {
-            _constantsProvider.Set("SolarSystemConstants.SpawningProbability." + type, value);
+            _constantsProvider.Set(_key + "SpawningProbability." + type, value);
         }
 
         /// <summary>
@@ -73,7 +75,7 @@ namespace Space.Game
         /// <returns>Float value for calculating the radius of the entity.</returns>
         public float MaximumRadius<TEntityType>(TEntityType type)
         {
-            return _constantsProvider.Get<float>("SolarSystemConstants.MaximumRadius." + type);
+            return _constantsProvider.Get<float>(_key + "MaximumRadius." + type);
         }
 
         /// <summary>
@@ -84,7 +86,7 @@ namespace Space.Game
         /// <param name="value">Float value for calculating the radius of the entity.</param>
         public void MaximumRadius<TEntityType>(TEntityType type, float value)
         {
-            _constantsProvider.Set("SolarSystemConstants.MaximumRadius." + type, value);
+            _constantsProvider.Set(_key + "MaximumRadius." + type, value);
         }
 
         /// <summary>
@@ -95,7 +97,7 @@ namespace Space.Game
         /// <returns>Float value for calculating the radius of the entity.</returns>
         public float MinimumRadius<TEntityType>(TEntityType type)
         {
-            return _constantsProvider.Get<float>("SolarSystemConstants.MinimumRadius." + type);
+            return _constantsProvider.Get<float>(_key + "MinimumRadius." + type);
         }
 
         /// <summary>
@@ -106,7 +108,7 @@ namespace Space.Game
         /// <param name="value">Float value for calculating the radius of the entity.</param>
         public void MinimumRadius<TEntityType>(TEntityType type, float value)
         {
-            _constantsProvider.Set("SolarSystemConstants.MinimumRadius." + type, value);
+            _constantsProvider.Set(_key + "MinimumRadius." + type, value);
         }
 
         /// <summary>
@@ -117,7 +119,7 @@ namespace Space.Game
         /// <returns>Float value for calculating the mass of the entity.</returns>
         public float MaximumMass<TEntityType>(TEntityType type)
         {
-            return _constantsProvider.Get<float>("SolarSystemConstants.MaximumMass." + type);
+            return _constantsProvider.Get<float>(_key + "MaximumMass." + type);
         }
 
         /// <summary>
@@ -128,7 +130,7 @@ namespace Space.Game
         /// <param name="value">Float value for calculating the mass of the entity.</param>
         public void MaximumMass<TEntityType>(TEntityType type, float value)
         {
-            _constantsProvider.Set("SolarSystemConstants.MaximumMass." + type, value);
+            _constantsProvider.Set(_key + "MaximumMass." + type, value);
         }
 
         /// <summary>
@@ -139,7 +141,7 @@ namespace Space.Game
         /// <returns>Float value for calculating the mass of the entity.</returns>
         public float MinimumMass<TEntityType>(TEntityType type)
         {
-            return _constantsProvider.Get<float>("SolarSystemConstants.MinimumMass." + type);
+            return _constantsProvider.Get<float>(_key + "MinimumMass." + type);
         }
 
         /// <summary>
@@ -150,7 +152,7 @@ namespace Space.Game
         /// <param name="value">Float value for calculating the mass of the entity.</param>
         public void MinimumMass<TEntityType>(TEntityType type, float value)
         {
-            _constantsProvider.Set("SolarSystemConstants.MinimumMass." + type, value);
+            _constantsProvider.Set(_key + "MinimumMass." + type, value);
         }
     }
 }

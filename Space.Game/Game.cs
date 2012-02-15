@@ -62,7 +62,7 @@ namespace Space.Game
                                 }
 
                                 var netTotalValue = new PlanetValue();
-                                var galaxySettings = user.Galaxy.GalaxySettings;
+                                var galaxySettings = new GalaxySettings(null);// user.Galaxy.GalaxySettings;
 
                                 foreach (var planet in planetSet)
                                 {
@@ -109,7 +109,7 @@ namespace Space.Game
 
             var output = new Galaxy
                              {
-                                 GalaxySettings = settings,
+                                 //GalaxySettings = settings,
                                  SolarSystems = solarSystems
                              };
 
@@ -124,7 +124,7 @@ namespace Space.Game
             
             // get the type of solar system -- what type of central mass it has
             var r = new Random();
-            var ssc = new SolarSystemConstants(_constantsProvider);
+            var ssc = settings.SolarSystem;
 
             var numberOfEntities = r.Next(ssc.MinimumEntities, ssc.MaximumEntities);
 

@@ -51,7 +51,6 @@
     <Compile Include="Buildings\Portal.cs" />
     <Compile Include="Buildings\ResearchLab.cs" />
     <Compile Include="Fleet.cs" />
-    <Compile Include="GalaxySettings.cs" />
     <Compile Include="NetValue.cs" />
     <Compile Include="PlanetValue.cs" />
     <Compile Include="Spatial\AsteroidBelt.cs" />

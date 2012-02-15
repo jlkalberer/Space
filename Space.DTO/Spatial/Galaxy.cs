@@ -34,10 +34,5 @@ namespace Space.DTO.Spatial
         /// The collection of solar systems in the galaxy
         /// </summary>
         public ICollection<SolarSystem> SolarSystems { get; set; }
-
-        /// <summary>
-        /// Settings used to generate the galaxy.  These are used for creation and rendering.
-        /// </summary>
-        public GalaxySettings GalaxySettings { get; set; }
     }
 }

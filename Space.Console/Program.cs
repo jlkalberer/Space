@@ -5,8 +5,10 @@ using System.Text;
 using Ninject;
 using Ninject.Modules;
 using Space.DTO;
+using Space.DTO.Buildings;
 using Space.DTO.Players;
 using Space.DTO.Spatial;
+using Space.Infrastructure;
 using Space.Repository;
 using Space.Repository.EF;
 
@@ -35,7 +37,7 @@ namespace Space.Console
             var player = CreatePlayer(playerRepository);
             
             // These settings will be loaded from some default values + user created values.
-            var galaxySettings = new GalaxySettings();
+            var galaxySettings = new GalaxySettings(null);
             var galaxy = game.GenerateGalaxy(galaxySettings);
             galaxy.Players = new List<Player>
                                  {
@@ -74,7 +76,7 @@ namespace Space.Console
                 switch (ki.Key)
                 {
                     case ConsoleKey.G:
-                        RenderGalaxy(galaxy);
+                        RenderGalaxy(galaxy, null);
                         break;
                     case ConsoleKey.T:
                         game.Update();
@@ -97,11 +99,11 @@ namespace Space.Console
             } while (ki.Key != ConsoleKey.Escape);
         }
 
-        private static void RenderGalaxy(Galaxy galaxy)
+        private static void RenderGalaxy(Galaxy galaxy, GalaxySettings settings)
         {
-            for (var i = 0; i < galaxy.GalaxySettings.Width; i += 1)
+            for (var i = 0; i < settings.Width; i += 1)
             {
-                for (var j = 0; j < galaxy.GalaxySettings.Height; j += 1)
+                for (var j = 0; j < settings.Height; j += 1)
                 {
                     System.Console.Write(galaxy.SolarSystems.Any(s => (int)s.Latitude == i && (int)s.Longitude == j) ? "x " : "· ");
                 }
@@ -138,9 +140,9 @@ namespace Space.Console
             System.Console.WriteLine("******");
 
 
-            var ki = System.Console.ReadKey();
+            var input = System.Console.ReadLine();
             int planetNumber;
-            if(int.TryParse(ki.KeyChar + "", out planetNumber))
+            if(int.TryParse(input, out planetNumber))
             {
                 output = planets.ElementAt(planetNumber);
             }
@@ -148,28 +150,47 @@ namespace Space.Console
             return output;
         }
 
-        private static void BuildBuildings(Planet planet)
+        private static void BuildBuildings(Player player, Planet planet)
         {
             ConsoleKeyInfo ki;
             do
             {
                 System.Console.WriteLine("\r\n******");
-                System.Console.WriteLine("g -- render galaxy");
-                System.Console.WriteLine("c -- create player");
-                System.Console.WriteLine("p -- print player stats");
+                System.Console.WriteLine("Select building type");
+                
+                var buildingTypes = SystemTypes.EnumToList<BuildingType>();
+                for (var i = 0; i < buildingTypes.Count(); i += 1)
+                {
+                    System.Console.WriteLine("{0} - {1}", i, buildingTypes.ElementAt(i));
+                }
+
                 System.Console.WriteLine("Escape -- Finished building");
                 System.Console.WriteLine("******");
 
-                ki = System.Console.ReadKey();
-                System.Console.WriteLine();
-
-                switch (ki.Key)
+                var input = System.Console.ReadLine();
+                if (input == ConsoleKey.Escape.ToString())
                 {
-                    case ConsoleKey.B:
-                        break;
+                    break;
                 }
 
-            } while (ki.Key != ConsoleKey.Escape);
+                int buildingType;
+                if (!int.TryParse(input, out buildingType))
+                {
+                    continue;
+                }
+                // TODO - Get max number of buildings player can build
+                System.Console.WriteLine("Number of buildings:");
+
+                input = System.Console.ReadLine();
+                int buildingCount;
+                if (!int.TryParse(input, out buildingCount))
+                {
+                    continue;
+                }
+
+                // build buildings on planet.
+
+            } while (true);
         }
 
         private static void PrintPlayerStats(IPlayerRepository playerRepository, Player player)

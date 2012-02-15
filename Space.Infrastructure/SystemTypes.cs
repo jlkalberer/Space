@@ -7,6 +7,8 @@
 namespace Space.Infrastructure
 {
     using System;
+    using System.Linq;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Class for extension methods on System Types
@@ -16,6 +18,11 @@ namespace Space.Infrastructure
         public static T To<T>(this string text)
         {
             return (T)Convert.ChangeType(text, typeof(T));
+        }
+
+        public static IEnumerable<T> EnumToList<T>()
+        {
+            return Enum.GetValues(typeof(T)).Cast<T>();
         }
     }
 }

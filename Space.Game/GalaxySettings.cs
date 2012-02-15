@@ -6,11 +6,38 @@
 
 namespace Space.DTO
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using Space.Infrastructure;
+    using Space.DTO.Buildings;
+    using Space.Repository;
+    using Space.Repository.Entities;
+
     /// <summary>
     /// Game setup used to create a galaxy
     /// </summary>
     public class GalaxySettings
     {
+        /// <summary>
+        /// Access constants stored in a datastore.
+        /// </summary>
+        private readonly IConstantsProvider _constantsProvider;
+
+        public GalaxySettings(IConstantsProvider constantsProvider)
+        {
+            _constantsProvider = constantsProvider;
+
+            var keyPart = "GalaxySettings.BuildCosts.";
+            BuildingCosts = new Dictionary<BuildingType, BuildCosts>();
+            foreach (var buildType in SystemTypes.EnumToList<BuildingType>())
+            {
+                BuildingCosts.Add(buildType, new BuildCosts(keyPart + buildType + ".", _constantsProvider));
+            }
+            SolarSystem = new SolarSystemConstants("GalaxySettings.SolarSystemConstants,", _constantsProvider);
+        }
+
         #region Galaxy Setup
         /// <summary>
         /// The ID of the Galaxy the settings belong to.
@@ -97,5 +124,12 @@ namespace Space.DTO
         public double ResearchOutput = 20;
 
         #endregion
+
+        public SolarSystemConstants SolarSystem { get; set; }
+
+        /// <summary>
+        /// Dictionary of build costs for all building types.
+        /// </summary>
+        public Dictionary<BuildingType, BuildCosts> BuildingCosts { get; set; }
     }
 }

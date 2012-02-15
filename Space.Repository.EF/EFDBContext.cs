@@ -19,7 +19,7 @@ namespace Space.Repository.EF
         public DbSet<SolarSystem> SolarSystems { get; set; }
         public DbSet<SpatialEntity> SpatialEntities { get; set; }
 
-        public DbSet<GalaxySettings> GalaxySettings { get; set; }
+        //public DbSet<GalaxySettings> GalaxySettings { get; set; }
         public DbSet<Constant> Constants { get; set; }
 
 
@@ -86,9 +86,9 @@ namespace Space.Repository.EF
                 .WithRequired()
                 .HasForeignKey(s => s.GalaxyID);
 
-            modelBuilder.Entity<Galaxy>()
-                .HasRequired(g => g.GalaxySettings)
-                .WithRequiredDependent();
+            //modelBuilder.Entity<Galaxy>()
+            //    .HasRequired(g => g.GalaxySettings)
+            //    .WithRequiredDependent();
 
             modelBuilder.Entity<SolarSystem>()
                 .HasKey(ss => ss.ID);
@@ -102,8 +102,8 @@ namespace Space.Repository.EF
                 .WithRequired(s =>s.SolarSystem)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<GalaxySettings>()
-                .HasKey(gs => gs.GalaxyID);
+            //modelBuilder.Entity<GalaxySettings>()
+            //    .HasKey(gs => gs.GalaxyID);
         }
     }
 }
