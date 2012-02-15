@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using Space.Repository.Entities;
+using Space.DTO.Entities;
 
 namespace Space.DTO.Spatial
 {

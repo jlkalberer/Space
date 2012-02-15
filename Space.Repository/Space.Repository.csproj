@@ -40,7 +40,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BuildCosts.cs" />
+    <Compile Include="IConstantsProvider.cs" />
     <Compile Include="IEntityRepository.cs" />
     <Compile Include="IGalaxyRepository.cs" />
     <Compile Include="IRaceRepository.cs" />
@@ -50,16 +50,15 @@
     <Compile Include="ICrud.cs" />
     <Compile Include="IPlanetRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SolarSystemConstants.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Space.DTO.Entities\Space.DTO.Entities.csproj">
+      <Project>{64FD28DF-512F-469D-93B9-00394BF05588}</Project>
+      <Name>Space.DTO.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Space.DTO\Space.DTO.csproj">
       <Project>{F7DCC309-53AC-41F0-ACE8-DD54ED548C58}</Project>
       <Name>Space.DTO</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Space.Repository.Entities\Space.Repository.Entities.csproj">
-      <Project>{E04D7C17-D062-4180-B4F8-2E9DB3C723A6}</Project>
-      <Name>Space.Repository.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -4,7 +4,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Space.Repository.Entities
+namespace Space.DTO.Entities
 {
     /// <summary>
     /// Any entity that has a mass

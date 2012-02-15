@@ -61,6 +61,10 @@
     <Compile Include="SolarSystemRepository.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Space.DTO.Entities\Space.DTO.Entities.csproj">
+      <Project>{64FD28DF-512F-469D-93B9-00394BF05588}</Project>
+      <Name>Space.DTO.Entities</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Space.DTO\Space.DTO.csproj">
       <Project>{F7DCC309-53AC-41F0-ACE8-DD54ED548C58}</Project>
       <Name>Space.DTO</Name>
@@ -68,10 +72,6 @@
     <ProjectReference Include="..\Space.Infrastructure\Space.Infrastructure.csproj">
       <Project>{C06BD5FC-4D83-470A-A6FE-77744B42CC41}</Project>
       <Name>Space.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Space.Repository.Entities\Space.Repository.Entities.csproj">
-      <Project>{E04D7C17-D062-4180-B4F8-2E9DB3C723A6}</Project>
-      <Name>Space.Repository.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\Space.Repository\Space.Repository.csproj">
       <Project>{B1E3719F-2086-4819-B4E9-4FF0F7FE0A95}</Project>

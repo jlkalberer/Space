@@ -40,6 +40,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildCosts.cs" />
+    <Compile Include="GalaxySettings.cs" />
     <Compile Include="Players\AI.cs" />
     <Compile Include="Buildings\BuildingType.cs" />
     <Compile Include="Buildings\CashFactory.cs" />
@@ -53,6 +55,8 @@
     <Compile Include="Fleet.cs" />
     <Compile Include="NetValue.cs" />
     <Compile Include="PlanetValue.cs" />
+    <Compile Include="SolarSystemConstants.cs" />
+    <Compile Include="SpatialEntityProbabilities.cs" />
     <Compile Include="Spatial\AsteroidBelt.cs" />
     <Compile Include="Spatial\Galaxy.cs" />
     <Compile Include="Spatial\Planet.cs" />
@@ -75,12 +79,11 @@
     <Compile Include="Units\Wizard.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Space.Repository.Entities\Space.Repository.Entities.csproj">
-      <Project>{E04D7C17-D062-4180-B4F8-2E9DB3C723A6}</Project>
-      <Name>Space.Repository.Entities</Name>
+    <ProjectReference Include="..\Space.DTO.Entities\Space.DTO.Entities.csproj">
+      <Project>{64FD28DF-512F-469D-93B9-00394BF05588}</Project>
+      <Name>Space.DTO.Entities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

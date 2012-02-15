@@ -37,7 +37,7 @@ namespace Space.Console
             var player = CreatePlayer(playerRepository);
             
             // These settings will be loaded from some default values + user created values.
-            var galaxySettings = new GalaxySettings(null);
+            var galaxySettings = new GalaxySettings();
             var galaxy = game.GenerateGalaxy(galaxySettings);
             galaxy.Players = new List<Player>
                                  {
@@ -152,7 +152,6 @@ namespace Space.Console
 
         private static void BuildBuildings(Player player, Planet planet)
         {
-            ConsoleKeyInfo ki;
             do
             {
                 System.Console.WriteLine("\r\n******");

@@ -14,6 +14,7 @@
     <AssemblyName>Space</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>false</UseIISExpress>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -144,10 +145,6 @@
     <ProjectReference Include="..\Space.Repository.EF\Space.Repository.EF.csproj">
       <Project>{669CB55D-6E63-45F7-8BE5-79B6D2D19517}</Project>
       <Name>Space.Repository.EF</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Space.Repository.Entities\Space.Repository.Entities.csproj">
-      <Project>{E04D7C17-D062-4180-B4F8-2E9DB3C723A6}</Project>
-      <Name>Space.Repository.Entities</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

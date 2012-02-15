@@ -1,5 +1,5 @@
 ﻿using System;
-using Space.Repository.Entities;
+using Space.DTO.Entities;
 
 namespace Space.DTO.Units
 {

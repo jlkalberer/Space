@@ -1,6 +1,4 @@
-﻿using System.Data.Entity;
-using Ninject.Modules;
-using Space.Repository.Entities;
+﻿using Ninject.Modules;
 
 namespace Space.Repository.EF
 {

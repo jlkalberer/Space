@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Space.DTO.Entities;
 using Space.DTO.Spatial;
-using Space.Repository.Entities;
 
 namespace Space.DTO.Players
 {

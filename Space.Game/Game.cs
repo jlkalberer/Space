@@ -4,10 +4,10 @@ using System.Reflection;
 using System.Threading.Tasks;
 using MoreLinq;
 using Space.DTO;
+using Space.DTO.Entities;
 using Space.DTO.Spatial;
 using Space.Repository;
 using System.Collections.Generic;
-using Space.Repository.Entities;
 
 namespace Space.Game
 {
@@ -62,7 +62,7 @@ namespace Space.Game
                                 }
 
                                 var netTotalValue = new PlanetValue();
-                                var galaxySettings = new GalaxySettings(null);// user.Galaxy.GalaxySettings;
+                                var galaxySettings = new GalaxySettings();// user.Galaxy.GalaxySettings;
 
                                 foreach (var planet in planetSet)
                                 {
@@ -130,18 +130,20 @@ namespace Space.Game
 
             // Create this array so we can use it to decide which entity is to be created
             var probabilityArray = (from e in Enum.GetValues(typeof (SpatialEntityType)).Cast<SpatialEntityType>()
-                                    select new KeyValuePair<float, SpatialEntityType>(
-                                        ssc.SpawningProbability(e), e)).ToList();
+                                    from o in ssc.SpatialEntityProbabilities
+                                    where o.Type == e
+                                    select new KeyValuePair<double, SpatialEntityType>(
+                                        o.SpawningProbability, e)).ToList();
                                     
             // Get the sum of the probability array
             var sum = probabilityArray.Select(o => o.Key).Sum();
-            float max, min;
+            double max, min;
 
             for(var i = 0; i < numberOfEntities; i += 1)
             {
                 SpatialEntityType itemType = SpatialEntityType.Planet;
                 var value = r.NextDouble()*sum;
-                var count = 0.0f;
+                var count = 0.0;
                 
                 // Using the randomly generated value, get the item type from the array
                 for(var j = 0; j < probabilityArray.Count; j += 1)
@@ -175,15 +177,17 @@ namespace Space.Game
                 
                 entity.Type = itemType;
 
+                var entitySettings = ssc.SpatialEntityProbabilities.FirstOrDefault(o => o.Type == itemType);
+
                 // make the radius
-                max = ssc.MaximumRadius(itemType);
-                min = ssc.MinimumRadius(itemType);
+                max = entitySettings.MaximumRadius;
+                min = entitySettings.MinimumRadius;
 
                 entity.Radius = r.NextDouble()*(max - min) + min;
 
                 // make the mass
-                max = ssc.MaximumMass(itemType);
-                min = ssc.MinimumMass(itemType);
+                max = entitySettings.MaximumMass;
+                min = entitySettings.MinimumMass;
 
                 // Random mass * the area of the planet (could use volume but it doesn't really matter)
                 entity.Mass = r.NextDouble() * (max - min) + min;

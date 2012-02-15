@@ -1,4 +1,4 @@
-﻿using Space.Repository.Entities;
+﻿using Space.DTO.Entities;
 
 namespace Space.DTO.Players
 {

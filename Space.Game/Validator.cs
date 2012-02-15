@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Space.Game
+﻿namespace Space.Game
 {
-    using Space.DTO.Buildings;
-    using Space.DTO.Players;
-    using Space.Repository;
+    using DTO;
+    using DTO.Buildings;
+    using DTO.Players;
 
     /// <summary>
     /// Used to validate various game elements

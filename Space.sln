@@ -11,11 +11,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Space.Repository", "Space.R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Space.DTO", "Space.DTO\Space.DTO.csproj", "{F7DCC309-53AC-41F0-ACE8-DD54ED548C58}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Space.Repository.Entities", "Space.Repository.Entities\Space.Repository.Entities.csproj", "{E04D7C17-D062-4180-B4F8-2E9DB3C723A6}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Space.Repository.EF", "Space.Repository.EF\Space.Repository.EF.csproj", "{669CB55D-6E63-45F7-8BE5-79B6D2D19517}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Space.Infrastructure", "Space.Infrastructure\Space.Infrastructure.csproj", "{C06BD5FC-4D83-470A-A6FE-77744B42CC41}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Space.DTO.Entities", "Space.DTO.Entities\Space.DTO.Entities.csproj", "{64FD28DF-512F-469D-93B9-00394BF05588}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -77,16 +77,6 @@ Global
 		{F7DCC309-53AC-41F0-ACE8-DD54ED548C58}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{F7DCC309-53AC-41F0-ACE8-DD54ED548C58}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{F7DCC309-53AC-41F0-ACE8-DD54ED548C58}.Release|x86.ActiveCfg = Release|Any CPU
-		{E04D7C17-D062-4180-B4F8-2E9DB3C723A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E04D7C17-D062-4180-B4F8-2E9DB3C723A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E04D7C17-D062-4180-B4F8-2E9DB3C723A6}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{E04D7C17-D062-4180-B4F8-2E9DB3C723A6}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{E04D7C17-D062-4180-B4F8-2E9DB3C723A6}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{E04D7C17-D062-4180-B4F8-2E9DB3C723A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E04D7C17-D062-4180-B4F8-2E9DB3C723A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E04D7C17-D062-4180-B4F8-2E9DB3C723A6}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{E04D7C17-D062-4180-B4F8-2E9DB3C723A6}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{E04D7C17-D062-4180-B4F8-2E9DB3C723A6}.Release|x86.ActiveCfg = Release|Any CPU
 		{669CB55D-6E63-45F7-8BE5-79B6D2D19517}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{669CB55D-6E63-45F7-8BE5-79B6D2D19517}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{669CB55D-6E63-45F7-8BE5-79B6D2D19517}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -107,6 +97,16 @@ Global
 		{C06BD5FC-4D83-470A-A6FE-77744B42CC41}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{C06BD5FC-4D83-470A-A6FE-77744B42CC41}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{C06BD5FC-4D83-470A-A6FE-77744B42CC41}.Release|x86.ActiveCfg = Release|Any CPU
+		{64FD28DF-512F-469D-93B9-00394BF05588}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64FD28DF-512F-469D-93B9-00394BF05588}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64FD28DF-512F-469D-93B9-00394BF05588}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{64FD28DF-512F-469D-93B9-00394BF05588}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{64FD28DF-512F-469D-93B9-00394BF05588}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{64FD28DF-512F-469D-93B9-00394BF05588}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64FD28DF-512F-469D-93B9-00394BF05588}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64FD28DF-512F-469D-93B9-00394BF05588}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{64FD28DF-512F-469D-93B9-00394BF05588}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{64FD28DF-512F-469D-93B9-00394BF05588}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Space.Repository.Entities;
+using Space.DTO.Entities;
 
 namespace Space.DTO
 {

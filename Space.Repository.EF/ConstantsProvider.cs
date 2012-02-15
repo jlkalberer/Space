@@ -5,8 +5,8 @@
 // -----------------------------------------------------------------------
 
 using System.Linq.Expressions;
+using Space.DTO.Entities;
 using Space.Infrastructure;
-using Space.Repository.Entities;
 
 namespace Space.Repository.EF
 {

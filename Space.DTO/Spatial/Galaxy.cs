@@ -4,8 +4,8 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
+using Space.DTO.Entities;
 using Space.DTO.Players;
-using Space.Repository.Entities;
 
 namespace Space.DTO.Spatial
 {

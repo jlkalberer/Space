@@ -1,5 +1,5 @@
 ﻿using Ninject.Modules;
-using Space.Repository.Entities;
+using Space.DTO.Entities;
 
 namespace Space.Console
 {
