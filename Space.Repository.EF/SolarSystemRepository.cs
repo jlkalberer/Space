@@ -1,56 +1,106 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Space.DTO;
-using Space.DTO.Spatial;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="SolarSystemRepository.cs" company="COMPANY_PLACEHOLDER">
+//   John Kalberer
+// </copyright>
+// <summary>
+//   The EntityFramework implementation for accessing Solar Systems from the datastore.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Space.Repository.EF
 {
+    using System;
+    using System.Linq;
+
+    using Space.DTO.Spatial;
+
+    /// <summary>
+    /// The EntityFramework implementation for accessing Solar Systems from the datastore.
+    /// </summary>
     public class SolarSystemRepository : ISolarSystemRepository
     {
-        private readonly EFDBContext _context;
+        /// <summary>
+        /// The data context.
+        /// </summary>
+        private readonly EntityFrameworkDbContext context;
 
-        public SolarSystemRepository(EFDBContext context)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SolarSystemRepository"/> class.
+        /// </summary>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        public SolarSystemRepository(EntityFrameworkDbContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         #region Implementation of ICrud<in int,ResearchPoints>
 
-        public SolarSystem Create()
-        {
-            return _context.SolarSystems.Create();
-        }
-
-        public SolarSystem Add(SolarSystem entity)
-        {
-            return _context.SolarSystems.Add(entity);
-        }
-
-        public SolarSystem Get(int key)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Update(SolarSystem value)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool Delete(int key)
-        {
-            throw new NotImplementedException();
-        }
-
+        /// <summary>
+        /// Gets a queryable collection of items.
+        /// </summary>
         public IQueryable<SolarSystem> All
         {
             get { throw new NotImplementedException(); }
         }
 
+        /// <summary>
+        /// Creates an item in the datastore.
+        /// </summary>
+        /// <returns>Item created in the datastore.</returns>
+        public SolarSystem Create()
+        {
+            return this.context.SolarSystems.Create();
+        }
+
+        /// <summary>
+        /// Used to store a created item.
+        /// </summary>
+        /// <param name="entity">The item to store in the datastore.</param>
+        /// <returns>The item stored in the datastore.</returns>
+        public SolarSystem Add(SolarSystem entity)
+        {
+            return this.context.SolarSystems.Add(entity);
+        }
+
+        /// <summary>
+        /// Gets an item from the datastore using the supplied key.
+        /// </summary>
+        /// <param name="key">The primary key of the item.</param>
+        /// <returns>The item from the datastore.</returns>
+        public SolarSystem Get(int key)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Update a value in the datastore based on the item's key.
+        /// </summary>
+        /// <param name="value">The value to update in the datastore.</param>
+        /// <returns>The success status of the update.</returns>
+        public bool Update(SolarSystem value)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Deletes an item from the datastore.
+        /// </summary>
+        /// <param name="key">The primary key of the item to delete.</param>
+        /// <returns>The success status of the deletion.</returns>
+        public bool Delete(int key)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Save the changes to the data store.
+        /// </summary>
+        /// <returns>The success status of the save.</returns>
         public bool SaveChanges()
         {
-            _context.SaveChanges();
+            this.context.SaveChanges();
             return true;
         }
 

@@ -1,9 +1,9 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IGalaxyRepository.cs" company="COMPANY_PLACEHOLDER">
+// <copyright file="ISpatialEntityRepository.cs" company="COMPANY_PLACEHOLDER">
 //   John Kalberer
 // </copyright>
 // <summary>
-//   The repository interface used for Galaxies.
+//   The SpatialEntity repository interface.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
@@ -12,9 +12,9 @@ namespace Space.Repository
     using Space.DTO.Spatial;
 
     /// <summary>
-    /// The repository interface used for Galaxies.
+    /// The SpatialEntity repository interface.
     /// </summary>
-    public interface IGalaxyRepository : ICrud<int, Galaxy>
+    public interface ISpatialEntityRepository : ICrud<int, SpatialEntity>
     {
     }
 }

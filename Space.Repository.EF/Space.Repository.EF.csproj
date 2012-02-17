@@ -45,9 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConstantsProvider.cs" />
-    <Compile Include="EntityRepository.cs" />
-    <Compile Include="EFDBContext.cs" />
-    <Compile Include="EFModule.cs" />
+    <Compile Include="SpatialEntityRepository.cs" />
+    <Compile Include="EntityFrameworkDBContext.cs" />
+    <Compile Include="EntityFrameworkModule.cs" />
     <Compile Include="Entities\Constant.cs" />
     <Compile Include="GalaxyRepository.cs" />
     <Compile Include="PlanetRepository.cs" />

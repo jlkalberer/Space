@@ -1,30 +1,40 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ConstantsProvider.cs" company="">
-// TODO: Update copyright text.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ConstantsProvider.cs" company="COMPANY_PLACEHOLDER">
+//   John Kalberer
 // </copyright>
-// -----------------------------------------------------------------------
-
-using System.Linq.Expressions;
-using Space.DTO.Entities;
-using Space.Infrastructure;
+// <summary>
+//   Entity Framework implementation for getting the game constants.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Space.Repository.EF
 {
     using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
+    using System.Linq.Expressions;
+
+    using Space.DTO.Entities;
+    using Space.Infrastructure;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Entity Framework implementation for getting the game constants.
     /// </summary>
     public class ConstantsProvider : IConstantsProvider
     {
-        private readonly EFDBContext _context;
+        /// <summary>
+        /// The data context.
+        /// </summary>
+        private readonly EntityFrameworkDbContext context;
 
-        public ConstantsProvider(EFDBContext context)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConstantsProvider"/> class.
+        /// </summary>
+        /// <param name="context">
+        /// The context.
+        /// </param>
+        public ConstantsProvider(EntityFrameworkDbContext context)
         {
-            _context = context;
+            this.context = context;
         }
 
         /// <summary>
@@ -35,7 +45,7 @@ namespace Space.Repository.EF
         /// <returns>An item from a datastore cast by TType.</returns>
         public TType Get<TObjectType, TType>()
         {
-            return Get<TType>(typeof (TObjectType).ToString());
+            return Get<TType>(typeof(TObjectType).ToString());
         }
 
         /// <summary>
@@ -46,7 +56,7 @@ namespace Space.Repository.EF
         /// <returns>An item from a datastore cast by TType.</returns>
         public TType Get<TType>(string key)
         {
-            var item = _context.Constants.FirstOrDefault(o => o.ID == key);
+            var item = this.context.Constants.FirstOrDefault(o => o.ID == key);
             if (item == null)
             {
                 return default(TType);
@@ -75,7 +85,7 @@ namespace Space.Repository.EF
         /// <param name="value">The object value to set in the datastore.</param>
         public void Set<TObjectType, TType>(TType value)
         {
-            Set(typeof (TObjectType).ToString(), value);
+            Set(typeof(TObjectType).ToString(), value);
         }
 
         /// <summary>
@@ -86,7 +96,7 @@ namespace Space.Repository.EF
         /// <param name="value">The object value to set in the datastore.</param>
         public void Set<TType>(string key, TType value)
         {
-            var item = _context.Constants.FirstOrDefault(o => o.ID == key);
+            var item = this.context.Constants.FirstOrDefault(o => o.ID == key);
             if (item == null)
             {
                 return;

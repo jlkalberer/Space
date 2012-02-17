@@ -1,31 +1,49 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Ninject;
-using Ninject.Modules;
-using Space.DTO;
-using Space.DTO.Buildings;
-using Space.DTO.Players;
-using Space.DTO.Spatial;
-using Space.Infrastructure;
-using Space.Repository;
-using Space.Repository.EF;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Program.cs" company="COMPANY_PLACEHOLDER">
+//   John Kalberer
+// </copyright>
+// <summary>
+//   The Program to run the console version of the game.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Space.Console
 {
-    class Program
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+
+    using Ninject;
+    using Ninject.Modules;
+
+    using Space.DTO;
+    using Space.DTO.Buildings;
+    using Space.DTO.Players;
+    using Space.DTO.Spatial;
+    using Space.Infrastructure;
+    using Space.Repository;
+    using Space.Repository.EF;
+
+    /// <summary>
+    /// The Program to run the console version of the game.
+    /// </summary>
+    public class Program
     {
-        static void Setup()
-        {
-            System.Console.SetWindowSize(System.Console.WindowWidth*2, System.Console.WindowHeight);
-        }
-        static void Main(string[] args)
+        /// <summary>
+        /// The main entry point for the console program.
+        /// </summary>
+        /// <param name="args">
+        /// The args.
+        /// </param>        public static void Main(string[] args)
         {
             Setup();
 
-            IKernel kernel = new StandardKernel(new INinjectModule[] {new EFModule(), new ConsoleModule()});
-            var db = kernel.Get<EFDBContext>();
+            var kernel = new StandardKernel(new INinjectModule[]
+                {
+                    new EntityFrameworkModule(), 
+                    new ConsoleModule()
+                });
+            var db = kernel.Get<EntityFrameworkDbContext>();
             db.Database.Delete(); // delete the database each time we run so we can start from scratch
             db.Database.Create();
 
@@ -47,11 +65,10 @@ namespace Space.Console
 
             galaxyRepository.SaveChanges();
 
-
             var r = new Random();
             var ss = galaxy.SolarSystems.ElementAt(r.Next(galaxy.SolarSystems.Count - 1));
             var se =
-                ss.SpatialEntities.Where(e => e is Planet);
+                ss.SpatialEntities.Where(e => e is Planet).ToList();
             var planet = se.ElementAt(r.Next(se.Count() - 1)) as Planet;
 
             if (planet != null)
@@ -63,86 +80,97 @@ namespace Space.Console
             ConsoleKeyInfo ki;
             do
             {
-                System.Console.WriteLine("\r\n******");
-                System.Console.WriteLine("g -- render galaxy");
-                System.Console.WriteLine("c -- create player");
-                System.Console.WriteLine("p -- print player stats");   
-                System.Console.WriteLine("t -- run tick");
-                System.Console.WriteLine("******");
+                Console.WriteLine("\r\n******");
+                Console.WriteLine("g -- render galaxy");
+                Console.WriteLine("c -- create player");
+                Console.WriteLine("p -- print player stats");   
+                Console.WriteLine("t -- run tick");
+                Console.WriteLine("******");
                 
-                ki = System.Console.ReadKey();
-                System.Console.WriteLine();
+                ki = Console.ReadKey();
+                Console.WriteLine();
 
                 switch (ki.Key)
                 {
                     case ConsoleKey.G:
-                        RenderGalaxy(galaxy, null);
+                        galaxy.Print();
                         break;
                     case ConsoleKey.T:
                         game.Update();
                         break;
                     case ConsoleKey.P:
-                        PrintPlayerStats(playerRepository, player);
+                        player.Print();
                         break;
                         case ConsoleKey.B:
                         {
                             var planetToBuildOn = SelectPlanet(player.Planets);
-                            if(planetToBuildOn == null)
+                            if (planetToBuildOn == null)
                             {
                                 break;
                             }
-
                         }
+
                         break;
                 }
-
-            } while (ki.Key != ConsoleKey.Escape);
+            } 
+            while (ki.Key != ConsoleKey.Escape);
         }
-
-        private static void RenderGalaxy(Galaxy galaxy, GalaxySettings settings)
+        
+        /// <summary>
+        /// Setup various settings for the console and game..
+        /// </summary>
+        private static void Setup()
         {
-            for (var i = 0; i < settings.Width; i += 1)
-            {
-                for (var j = 0; j < settings.Height; j += 1)
-                {
-                    System.Console.Write(galaxy.SolarSystems.Any(s => (int)s.Latitude == i && (int)s.Longitude == j) ? "x " : "· ");
-                }
-                System.Console.WriteLine();
-            }
+            Console.SetWindowSize(Console.WindowWidth * 2, Console.WindowHeight);
         }
 
+        /// <summary>
+        /// Creates a new player.
+        /// </summary>
+        /// <param name="playerRepository">
+        /// The player repository.
+        /// </param>
+        /// <returns>
+        /// The newly created player object.
+        /// </returns>
         private static Player CreatePlayer(IPlayerRepository playerRepository)
         {
             var player = playerRepository.Create();
-            player.TotalNetValue = new NetValue();
-            player.TotalNetValue.Iron = player.ID;
-            player.ResearchPoints = new ResearchPoints();
-            player.ResearchPoints.PlayerID = player.ID;
-            player.TickValue = new TickValue();
-            player.TickValue.PlayerID = player.ID;
+            player.TotalNetValue = new NetValue { Iron = player.ID };
+            player.ResearchPoints = new ResearchPoints { PlayerID = player.ID };
+            player.TickValue = new TickValue { PlayerID = player.ID };
             player.Race = new Race();
 
             return player;
         }
 
+        /// <summary>
+        /// Select a planet from a list of planets.
+        /// </summary>
+        /// <param name="planets">
+        /// The planets.
+        /// </param>
+        /// <returns>
+        /// The selected planet.
+        /// </returns>
         private static Planet SelectPlanet(ICollection<Planet> planets)
         {
             Planet output = null;
 
-            System.Console.WriteLine("\r\n******");
-            System.Console.WriteLine("Select a planet from the list:");
-            for (var i = 0; i < planets.Count; i += 1 )
+            Console.WriteLine("\r\n******");
+            Console.WriteLine("Select a planet from the list:");
+            for (var i = 0; i < planets.Count; i += 1)
             {
                 var p = planets.ElementAt(i);
                 var ss = p.SolarSystem;                
-                System.Console.WriteLine(string.Format("{0} -- System: {1},{2} Planet: {3} ", i, ss.Latitude, ss.Longitude, p.PlanetNumber));
+                Console.WriteLine(string.Format("{0} -- System: {1},{2} Planet: {3} ", i, ss.Latitude, ss.Longitude, p.PlanetNumber));
             }
-            System.Console.WriteLine("******");
 
+            Console.WriteLine("******");
 
-            var input = System.Console.ReadLine();
+            var input = Console.ReadLine();
             int planetNumber;
-            if(int.TryParse(input, out planetNumber))
+            if (int.TryParse(input, out planetNumber))
             {
                 output = planets.ElementAt(planetNumber);
             }
@@ -150,23 +178,37 @@ namespace Space.Console
             return output;
         }
 
+        /// <summary>
+        /// Builds buildings on a planet.
+        /// </summary>
+        /// <param name="player">
+        /// The player.
+        /// </param>
+        /// <param name="planet">
+        /// The planet.
+        /// </param>
         private static void BuildBuildings(Player player, Planet planet)
         {
             do
             {
-                System.Console.WriteLine("\r\n******");
-                System.Console.WriteLine("Select building type");
-                
-                var buildingTypes = SystemTypes.EnumToList<BuildingType>();
-                for (var i = 0; i < buildingTypes.Count(); i += 1)
+                Console.WriteLine("\r\n******");
+                Console.WriteLine("Select building type");
+
+                var buildingTypes = SystemTypes.EnumToList<BuildingType>() as List<BuildingType>;
+                if (buildingTypes == null)
                 {
-                    System.Console.WriteLine("{0} - {1}", i, buildingTypes.ElementAt(i));
+                    return;
                 }
 
-                System.Console.WriteLine("Escape -- Finished building");
-                System.Console.WriteLine("******");
+                for (var i = 0; i < buildingTypes.Count; i += 1)
+                {
+                    Console.WriteLine("{0} - {1}", i, buildingTypes.ElementAt(i));
+                }
 
-                var input = System.Console.ReadLine();
+                Console.WriteLine("Escape -- Finished building");
+                Console.WriteLine("******");
+
+                var input = Console.ReadLine();
                 if (input == ConsoleKey.Escape.ToString())
                 {
                     break;
@@ -177,10 +219,11 @@ namespace Space.Console
                 {
                     continue;
                 }
-                // TODO - Get max number of buildings player can build
-                System.Console.WriteLine("Number of buildings:");
 
-                input = System.Console.ReadLine();
+                // TODO - Get max number of buildings player can build
+                Console.WriteLine("Number of buildings:");
+
+                input = Console.ReadLine();
                 int buildingCount;
                 if (!int.TryParse(input, out buildingCount))
                 {
@@ -188,21 +231,9 @@ namespace Space.Console
                 }
 
                 // build buildings on planet.
-
-            } while (true);
-        }
-
-        private static void PrintPlayerStats(IPlayerRepository playerRepository, Player player)
-        {
-            System.Console.WriteLine("\r\n*********");
-            player.TotalNetValue.Print();
-            System.Console.WriteLine("******");
-            player.TickValue.Print();
-            System.Console.WriteLine("*********\r\n");
-            //player = playerRepository.Get(player.ID);
-            //System.Console.WriteLine("Cash - ${0}", player.TotalNetValue.Cash);
-            //System.Console.WriteLine("Food - {0}", player.TotalNetValue.Food);
-            //System.Console.WriteLine("Population - {0}", player.TotalNetValue.Population);
+                planet.FarmCount = 100;
+            }
+            while (true);
         }
     }
 }

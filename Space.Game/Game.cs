@@ -1,43 +1,102 @@
-﻿using System;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using MoreLinq;
-using Space.DTO;
-using Space.DTO.Entities;
-using Space.DTO.Spatial;
-using Space.Repository;
-using System.Collections.Generic;
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Game.cs" company="">
+//   
+// </copyright>
+// <summary>
+//   Defines the Game type.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Space.Game
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using System.Threading.Tasks;
+
+    using MoreLinq;
+
+    using Space.DTO;
+    using Space.DTO.Entities;
+    using Space.DTO.Spatial;
+    using Space.Repository;
+
+    /// <summary>
+    /// Used to run an instance of the game.
+    /// </summary>
     public class Game
     {
+        /// <summary>
+        /// Constant variable used for calculations of circles.
+        /// </summary>
         public const double CircleCoefficient = 2 * Math.PI;
 
-        private readonly IPlayerRepository _playerRepository;
-        private readonly IGalaxyRepository _galaxyRepository;
-        private readonly ISolarSystemRepository _solarSystemRepository;
-        private readonly IPlanetRepository _planetRepository;
-        private readonly IEntityRepository _entityRepository;
-        private readonly IConstantsProvider _constantsProvider;
+        /// <summary>
+        /// Repository to access any players.
+        /// </summary>
+        private readonly IPlayerRepository playerRepository;
+       
+        /// <summary>
+        /// Repository to access any galaxies.
+        /// </summary>
+        private readonly IGalaxyRepository galaxyRepository;
+        
+        /// <summary>
+        /// Repository to access any solar systems.
+        /// </summary>
+        private readonly ISolarSystemRepository solarSystemRepository;
+        
+        /// <summary>
+        /// Repository to access any planets.
+        /// </summary>
+        private readonly IPlanetRepository planetRepository;
+        
+        /// <summary>
+        /// Repository to access any spatial entities.
+        /// </summary>
+        private readonly ISpatialEntityRepository spatialEntityRepository;
+        
+        /// <summary>
+        /// Repository to access any constants.
+        /// </summary>
+        private readonly IConstantsProvider constantsProvider;
 
-        public Game(IPlayerRepository playerRepository, IGalaxyRepository galaxyRepository, ISolarSystemRepository solarSystemRepository,
-            IPlanetRepository planetRepository, IEntityRepository entityRepository, IConstantsProvider constantsProvider)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Game"/> class.
+        /// </summary>
+        /// <param name="playerRepository">
+        /// The player repository.
+        /// </param>
+        /// <param name="galaxyRepository">
+        /// The galaxy repository.
+        /// </param>
+        /// <param name="solarSystemRepository">
+        /// The solar system repository.
+        /// </param>
+        /// <param name="planetRepository">
+        /// The planet repository.
+        /// </param>
+        /// <param name="spatialEntityRepository">
+        /// The entity repository.
+        /// </param>
+        /// <param name="constantsProvider">
+        /// The constants provider.
+        /// </param>
+        public Game(
+            IPlayerRepository playerRepository,
+            IGalaxyRepository galaxyRepository,
+            ISolarSystemRepository solarSystemRepository,
+            IPlanetRepository planetRepository,
+            ISpatialEntityRepository spatialEntityRepository,
+            IConstantsProvider constantsProvider)
         {
-            _playerRepository = playerRepository;
-            _galaxyRepository = galaxyRepository;
-            _solarSystemRepository = solarSystemRepository;
-            _planetRepository = planetRepository;
-            _entityRepository = entityRepository;
-            _constantsProvider = constantsProvider;
-
-            var type = typeof (Planet);
-            var v=type.GetField("PopulationGrowth");
-            foreach (var m in type.GetFields(BindingFlags.NonPublic | BindingFlags.Static))
-            {
-                m.SetValue(null, 10);
-            }
+            this.playerRepository = playerRepository;
+            this.galaxyRepository = galaxyRepository;
+            this.solarSystemRepository = solarSystemRepository;
+            this.planetRepository = planetRepository;
+            this.spatialEntityRepository = spatialEntityRepository;
+            this.constantsProvider = constantsProvider;
         }
 
         /// <summary>
@@ -49,32 +108,32 @@ namespace Space.Game
         /// </summary>
         public void Update()
         {
-            var planetsToUpdate = _planetRepository.All.Where(p => p.Owner != null).GroupBy(p => p.Owner.ID);
+            var planetsToUpdate = this.planetRepository.All.Where(p => p.Owner != null).GroupBy(p => p.Owner.ID);
 
             planetsToUpdate
                 .AsParallel()
                 .ForAll(planetSet =>
                             {
-                                var user = _playerRepository.Get(planetSet.Key);
+                                var user = this.playerRepository.Get(planetSet.Key);
                                 if (user == null)
                                 {
                                     return;
                                 }
 
                                 var netTotalValue = new PlanetValue();
-                                var galaxySettings = new GalaxySettings();// user.Galaxy.GalaxySettings;
+                                var galaxySettings = user.Galaxy.GalaxySettings;
 
                                 foreach (var planet in planetSet)
                                 {
                                     var netValue = planet.Update(galaxySettings, user.Bonuses);
                                     netTotalValue.Add(netValue);
-                                    _planetRepository.Update(planet);
+                                    this.planetRepository.Update(planet);
                                 }
 
                                 user.Update(netTotalValue, galaxySettings);
                             });
 
-            _playerRepository.SaveChanges();
+            this.playerRepository.SaveChanges();
         }
 
         public Galaxy GenerateGalaxy(GalaxySettings settings)
@@ -101,10 +160,10 @@ namespace Space.Game
             {
                 foreach (var spatialEntity in solarSystem.SpatialEntities)
                 {
-                    _entityRepository.Add(spatialEntity);
+                    this.spatialEntityRepository.Add(spatialEntity);
                 }
 
-                _solarSystemRepository.Add(solarSystem);
+                this.solarSystemRepository.Add(solarSystem);
             }
 
             var output = new Galaxy
@@ -113,14 +172,14 @@ namespace Space.Game
                                  SolarSystems = solarSystems
                              };
 
-            output = _galaxyRepository.Add(output);
+            output = this.galaxyRepository.Add(output);
 
             return output;
         }
 
         private SolarSystem CreateSolarSystem(GalaxySettings settings)
         {
-            var solarSystem = _solarSystemRepository.Create();
+            var solarSystem = this.solarSystemRepository.Create();
             
             // get the type of solar system -- what type of central mass it has
             var r = new Random();
@@ -162,7 +221,7 @@ namespace Space.Game
                 // This may be refactored to just use entity type and get rid of the Planet class.
                 if(itemType == SpatialEntityType.Planet)
                 {
-                    entity = _planetRepository.Create();
+                    entity = this.planetRepository.Create();
                     solarSystem.Planets.Add((Planet)entity);
                     var planet = entity as Planet;
 
@@ -171,7 +230,7 @@ namespace Space.Game
                 }
                 else
                 {
-                    entity = _entityRepository.Create();
+                    entity = this.spatialEntityRepository.Create();
                 }
                 solarSystem.SpatialEntities.Add(entity);
                 

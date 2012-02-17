@@ -36,7 +36,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IConstantsProvider.cs" />
-    <Compile Include="IEntityRepository.cs" />
+    <Compile Include="ISpatialEntityRepository.cs" />
     <Compile Include="IGalaxyRepository.cs" />
     <Compile Include="IRaceRepository.cs" />
     <Compile Include="ISolarSystemRepository.cs" />
