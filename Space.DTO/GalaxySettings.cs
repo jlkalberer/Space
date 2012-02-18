@@ -1,10 +1,4 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="GalaxySettings.cs" company="">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
-
-namespace Space.DTO
+﻿namespace Space.DTO
 {
     using System.Collections.Generic;
 

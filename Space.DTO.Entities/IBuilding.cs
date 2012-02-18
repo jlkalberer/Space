@@ -1,7 +1,18 @@
-﻿namespace Space.DTO.Entities
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IBuilding.cs" company="COMPANY_PLACEHOLDER">
+//   John Kalberer
+// </copyright>
+// <summary>
+//   The interface for all building objects.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Space.DTO.Entities
 {
-    public interface IBuilding : IDataObject, ISpatialEntity
+    /// <summary>
+    /// The interface for all building objects.
+    /// </summary>
+    public interface IBuilding : IDataObject<int>, ISpatialEntity
     {
-        
     }
 }

@@ -18,7 +18,7 @@ namespace Space.DTO.Players
     /// <summary>
     /// A player object for interacting in a Galaxy
     /// </summary>
-    public class Player : IDataObject
+    public class Player : IDataObject<int>
     {
         /// <summary>
         /// Private field for caching player bonuses.

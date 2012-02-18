@@ -70,6 +70,21 @@ namespace Space.Repository.EF
         /// Gets or sets GalaxySettings.
         /// </summary>
         public DbSet<GalaxySettings> GalaxySettings { get; set; }
+
+        /// <summary>
+        /// Gets or sets SolarSystemConstants.
+        /// </summary>
+        public DbSet<SolarSystemConstants> SolarSystemConstants { get; set; }
+
+        /// <summary>
+        /// Gets or sets SpatialEntityProbabilities.
+        /// </summary>
+        public DbSet<SpatialEntityProbabilities> SpatialEntityProbabilities { get; set; }
+
+        /// <summary>
+        /// Gets or sets SolarSystemConstants.
+        /// </summary>
+        public DbSet<BuildCosts> BuildCosts { get; set; }
         
         /// <summary>
         /// Gets or sets Constants.
@@ -163,6 +178,17 @@ namespace Space.Repository.EF
 
             modelBuilder.Entity<GalaxySettings>()
                 .HasKey(gs => gs.GalaxyID);
+
+            modelBuilder.Entity<GalaxySettings>()
+                .HasRequired(gs => gs.SolarSystem);
+
+            modelBuilder.Entity<GalaxySettings>()
+                .HasMany(gs => gs.BuildingCosts)
+                .WithRequired();
+
+            modelBuilder.Entity<SolarSystemConstants>()
+                .HasMany(ssc => ssc.SpatialEntityProbabilities)
+                .WithRequired();
         }
     }
 }

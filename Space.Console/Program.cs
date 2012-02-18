@@ -108,6 +108,8 @@ namespace Space.Console
                             {
                                 break;
                             }
+
+                            BuildBuildings(player, planetToBuildOn);
                         }
 
                         break;

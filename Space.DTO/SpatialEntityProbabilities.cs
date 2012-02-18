@@ -1,45 +1,58 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="SpatialEntityProbabilities.cs" company="">
-// TODO: Update copyright text.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="SpatialEntityProbabilities.cs" company="COMPANY_PLACEHOLDER">
+//   John Kalberer
 // </copyright>
-// -----------------------------------------------------------------------
-
-using Space.DTO.Spatial;
+// <summary>
+//   The probabilities for all spatial entities
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Space.DTO
 {
+    using Space.DTO.Entities;
+    using Space.DTO.Spatial;
+
     /// <summary>
     /// The probabilities for all spatial entities
     /// </summary>
-    public class SpatialEntityProbabilities
+    public class SpatialEntityProbabilities : IDataObject<int>
     {
+        #region Implementation of IDataObject
+
         /// <summary>
-        /// The type of spatial entity assosciated with the probabilities.
+        /// Gets or sets the primary key for the entity
+        /// </summary>
+        public int ID { get; set; }
+
+        #endregion
+
+        /// <summary>
+        /// Gets or sets the type of spatial entity assosciated with the probabilities.
         /// </summary>
         public SpatialEntityType Type { get; set; }
 
         /// <summary>
-        /// The Spawning Probability of this type.
+        /// Gets or sets the Spawning Probability of this type.
         /// </summary>
         public double SpawningProbability { get; set; }
 
         /// <summary>
-        /// The Maximum Radius of this type.
+        /// Gets or sets the Maximum Radius of this type.
         /// </summary>
         public double MaximumRadius { get; set; }
 
         /// <summary>
-        /// The Minimum Radius of this type.
+        /// Gets or sets the Minimum Radius of this type.
         /// </summary>
         public double MinimumRadius { get; set; }
 
         /// <summary>
-        /// The Maximum Mass of this type.
+        /// Gets or sets the Maximum Mass of this type.
         /// </summary>
         public double MaximumMass { get; set; }
         
         /// <summary>
-        /// The Minimum Mass of this type.
+        /// Gets or sets the Minimum Mass of this type.
         /// </summary>
         public double MinimumMass { get; set; }
     }

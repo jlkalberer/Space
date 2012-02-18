@@ -1,6 +1,6 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="Game.cs" company="">
-//   
+// <copyright file="Game.cs" company="COMPANY_PLACEHOLDER">
+//   John Kalberer
 // </copyright>
 // <summary>
 //   Defines the Game type.
@@ -12,13 +12,11 @@ namespace Space.Game
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Reflection;
     using System.Threading.Tasks;
 
     using MoreLinq;
 
     using Space.DTO;
-    using Space.DTO.Entities;
     using Space.DTO.Spatial;
     using Space.Repository;
 
@@ -56,11 +54,6 @@ namespace Space.Game
         /// Repository to access any spatial entities.
         /// </summary>
         private readonly ISpatialEntityRepository spatialEntityRepository;
-        
-        /// <summary>
-        /// Repository to access any constants.
-        /// </summary>
-        private readonly IConstantsProvider constantsProvider;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Game"/> class.
@@ -80,23 +73,18 @@ namespace Space.Game
         /// <param name="spatialEntityRepository">
         /// The entity repository.
         /// </param>
-        /// <param name="constantsProvider">
-        /// The constants provider.
-        /// </param>
         public Game(
             IPlayerRepository playerRepository,
             IGalaxyRepository galaxyRepository,
             ISolarSystemRepository solarSystemRepository,
             IPlanetRepository planetRepository,
-            ISpatialEntityRepository spatialEntityRepository,
-            IConstantsProvider constantsProvider)
+            ISpatialEntityRepository spatialEntityRepository)
         {
             this.playerRepository = playerRepository;
             this.galaxyRepository = galaxyRepository;
             this.solarSystemRepository = solarSystemRepository;
             this.planetRepository = planetRepository;
             this.spatialEntityRepository = spatialEntityRepository;
-            this.constantsProvider = constantsProvider;
         }
 
         /// <summary>
@@ -136,15 +124,28 @@ namespace Space.Game
             this.playerRepository.SaveChanges();
         }
 
+        /// <summary>
+        /// Creates a Galaxy using supplied settings.
+        /// </summary>
+        /// <param name="settings">
+        /// The settings.
+        /// </param>
+        /// <returns>
+        /// A new Galaxy stored in a datastore.
+        /// </returns>
         public Galaxy GenerateGalaxy(GalaxySettings settings)
         {
             var solarSystems = new List<SolarSystem>();
             var r = new Random();
 
-            Parallel.For(0, settings.Width,
-                i => Parallel.For(0, settings.Height,
-                                  j =>
-                                  {
+            Parallel.For(
+                0,
+                settings.Width,
+                i => Parallel.For(
+                    0,
+                    settings.Height,
+                    j =>
+                        {
                                       if (r.NextDouble() >
                                           settings.SystemGenerationProbability)
                                       {
@@ -168,7 +169,7 @@ namespace Space.Game
 
             var output = new Galaxy
                              {
-                                 //GalaxySettings = settings,
+                                 GalaxySettings = settings,
                                  SolarSystems = solarSystems
                              };
 
@@ -177,6 +178,15 @@ namespace Space.Game
             return output;
         }
 
+        /// <summary>
+        /// Creates a SolarSystem in a Galaxy.
+        /// </summary>
+        /// <param name="settings">
+        /// The settings.
+        /// </param>
+        /// <returns>
+        /// A new SolarSystem stored in a datastore.
+        /// </returns>
         private SolarSystem CreateSolarSystem(GalaxySettings settings)
         {
             var solarSystem = this.solarSystemRepository.Create();
@@ -188,7 +198,7 @@ namespace Space.Game
             var numberOfEntities = r.Next(ssc.MinimumEntities, ssc.MaximumEntities);
 
             // Create this array so we can use it to decide which entity is to be created
-            var probabilityArray = (from e in Enum.GetValues(typeof (SpatialEntityType)).Cast<SpatialEntityType>()
+            var probabilityArray = (from e in Enum.GetValues(typeof(SpatialEntityType)).Cast<SpatialEntityType>()
                                     from o in ssc.SpatialEntityProbabilities
                                     where o.Type == e
                                     select new KeyValuePair<double, SpatialEntityType>(
@@ -196,16 +206,15 @@ namespace Space.Game
                                     
             // Get the sum of the probability array
             var sum = probabilityArray.Select(o => o.Key).Sum();
-            double max, min;
 
-            for(var i = 0; i < numberOfEntities; i += 1)
+            for (var i = 0; i < numberOfEntities; i += 1)
             {
                 SpatialEntityType itemType = SpatialEntityType.Planet;
-                var value = r.NextDouble()*sum;
+                var value = r.NextDouble() * sum;
                 var count = 0.0;
-                
+
                 // Using the randomly generated value, get the item type from the array
-                for(var j = 0; j < probabilityArray.Count; j += 1)
+                for (var j = 0; j < probabilityArray.Count; j += 1)
                 {
                     count += probabilityArray[j].Key;
                     if (value < count)
@@ -219,38 +228,52 @@ namespace Space.Game
 
                 // now create the entity!!!
                 // This may be refactored to just use entity type and get rid of the Planet class.
-                if(itemType == SpatialEntityType.Planet)
+                if (itemType == SpatialEntityType.Planet)
                 {
                     entity = this.planetRepository.Create();
                     solarSystem.Planets.Add((Planet)entity);
                     var planet = entity as Planet;
 
                     // TODO: figure out the planet building capacity and bonuses here....
-                    planet.BuildingCapacity = r.Next(150, 350);
+                    if (planet != null)
+                    {
+                        planet.BuildingCapacity = r.Next(150, 350);
+                    }
                 }
                 else
                 {
                     entity = this.spatialEntityRepository.Create();
                 }
+
+                if (entity == null)
+                {
+                    continue;
+                }
+
                 solarSystem.SpatialEntities.Add(entity);
                 
                 entity.Type = itemType;
 
                 var entitySettings = ssc.SpatialEntityProbabilities.FirstOrDefault(o => o.Type == itemType);
 
-                // make the radius
-                max = entitySettings.MaximumRadius;
-                min = entitySettings.MinimumRadius;
+                if (entitySettings == null)
+                {
+                    throw new Exception("foobar");
+                }
 
-                entity.Radius = r.NextDouble()*(max - min) + min;
+                // make the radius
+                var max = entitySettings.MaximumRadius;
+                var min = entitySettings.MinimumRadius;
+
+                entity.Radius = (r.NextDouble() * (max - min)) + min;
 
                 // make the mass
                 max = entitySettings.MaximumMass;
                 min = entitySettings.MinimumMass;
 
                 // Random mass * the area of the planet (could use volume but it doesn't really matter)
-                entity.Mass = r.NextDouble() * (max - min) + min;
-                entity.Mass *= entity.Radius*entity.Radius*Math.PI;
+                entity.Mass = (r.NextDouble() * (max - min)) + min;
+                entity.Mass *= entity.Radius * entity.Radius * Math.PI;
             }
 
             // find the largest entity to use as the center of the solar system
@@ -266,13 +289,13 @@ namespace Space.Game
             {
                 var entity = entities[i];
 
-                entity.OrbitRadius = (float)Math.Pow(16*i, 2.2) * settings.SolarSystemScalar;
-                
-                var randomRadians = r.NextDouble()*CircleCoefficient;
-                entity.Latitude = (float)(entity.OrbitRadius * Math.Cos(randomRadians));
-                entity.Longitude = (float)(entity.OrbitRadius * Math.Sin(randomRadians));
+                entity.OrbitRadius = Math.Pow(16 * i, 2.2) * settings.SolarSystemScalar;
 
-                entity.OrbitSpeed = (float)(r.NextDouble() * settings.OrbitSpeedDifference + settings.OrbitSpeedMinimum) * settings.SolarSystemScalar;
+                var randomRadians = r.NextDouble() * CircleCoefficient;
+                entity.Latitude = entity.OrbitRadius * Math.Cos(randomRadians);
+                entity.Longitude = entity.OrbitRadius * Math.Sin(randomRadians);
+
+                entity.OrbitSpeed = ((r.NextDouble() * settings.OrbitSpeedDifference) + settings.OrbitSpeedMinimum) * settings.SolarSystemScalar;
             }
 
             solarSystem.SpatialEntities = entities;

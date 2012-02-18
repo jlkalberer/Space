@@ -17,7 +17,7 @@ namespace Space.DTO.Spatial
     /// <summary>
     /// A container for the current game session.
     /// </summary>
-    public class Galaxy : IDataObject
+    public class Galaxy : IDataObject<int>
     {
         #region Implementation of IDataObject
 

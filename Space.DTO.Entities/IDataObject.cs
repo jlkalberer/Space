@@ -1,10 +1,25 @@
-﻿namespace Space.DTO.Entities
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IDataObject.cs" company="COMPANY_PLACEHOLDER">
+//   John Kalberer
+// </copyright>
+// <summary>
+//   Used to give a DTO a common property for a primary key.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Space.DTO.Entities
 {
-    public interface IDataObject
+    /// <summary>
+    /// Used to give a DTO a common property for a primary key.
+    /// </summary>
+    /// <typeparam name="TKey">
+    /// The primary key type.
+    /// </typeparam>
+    public interface IDataObject<TKey>
     {
         /// <summary>
-        /// Used as the primary key for the entity
+        /// Gets or sets the primary key for the entity
         /// </summary>
-        int ID { get; set; }
+        TKey ID { get; set; }
     }
 }
