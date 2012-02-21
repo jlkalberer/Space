@@ -34,22 +34,27 @@ namespace Space.Game
         /// Repository to access any players.
         /// </summary>
         private readonly IPlayerRepository playerRepository;
-       
+
         /// <summary>
         /// Repository to access any galaxies.
         /// </summary>
         private readonly IGalaxyRepository galaxyRepository;
-        
+
+        /// <summary>
+        /// Repository to access any galaxy settings.
+        /// </summary>
+        private readonly IGalaxySettingsRepository galaxySettingsRepository;
+
         /// <summary>
         /// Repository to access any solar systems.
         /// </summary>
         private readonly ISolarSystemRepository solarSystemRepository;
-        
+
         /// <summary>
         /// Repository to access any planets.
         /// </summary>
         private readonly IPlanetRepository planetRepository;
-        
+
         /// <summary>
         /// Repository to access any spatial entities.
         /// </summary>
@@ -64,6 +69,9 @@ namespace Space.Game
         /// <param name="galaxyRepository">
         /// The galaxy repository.
         /// </param>
+        /// <param name="galaxySettingsRepository">
+        /// The Galaxy Settings repository.
+        /// </param>
         /// <param name="solarSystemRepository">
         /// The solar system repository.
         /// </param>
@@ -76,12 +84,14 @@ namespace Space.Game
         public Game(
             IPlayerRepository playerRepository,
             IGalaxyRepository galaxyRepository,
+            IGalaxySettingsRepository galaxySettingsRepository,
             ISolarSystemRepository solarSystemRepository,
             IPlanetRepository planetRepository,
             ISpatialEntityRepository spatialEntityRepository)
         {
             this.playerRepository = playerRepository;
             this.galaxyRepository = galaxyRepository;
+            this.galaxySettingsRepository = galaxySettingsRepository;
             this.solarSystemRepository = solarSystemRepository;
             this.planetRepository = planetRepository;
             this.spatialEntityRepository = spatialEntityRepository;
@@ -127,16 +137,26 @@ namespace Space.Game
         /// <summary>
         /// Creates a Galaxy using supplied settings.
         /// </summary>
-        /// <param name="settings">
-        /// The settings.
+        /// <param name="galaxyID">
+        /// The galaxy to use as a template
         /// </param>
         /// <returns>
         /// A new Galaxy stored in a datastore.
         /// </returns>
-        public Galaxy GenerateGalaxy(GalaxySettings settings)
+        public Galaxy GenerateGalaxy(int? galaxyID)
         {
             var solarSystems = new List<SolarSystem>();
             var r = new Random();
+
+            GalaxySettings settings;
+            if (!galaxyID.HasValue)
+            {
+                settings = this.galaxySettingsRepository.EagerGet(1);
+            }
+            else
+            {
+                settings = this.galaxySettingsRepository.EagerGet(galaxyID.GetValueOrDefault());
+            }
 
             Parallel.For(
                 0,
@@ -145,17 +165,19 @@ namespace Space.Game
                     0,
                     settings.Height,
                     j =>
+                    {
+                        if (r.NextDouble() <=
+                            settings.SystemGenerationProbability)
                         {
-                                      if (r.NextDouble() >
-                                          settings.SystemGenerationProbability)
-                                      {
-                                          // create a solar system here...
-                                          var solarSystem = CreateSolarSystem(settings);
-                                          solarSystem.Latitude = i;
-                                          solarSystem.Longitude = j;
-                                          solarSystems.Add(solarSystem);
-                                      }
-                                  }));
+                            return;
+                        }
+
+                        // create a solar system here...
+                        var solarSystem = CreateSolarSystem(settings);
+                        solarSystem.Latitude = i;
+                        solarSystem.Longitude = j;
+                        solarSystems.Add(solarSystem);
+                    }));
 
             foreach (var solarSystem in solarSystems)
             {
@@ -179,21 +201,21 @@ namespace Space.Game
         }
 
         /// <summary>
-        /// Creates a SolarSystem in a Galaxy.
+        /// Creates a SolarSystemConstants in a Galaxy.
         /// </summary>
         /// <param name="settings">
         /// The settings.
         /// </param>
         /// <returns>
-        /// A new SolarSystem stored in a datastore.
+        /// A new SolarSystemConstants stored in a datastore.
         /// </returns>
         private SolarSystem CreateSolarSystem(GalaxySettings settings)
         {
             var solarSystem = this.solarSystemRepository.Create();
-            
+
             // get the type of solar system -- what type of central mass it has
             var r = new Random();
-            var ssc = settings.SolarSystem;
+            var ssc = settings.SolarSystemConstants;
 
             var numberOfEntities = r.Next(ssc.MinimumEntities, ssc.MaximumEntities);
 
@@ -203,7 +225,7 @@ namespace Space.Game
                                     where o.Type == e
                                     select new KeyValuePair<double, SpatialEntityType>(
                                         o.SpawningProbability, e)).ToList();
-                                    
+
             // Get the sum of the probability array
             var sum = probabilityArray.Select(o => o.Key).Sum();
 
@@ -251,7 +273,7 @@ namespace Space.Game
                 }
 
                 solarSystem.SpatialEntities.Add(entity);
-                
+
                 entity.Type = itemType;
 
                 var entitySettings = ssc.SpatialEntityProbabilities.FirstOrDefault(o => o.Type == itemType);

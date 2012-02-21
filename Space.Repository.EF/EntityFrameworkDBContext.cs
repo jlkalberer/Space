@@ -84,7 +84,7 @@ namespace Space.Repository.EF
         /// <summary>
         /// Gets or sets SolarSystemConstants.
         /// </summary>
-        public DbSet<BuildCosts> BuildCosts { get; set; }
+        public DbSet<BuildingCosts> BuildCosts { get; set; }
         
         /// <summary>
         /// Gets or sets Constants.
@@ -162,7 +162,7 @@ namespace Space.Repository.EF
 
             modelBuilder.Entity<Galaxy>()
                 .HasRequired(g => g.GalaxySettings)
-                .WithRequiredDependent();
+                .WithOptional();
 
             modelBuilder.Entity<SolarSystem>()
                 .HasKey(ss => ss.ID);
@@ -177,10 +177,11 @@ namespace Space.Repository.EF
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<GalaxySettings>()
-                .HasKey(gs => gs.GalaxyID);
+                .HasKey(gs => gs.ID);
 
             modelBuilder.Entity<GalaxySettings>()
-                .HasRequired(gs => gs.SolarSystem);
+                .HasRequired(gs => gs.SolarSystemConstants)
+                .WithRequiredPrincipal();
 
             modelBuilder.Entity<GalaxySettings>()
                 .HasMany(gs => gs.BuildingCosts)
@@ -188,7 +189,8 @@ namespace Space.Repository.EF
 
             modelBuilder.Entity<SolarSystemConstants>()
                 .HasMany(ssc => ssc.SpatialEntityProbabilities)
-                .WithRequired();
+                .WithRequired()
+                .HasForeignKey(sep => sep.SolarSystemConstantsID);
         }
     }
 }

@@ -1,20 +1,20 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="IGalaxyRepository.cs" company="COMPANY_PLACEHOLDER">
+// <copyright file="IGalaxySettingsRepository.cs" company="COMPANY_PLACEHOLDER">
 //   John Kalberer
 // </copyright>
 // <summary>
-//   The repository interface used for Galaxies.
+//   The repository interface used for Galaxy Settings.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace Space.Repository
 {
-    using Space.DTO.Spatial;
+    using Space.DTO;
 
     /// <summary>
-    /// The repository interface used for Galaxies.
+    /// The repository interface used for Galaxy Settings.
     /// </summary>
-    public interface IGalaxyRepository : ICrud<int, Galaxy>, IEager<int, Galaxy>
+    public interface IGalaxySettingsRepository : ICrud<int, GalaxySettings>, IEager<int, GalaxySettings>
     {
     }
 }

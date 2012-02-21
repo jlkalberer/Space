@@ -11,6 +11,7 @@ namespace Space.Console
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
 
     using Ninject;
@@ -43,9 +44,16 @@ namespace Space.Console
                     new EntityFrameworkModule(), 
                     new ConsoleModule()
                 });
+
+            var initializer = kernel.Get<IDatabaseInitializer<EntityFrameworkDbContext>>();
+            Database.SetInitializer(initializer);
+
             var db = kernel.Get<EntityFrameworkDbContext>();
-            db.Database.Delete(); // delete the database each time we run so we can start from scratch
-            db.Database.Create();
+
+            //db.Database.Delete(); // delete the database each time we run so we can start from scratch
+            //db.Database.Create();
+
+            //db.Database.Initialize(true);
 
             var playerRepository = kernel.Get<IPlayerRepository>();
             var galaxyRepository = kernel.Get<IGalaxyRepository>();
@@ -53,10 +61,9 @@ namespace Space.Console
             var game = kernel.Get<Game.Game>();
 
             var player = CreatePlayer(playerRepository);
-            
+
             // These settings will be loaded from some default values + user created values.
-            var galaxySettings = new GalaxySettings();
-            var galaxy = game.GenerateGalaxy(galaxySettings);
+            var galaxy = game.GenerateGalaxy(null);
             galaxy.Players = new List<Player>
                                  {
                                      player

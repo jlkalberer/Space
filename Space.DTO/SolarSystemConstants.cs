@@ -18,15 +18,14 @@ namespace Space.DTO
     /// </summary>
     public sealed class SolarSystemConstants : IDataObject<int>
     {
-        #region Implementation of IDataObject
+        #region Implementation of IDataObject<int>
 
         /// <summary>
-        /// Gets or sets ID.
+        /// Gets or sets the primary key for the entity
         /// </summary>
         public int ID { get; set; }
 
         #endregion
-
         /// <summary>
         /// Gets or sets the minimum number of entities to spawn in a solar system
         /// </summary>

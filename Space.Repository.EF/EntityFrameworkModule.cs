@@ -9,6 +9,8 @@
 
 namespace Space.Repository.EF
 {
+    using System.Data.Entity;
+
     using Ninject.Modules;
 
     /// <summary>
@@ -24,9 +26,11 @@ namespace Space.Repository.EF
         public override void Load()
         {
             Bind<EntityFrameworkDbContext>().ToSelf().InSingletonScope();
+            Bind<IDatabaseInitializer<EntityFrameworkDbContext>>().To<EntityFrameworkInitializer>().InSingletonScope();
             Bind<IPlayerRepository>().To<PlayerRepository>();
 
             Bind<IGalaxyRepository>().To<GalaxyRepository>();
+            Bind<IGalaxySettingsRepository>().To<GalaxySettingsRepository>();
             Bind<ISolarSystemRepository>().To<SolarSystemRepository>();
             Bind<ISpatialEntityRepository>().To<SpatialEntityRepository>();
             Bind<IPlanetRepository>().To<PlanetRepository>();

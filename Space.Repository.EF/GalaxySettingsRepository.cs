@@ -1,50 +1,69 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="GalaxyRepository.cs" company="COMPANY_PLACEHOLDER">
+// <copyright file="GalaxySettingsRepository.cs" company="COMPANY_PLACEHOLDER">
 //   John Kalberer
 // </copyright>
 // <summary>
-//   Defines the GalaxyRepository type.
+//   The EntityFramework implementation for accessing GalaxySettings from the datastore.
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
 namespace Space.Repository.EF
 {
     using System;
+    using System.Data.Entity.Infrastructure;
     using System.Linq;
 
-    using Space.DTO.Spatial;
+    using Space.DTO;
 
     /// <summary>
-    /// Defines the GalaxyRepository type.
+    /// The EntityFramework implementation for accessing GalaxySettings from the datastore.
     /// </summary>
-    public class GalaxyRepository : IGalaxyRepository
+    public class GalaxySettingsRepository : IGalaxySettingsRepository
     {
         /// <summary>
-        /// Member for the EntityFrameworDbContext
+        /// The data context.
         /// </summary>
         private readonly EntityFrameworkDbContext context;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GalaxyRepository"/> class.
+        /// Reference to the GalaxySettings DbQuery.
+        /// </summary>
+        private readonly DbQuery<GalaxySettings> settingsDbQuery; 
+        
+        /// <summary>
+        /// Initializes a new instance of the <see cref="GalaxySettingsRepository"/> class.
         /// </summary>
         /// <param name="context">
         /// The context.
         /// </param>
-        public GalaxyRepository(EntityFrameworkDbContext context)
+        public GalaxySettingsRepository(EntityFrameworkDbContext context)
         {
             this.context = context;
+            this.settingsDbQuery = this.context.GalaxySettings
+                                                .Include("SolarSystemConstants")
+                                                .Include("BuildingCosts")
+                                                .Include("SolarSystemConstants.SpatialEntityProbabilities");
         }
 
-        #region Implementation of ICrud<in int,Galaxy>
-
         /// <summary>
-        /// Gets a queryable collection of entities.
+        /// Gets a queryable collection of items where the returned objects are eagerly loaded.
         /// </summary>
-        public IQueryable<Galaxy> All
+        public IQueryable<GalaxySettings> EagerAll
         {
             get
             {
-                return this.context.Galaxies;
+                return this.settingsDbQuery;
+            }
+        }
+
+        /// <summary>
+        /// Gets a queryable collection of items.
+        /// </summary>
+        public IQueryable<GalaxySettings> All
+        {
+            get
+            {
+                return this.context.GalaxySettings;
             }
         }
 
@@ -52,9 +71,9 @@ namespace Space.Repository.EF
         /// Creates an item in the datastore.
         /// </summary>
         /// <returns>Item created in the datastore.</returns>
-        public Galaxy Create()
+        public GalaxySettings Create()
         {
-            return this.context.Galaxies.Create();
+            return this.context.GalaxySettings.Create();
         }
 
         /// <summary>
@@ -62,9 +81,9 @@ namespace Space.Repository.EF
         /// </summary>
         /// <param name="entity">The item to store in the datastore.</param>
         /// <returns>The item stored in the datastore.</returns>
-        public Galaxy Add(Galaxy entity)
+        public GalaxySettings Add(GalaxySettings entity)
         {
-            return this.context.Galaxies.Add(entity);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -72,9 +91,9 @@ namespace Space.Repository.EF
         /// </summary>
         /// <param name="key">The primary key of the item.</param>
         /// <returns>The item from the datastore.</returns>
-        public Galaxy Get(int key)
+        public GalaxySettings Get(int key)
         {
-            throw new NotImplementedException();
+            return this.context.GalaxySettings.FirstOrDefault(gs => gs.ID == key);
         }
 
         /// <summary>
@@ -82,7 +101,7 @@ namespace Space.Repository.EF
         /// </summary>
         /// <param name="value">The value to update in the datastore.</param>
         /// <returns>The success status of the update.</returns>
-        public bool Update(Galaxy value)
+        public bool Update(GalaxySettings value)
         {
             throw new NotImplementedException();
         }
@@ -103,23 +122,7 @@ namespace Space.Repository.EF
         /// <returns>The success status of the save.</returns>
         public bool SaveChanges()
         {
-            this.context.SaveChanges();
-            return true;
-        }
-
-        #endregion
-
-        #region Implementation of IEager<in int,out Galaxy>
-
-        /// <summary>
-        /// Gets a queryable collection of items where the returned objects are eagerly loaded.
-        /// </summary>
-        public IQueryable<Galaxy> EagerAll
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -127,11 +130,9 @@ namespace Space.Repository.EF
         /// </summary>
         /// <param name="key">The primary key of the item.</param>
         /// <returns>The item from the datastore.</returns>
-        public Galaxy EagerGet(int key)
+        public GalaxySettings EagerGet(int key)
         {
-            throw new NotImplementedException();
+            return this.settingsDbQuery.SingleOrDefault(gs => gs.ID == key);
         }
-
-        #endregion
     }
 }

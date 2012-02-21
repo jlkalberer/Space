@@ -27,6 +27,11 @@ namespace Space.DTO
         #endregion
 
         /// <summary>
+        /// Gets or sets the foreign key to the SolarSystemConstants.
+        /// </summary>
+        public int SolarSystemConstantsID { get; set; }
+
+        /// <summary>
         /// Gets or sets the type of spatial entity assosciated with the probabilities.
         /// </summary>
         public SpatialEntityType Type { get; set; }

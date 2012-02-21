@@ -1,104 +1,132 @@
-﻿namespace Space.DTO
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="GalaxySettings.cs" company="COMPANY_PLACEHOLDER">
+//   John Kalberer
+// </copyright>
+// <summary>
+//   Game setup used to create a galaxy
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
+
+namespace Space.DTO
 {
     using System.Collections.Generic;
+
+    using Space.DTO.Entities;
 
     /// <summary>
     /// Game setup used to create a galaxy
     /// </summary>
-    public class GalaxySettings
+    public class GalaxySettings : IDataObject<int>
     {
         #region Galaxy Setup
+        
         /// <summary>
-        /// The ID of the Galaxy the settings belong to.
+        /// Gets or sets the GalaxySettings primary key.
+        /// </summary>
+        public int ID { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ID of the Galaxy the settings belong to.
         /// </summary>
         public int GalaxyID { get; set; }
 
         /// <summary>
-        /// The width of the solar system
+        /// Gets or sets the width of the solar system
         /// </summary>
-        public int Width = 10;
+        public int Width { get; set; }
         
         /// <summary>
-        /// The height of the solar system.
+        /// Gets or sets the height of the solar system.
         /// </summary>
-        public int Height = 10;
+        public int Height { get; set; }
         
         /// <summary>
-        /// The probability of how many systems will be generated.
+        /// Gets or sets the probability of how many systems will be generated.
         /// </summary>
-        public double SystemGenerationProbability = 0.94f;
+        public double SystemGenerationProbability { get; set; }
         
         /// <summary>
-        /// The maximum speed a planet can move while orbiting a mass.
+        /// Gets or sets the maximum speed a planet can move while orbiting a mass.
         /// </summary>
-        public double OrbitSpeedMaximum = 100000.0f;
+        public double OrbitSpeedMaximum { get; set; }
         
         /// <summary>
-        /// The minimum speed a planet can move while orbiting a mass.
+        /// Gets or sets the minimum speed a planet can move while orbiting a mass.
         /// </summary>
-        public double OrbitSpeedMinimum = 30000.0f;
+        public double OrbitSpeedMinimum { get; set; }
 
         /// <summary>
+        /// Gets or sets the solar system scalar.
         /// This is used to scale how far apart the planets are relative to the solar system.
         /// </summary>
-        public double SolarSystemScalar = 1;
+        public double SolarSystemScalar { get; set; }
 
         /// <summary>
-        /// The decay of resources each tick in the galaxy
+        /// Gets or sets the decay of resources each tick in the galaxy
         /// </summary>
-        public double Decay = 0.005f;
+        public double Decay { get; set; }
 
         /// <summary>
-        /// Used multiple times in calculations to get the difference between the orbit speed maximum and minimum.
+        /// Gets the difference between the maximum and minimum orbital speeds.
         /// </summary>
-        public double OrbitSpeedDifference { get { return OrbitSpeedMaximum - OrbitSpeedMinimum; } }
+        public double OrbitSpeedDifference
+        {
+            get
+            {
+                return this.OrbitSpeedMaximum - this.OrbitSpeedMinimum;
+            }
+        }
+
         #endregion
 
         #region Planet Defaults
 
         /// <summary>
-        /// The rate at which populations grow.
+        /// Gets or sets the rate at which populations grow.
         /// </summary>
-        public double PopulationGrowth = 5;
+        public double PopulationGrowth { get; set; }
 
         /// <summary>
-        /// Used to calculate the base population of a planet.  If the Maximum number of buildings (before overbuilding) is 150, 
+        /// Gets or sets a value used to calculate the maximum population of a planet.  If the Maximum number of buildings (before overbuilding) is 150, 
         /// the maximum population is 40 * 150.
         /// </summary>
-        public double MaxPopulationPerBuildings = 40;
+        public double MaxPopulationPerBuildings { get; set; }
 
         /// <summary>
-        /// This is the minimum number of inhabitants on a planet.
+        /// Gets or sets the minimum number of inhabitants on a planet.
         /// </summary>
-        public int BasePopulation = 250;
+        public int BasePopulation { get; set; }
 
         /// <summary>
-        /// How much cash is output from the cash factory each tick.
+        /// Gets or sets how much cash is output from the cash factory each tick.
         /// </summary>
-        public double CashOutput = 8;
+        public double CashOutput { get; set; }
 
         /// <summary>
-        /// How much food is output from each farm each tick.
+        /// Gets or sets how much food is output from each farm each tick.
         /// </summary>
-        public double FoodOutput = 100;
+        public double FoodOutput { get; set; }
 
         /// <summary>
-        /// The maximum number of people that can live in the living quarters.
+        /// Gets or sets the maximum number of people that can live in the living quarters.
         /// </summary>
-        public double PeoplePerLivingQuarter = 650;
+        public double PeoplePerLivingQuarter { get; set; }
 
         /// <summary>
-        /// How much research is generated from the research stations.
+        /// Gets or sets How much research is generated from the research stations.
         /// </summary>
-        public double ResearchOutput = 20;
+        public double ResearchOutput { get; set; }
 
         #endregion
 
-        public SolarSystemConstants SolarSystem { get; set; }
+        /// <summary>
+        /// Gets or sets SolarSystemConstants.
+        /// </summary>
+        public SolarSystemConstants SolarSystemConstants { get; set; }
 
         /// <summary>
-        /// Collection of build costs for all building types.
+        /// Gets or sets the collection of build costs for all building types.
         /// </summary>
-        public ICollection<BuildCosts> BuildingCosts { get; set; }
+        public ICollection<BuildingCosts> BuildingCosts { get; set; }
     }
 }
