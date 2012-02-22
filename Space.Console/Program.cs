@@ -21,6 +21,7 @@ namespace Space.Console
     using Space.DTO.Buildings;
     using Space.DTO.Players;
     using Space.DTO.Spatial;
+    using Space.Game;
     using Space.Infrastructure;
     using Space.Repository;
     using Space.Repository.EF;
@@ -48,17 +49,10 @@ namespace Space.Console
             var initializer = kernel.Get<IDatabaseInitializer<EntityFrameworkDbContext>>();
             Database.SetInitializer(initializer);
 
-            var db = kernel.Get<EntityFrameworkDbContext>();
-
-            //db.Database.Delete(); // delete the database each time we run so we can start from scratch
-            //db.Database.Create();
-
-            //db.Database.Initialize(true);
-
             var playerRepository = kernel.Get<IPlayerRepository>();
             var galaxyRepository = kernel.Get<IGalaxyRepository>();
 
-            var game = kernel.Get<Game.Game>();
+            var game = kernel.Get<Game>();
 
             var player = CreatePlayer(playerRepository);
 
@@ -90,6 +84,7 @@ namespace Space.Console
                 Console.WriteLine("\r\n******");
                 Console.WriteLine("g -- render galaxy");
                 Console.WriteLine("c -- create player");
+                Console.WriteLine("b -- build on planet");
                 Console.WriteLine("p -- print player stats");   
                 Console.WriteLine("t -- run tick");
                 Console.WriteLine("******");
@@ -116,7 +111,7 @@ namespace Space.Console
                                 break;
                             }
 
-                            BuildBuildings(player, planetToBuildOn);
+                            BuildBuildings(planetToBuildOn, player);
                         }
 
                         break;
@@ -190,26 +185,26 @@ namespace Space.Console
         /// <summary>
         /// Builds buildings on a planet.
         /// </summary>
-        /// <param name="player">
-        /// The player.
-        /// </param>
         /// <param name="planet">
         /// The planet.
         /// </param>
-        private static void BuildBuildings(Player player, Planet planet)
+        /// <param name="player">
+        /// The player.
+        /// </param>
+        private static void BuildBuildings(Planet planet, Player player)
         {
             do
             {
                 Console.WriteLine("\r\n******");
                 Console.WriteLine("Select building type");
 
-                var buildingTypes = SystemTypes.EnumToList<BuildingType>() as List<BuildingType>;
+                var buildingTypes = SystemTypes.EnumToList<BuildingType>();
                 if (buildingTypes == null)
                 {
                     return;
                 }
 
-                for (var i = 0; i < buildingTypes.Count; i += 1)
+                for (var i = 0; i < buildingTypes.Count(); i += 1)
                 {
                     Console.WriteLine("{0} - {1}", i, buildingTypes.ElementAt(i));
                 }
@@ -230,7 +225,8 @@ namespace Space.Console
                 }
 
                 // TODO - Get max number of buildings player can build
-                Console.WriteLine("Number of buildings:");
+                var maximumBuildings = planet.MaximumBuildings(player, (BuildingType)buildingType);
+                Console.WriteLine("Number of buildings - (max is {0}):", maximumBuildings);
 
                 input = Console.ReadLine();
                 int buildingCount;

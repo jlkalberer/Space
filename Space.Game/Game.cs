@@ -151,7 +151,7 @@ namespace Space.Game
             GalaxySettings settings;
             if (!galaxyID.HasValue)
             {
-                settings = this.galaxySettingsRepository.EagerGet(1);
+                settings = this.galaxySettingsRepository.EagerAll.First();
             }
             else
             {
