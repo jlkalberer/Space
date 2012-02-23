@@ -143,8 +143,9 @@ namespace Space.DTO.Spatial
         {
             get
             {
-                return this.CashFactoryCount + this.EnergyLabCount + this.FarmCount + this.LaserCount + this.LivingQuartersCount + this.ManaCount
-                    + this.MineCount + this.TaxOfficeCount + this.ResearchLabCount;
+                return this.CashFactoryCount + this.EnergyLabCount + this.FarmCount + this.LaserCount
+                       + this.LivingQuartersCount + this.ManaCount + this.MineCount + this.TaxOfficeCount
+                       + this.ResearchLabCount + (HasPortal ? 1 : 0);
             }
         }
 

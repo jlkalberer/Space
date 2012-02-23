@@ -119,6 +119,9 @@ namespace Space.DTO
 
         #endregion
 
+        /// <summary>
+        /// Gets or sets PlayerStartingValues.
+        /// </summary>
         public NetValue PlayerStartingValues { get; set; }
 
         /// <summary>
