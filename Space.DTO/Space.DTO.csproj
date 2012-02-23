@@ -36,6 +36,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuildCosts.cs" />
     <Compile Include="BuildingCosts.cs" />
     <Compile Include="GalaxySettings.cs" />
     <Compile Include="Players\AI.cs" />

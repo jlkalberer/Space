@@ -10,6 +10,7 @@
 namespace Space.Game
 {
     using System;
+    using System.Collections.Generic;
     using System.Linq;
 
     using Space.DTO;
@@ -152,6 +153,26 @@ namespace Space.Game
         }
 
         /// <summary>
+        /// Subtract all resources from one another.
+        /// </summary>
+        /// <param name="netValue">
+        /// The net value.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        public static void Subtract(this NetValue netValue, NetValue value)
+        {
+            netValue.Cash -= value.Cash;
+            netValue.Energy -= value.Energy;
+            netValue.Food -= value.Food;
+            netValue.Population -= value.Population;
+            netValue.Iron -= value.Iron;
+            netValue.Research -= value.Research;
+            netValue.BuildingCount -= value.BuildingCount;
+        }
+
+        /// <summary>
         /// Add all resources together.
         /// </summary>
         /// <param name="planet">
@@ -174,9 +195,6 @@ namespace Space.Game
         /// <param name="planet">
         /// The planet.
         /// </param>
-        /// <param name="settings">
-        /// The settings.
-        /// </param>
         /// <param name="player">
         /// The player.
         /// </param>
@@ -184,18 +202,18 @@ namespace Space.Game
         /// The type.
         /// </param>
         /// <returns>
-        /// The maximum buildings.
+        /// The maximum buildings and the cost.
         /// </returns>
-        public static int MaximumBuildings(this Planet planet, Player player, BuildingType type)
+        public static NetValue MaximumBuildings(this Planet planet, Player player, BuildingType type)
         {
-            int output = 0;
+            int output = planet.TotalBuildings;
 
             var settings = player.Galaxy.GalaxySettings;
             var buildingCost = settings.BuildingCosts.SingleOrDefault(bc => bc.Type == type);
 
             if (buildingCost == null)
             {
-                return output;
+                return null;
             }
 
             // TODO -- include empire size in calculations
@@ -205,64 +223,103 @@ namespace Space.Game
                     player.TotalNetValue.Food, buildingCost.Food, player.TotalNetValue.Iron, buildingCost.Iron,
                     player.TotalNetValue.Mana, buildingCost.Mana
                 };
+            
+            var maxCounts = new List<int>();
 
             for (var i = 0; i < calculationArray.Length; i += 2)
             {
-                if (calculationArray[i] < 0.1)
-                {
-                    continue;
-                }
-
-                var maxCount = (int)Math.Floor(calculationArray[i] / calculationArray[i + 1]);
-                output = Math.Max(output, Maximum(calculationArray[i], calculationArray[i + 1], maxCount, planet.BuildingCapacity));
+                maxCounts.Add((int)Math.Floor(calculationArray[i] / calculationArray[i + 1]));
             }
 
-            return output;
+            var maxFound = false;
+            var totals = new double[calculationArray.Length / 2];
+            do
+            {
+                output++;
+                for (var i = 0; i < calculationArray.Length; i += 2)
+                {
+                    totals[i / 2] += calculationArray[i + 1] * Math.Max(1, (output / planet.BuildingCapacity));
+                    if (totals[i / 2] > calculationArray[i])
+                    {
+                        maxFound = true;
+                    }
+                }
+            }
+            while (!maxFound);
+
+            // Always return 0 or greater
+            return new NetValue
+                {
+                    BuildingCount = Math.Max(0, output - planet.TotalBuildings - 1),
+                    Cash = totals[0],
+                    Energy = totals[0],
+                    Food = totals[0],
+                    Iron = totals[0],
+                    Mana = totals[0]
+                };
         }
 
         /// <summary>
-        /// Gets the maximum number that can be created with when taking 
+        /// Builds buildings on a planet for a player
         /// </summary>
-        /// <param name="assetValue">
-        /// The asset value.
+        /// <param name="planet">
+        /// The planet.
         /// </param>
-        /// <param name="cost">
-        /// The cost.
+        /// <param name="player">
+        /// The player.
         /// </param>
-        /// <param name="maxCount">
-        /// The max count.
+        /// <param name="costs">
+        /// The costs.
         /// </param>
-        /// <param name="capacity">
-        /// The capacity.
+        /// <param name="type">
+        /// The type.
         /// </param>
         /// <returns>
-        /// The maximum value.
+        /// True if the buildings were successfully built.
         /// </returns>
-        private static int Maximum(double assetValue, double cost, int maxCount, int capacity = -1)
+        public static bool BuildBuildings(this Planet planet, Player player, NetValue costs, BuildingType type)
         {
-            if (cost > 0.1)
+            player.TotalNetValue.Subtract(costs);
+            
+            // Add the total building count * 2 since we just subtracted it
+            player.TotalNetValue.BuildingCount += costs.BuildingCount * 2;
+
+            // add buildings to planet
+            switch (type)
             {
-                return int.MaxValue;
+                case BuildingType.CashFactory:
+                    planet.CashFactoryCount += costs.BuildingCount;
+                    break;
+                case BuildingType.EnergyLab:
+                    planet.EnergyLabCount += costs.BuildingCount;
+                    break;
+                case BuildingType.Farm:
+                    planet.FarmCount += costs.BuildingCount;
+                    break;
+                case BuildingType.Laser:
+                    planet.LaserCount += costs.BuildingCount;
+                    break;
+                case BuildingType.LivingQuarters:
+                    planet.LivingQuartersCount += costs.BuildingCount;
+                    break;
+                case BuildingType.Mana:
+                    planet.ManaCount += costs.BuildingCount;
+                    break;
+                case BuildingType.Mine:
+                    planet.MineCount += costs.BuildingCount;
+                    break;
+                case BuildingType.Portal:
+                    planet.HasPortal = true;
+                    break;
+                case BuildingType.ResearchLab:
+                    planet.ResearchLabCount += costs.BuildingCount;
+                    break;
+                case BuildingType.TaxOffice:
+                    planet.TaxOfficeCount += costs.BuildingCount;
+                    break;
             }
 
-            var minCount = 0;
-            int mid;
-
-            do
-            {
-                mid = (minCount + maxCount) / 2;
-                if (assetValue > cost * mid * Math.Max(1, (mid / capacity) - 1))
-                {
-                    minCount = mid + 1;
-                }
-                else
-                {
-                    maxCount = mid - 1;
-                }
-            }
-            while (minCount < maxCount);
-
-            return mid;
+            return true;
         }
     }
 }

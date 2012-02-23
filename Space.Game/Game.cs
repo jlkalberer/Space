@@ -174,6 +174,12 @@ namespace Space.Game
 
                         // create a solar system here...
                         var solarSystem = CreateSolarSystem(settings);
+
+                        if (solarSystem == null)
+                        {
+                            return;
+                        }
+
                         solarSystem.Latitude = i;
                         solarSystem.Longitude = j;
                         solarSystems.Add(solarSystem);

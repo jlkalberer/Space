@@ -209,19 +209,20 @@ namespace Space.Console
                     Console.WriteLine("{0} - {1}", i, buildingTypes.ElementAt(i));
                 }
 
-                Console.WriteLine("Escape -- Finished building");
+                Console.WriteLine("-1 -- Finished building");
                 Console.WriteLine("******");
 
                 var input = Console.ReadLine();
-                if (input == ConsoleKey.Escape.ToString())
-                {
-                    break;
-                }
 
                 int buildingType;
                 if (!int.TryParse(input, out buildingType))
                 {
                     continue;
+                }
+
+                if (buildingType == -1)
+                {
+                    break;
                 }
 
                 // TODO - Get max number of buildings player can build

@@ -34,7 +34,23 @@ namespace Space.DTO
         /// <summary>
         /// Gets or sets the type of spatial entity assosciated with the probabilities.
         /// </summary>
-        public SpatialEntityType Type { get; set; }
+        public SpatialEntityType Type 
+        {
+            get
+            {
+                return (SpatialEntityType)this.TypeValue;
+            }
+
+            set
+            {
+                this.TypeValue = (int)value;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the value stored in the datastore.  Used since EntityFramework doesn't support enums.
+        /// </summary>
+        public int TypeValue { get; set; }
 
         /// <summary>
         /// Gets or sets the Spawning Probability of this type.

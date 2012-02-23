@@ -114,6 +114,11 @@ namespace Space.DTO.Spatial
         /// <summary>
         /// Gets or sets MineCount.
         /// </summary>
+        public int ManaCount { get; set; }
+
+        /// <summary>
+        /// Gets or sets MineCount.
+        /// </summary>
         public int MineCount { get; set; }
 
         /// <summary>
@@ -138,8 +143,8 @@ namespace Space.DTO.Spatial
         {
             get
             {
-                return this.CashFactoryCount + this.EnergyLabCount + this.FarmCount + this.LaserCount + this.LivingQuartersCount + this.MineCount
-                       + this.TaxOfficeCount + this.ResearchLabCount;
+                return this.CashFactoryCount + this.EnergyLabCount + this.FarmCount + this.LaserCount + this.LivingQuartersCount + this.ManaCount
+                    + this.MineCount + this.TaxOfficeCount + this.ResearchLabCount;
             }
         }
 

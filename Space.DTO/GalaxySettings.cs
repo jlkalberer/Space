@@ -119,6 +119,8 @@ namespace Space.DTO
 
         #endregion
 
+        public NetValue PlayerStartingValues { get; set; }
+
         /// <summary>
         /// Gets or sets SolarSystemConstants.
         /// </summary>
