@@ -103,9 +103,19 @@ namespace Space.DTO
         public double CashOutput { get; set; }
 
         /// <summary>
+        /// Gets or sets how much cash is given to the player for free each tick.
+        /// </summary>
+        public double PositiveIncomeCash { get; set; }
+
+        /// <summary>
         /// Gets or sets how much food is output from each farm each tick.
         /// </summary>
         public double FoodOutput { get; set; }
+
+        /// <summary>
+        /// Gets or sets the value used when calculating how much cash the player made for the population.
+        /// </summary>
+        public double PopulationCashDivider { get; set; }
 
         /// <summary>
         /// Gets or sets the maximum number of people that can live in the living quarters.

@@ -11,7 +11,6 @@ namespace Space.Game
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
 
     using Space.DTO;
     using Space.DTO.Buildings;
@@ -43,7 +42,7 @@ namespace Space.Game
             }
 
             // multiply by 0.01 to convert to percentage
-            var min1 = planet.Population * (1 + (settings.PopulationGrowth * bonuses.WelfareBonus * 0.01f));
+            var min1 = planet.Population * (1 + (settings.PopulationGrowth * bonuses.WelfareBonus * 0.01));
                 
             var min2 = settings.BasePopulation + (settings.MaxPopulationPerBuildings * planet.BuildingCapacity)
                        + (planet.LivingQuartersCount * settings.PeoplePerLivingQuarter * bonuses.WelfareBonus);
@@ -58,19 +57,21 @@ namespace Space.Game
             var cashBonus = bonuses.EconomyBonus * planet.CashBonus;
 
             // so the user always makes cash
-            var positiveIncome = 100 * cashBonus;
+            var positiveIncome = settings.PositiveIncomeCash * cashBonus;
+            var buildingCount = Math.Max(output.BuildingCount, 1);
             output.CashFactoryCash = planet.CashFactoryCount * settings.CashOutput * cashBonus;
-            output.PopulationCash = planet.Population / 30 * cashBonus;
-            output.TaxOfficeCash = (double)planet.TaxOfficeCount / (output.BuildingCount + 1)
+            output.PopulationCash = planet.Population / settings.PopulationCashDivider * cashBonus;
+            output.TaxOfficeCash = (double)planet.TaxOfficeCount / buildingCount
                                    * (positiveIncome + output.CashFactoryCash + output.PopulationCash);
 
             output.Cash = positiveIncome + output.CashFactoryCash + output.PopulationCash + output.TaxOfficeCash;
             
-            output.Energy = planet.EnergyLabCount * planet.PlutoniumBonus;
+            output.Energy = planet.EnergyLabCount * planet.EnergyBonus;
             output.Food = settings.FoodOutput * planet.FarmCount * planet.FoodBonus;
             output.Iron = planet.MineCount * planet.IronBonus;
+            output.Mana = planet.ManaCount * planet.ManaBonus;
 
-            output.Research = settings.ResearchOutput * planet.ResearchLabCount * bonuses.ResearchBonus;
+            output.Research = settings.ResearchOutput * planet.ResearchLabCount * planet.ResearchBonus * bonuses.ResearchBonus;
 
             return output;
         }
@@ -91,6 +92,7 @@ namespace Space.Game
             tickValue.DecayedEnergy = player.TotalNetValue.Energy * decay;
             tickValue.DecayedFood = player.TotalNetValue.Food * decay;
             tickValue.DecayedIron = player.TotalNetValue.Iron * decay;
+            tickValue.DecayedMana = player.TotalNetValue.Mana * decay;
 
             // Produced
             tickValue.Buildings = totalPlanetValue.BuildingCount;
@@ -110,6 +112,7 @@ namespace Space.Game
             player.TotalNetValue.Energy -= tickValue.DecayedEnergy;
             player.TotalNetValue.Food -= tickValue.DecayedFood;
             player.TotalNetValue.Iron -= tickValue.DecayedIron;
+            player.TotalNetValue.Mana -= tickValue.DecayedMana;
 
             // Add new values
             player.TotalNetValue.Add(totalPlanetValue);
@@ -146,6 +149,7 @@ namespace Space.Game
             netValue.Cash += value.Cash;
             netValue.Energy += value.Energy;
             netValue.Food += value.Food;
+            netValue.Mana += value.Mana;
             netValue.Population += value.Population;
             netValue.Iron += value.Iron;
             netValue.Research += value.Research;
@@ -166,6 +170,7 @@ namespace Space.Game
             netValue.Cash -= value.Cash;
             netValue.Energy -= value.Energy;
             netValue.Food -= value.Food;
+            netValue.Mana -= value.Mana;
             netValue.Population -= value.Population;
             netValue.Iron -= value.Iron;
             netValue.Research -= value.Research;
@@ -192,38 +197,35 @@ namespace Space.Game
         /// <summary>
         /// Calculates the maximum number of buildings a player can build on a particular planet.
         /// </summary>
+        /// <typeparam name="TType">
+        /// The type of build cost.
+        /// </typeparam>
         /// <param name="planet">
         /// The planet.
         /// </param>
         /// <param name="player">
         /// The player.
         /// </param>
-        /// <param name="type">
-        /// The type.
+        /// <param name="buildingCost">
+        /// The building Cost.
         /// </param>
         /// <returns>
         /// The maximum buildings and the cost.
         /// </returns>
-        public static NetValue MaximumBuildings(this Planet planet, Player player, BuildingType type)
+        public static NetValue MaximumToBeBuilt<TType>(this Planet planet, Player player, BuildCosts<TType> buildingCost)
         {
             int output = planet.TotalBuildings;
 
-            var settings = player.Galaxy.GalaxySettings;
-            var buildingCost = settings.BuildingCosts.SingleOrDefault(bc => bc.Type == type);
-
-            if (buildingCost == null)
-            {
-                return null;
-            }
+            var totalNetValue = player.TotalNetValue;
 
             // TODO -- include empire size in calculations
             var calculationArray = new[]
                 {
-                    player.TotalNetValue.Cash, buildingCost.Cash, player.TotalNetValue.Energy, buildingCost.Energy,
-                    player.TotalNetValue.Food, buildingCost.Food, player.TotalNetValue.Iron, buildingCost.Iron,
-                    player.TotalNetValue.Mana, buildingCost.Mana
+                    totalNetValue.Cash, buildingCost.Cash, totalNetValue.Energy, buildingCost.Energy,
+                    totalNetValue.Food, buildingCost.Food, totalNetValue.Iron, buildingCost.Iron,
+                    totalNetValue.Mana, buildingCost.Mana
                 };
-            
+
             var maxCounts = new List<int>();
 
             for (var i = 0; i < calculationArray.Length; i += 2)
@@ -236,26 +238,42 @@ namespace Space.Game
             do
             {
                 output++;
+
+                // This will tell us to kick out of the loop if the totals never get incremented.
+                var totalNotEqualToZero = 0;
                 for (var i = 0; i < calculationArray.Length; i += 2)
                 {
                     totals[i / 2] += calculationArray[i + 1] * Math.Max(1, (output / planet.BuildingCapacity));
-                    if (totals[i / 2] > calculationArray[i])
+                    if (totals[i / 2] > 0)
                     {
-                        maxFound = true;
+                        totalNotEqualToZero += 1;
                     }
+
+                    if (totals[i / 2] <= calculationArray[i])
+                    {
+                        continue;
+                    }
+
+                    maxFound = true;
+                    break;
+                }
+
+                if (totalNotEqualToZero == 0)
+                {
+                    maxFound = true;
                 }
             }
             while (!maxFound);
 
-            // Always return 0 or greater
             return new NetValue
                 {
+                    // Always return 0 or greater
                     BuildingCount = Math.Max(0, output - planet.TotalBuildings - 1),
                     Cash = totals[0],
-                    Energy = totals[0],
-                    Food = totals[0],
-                    Iron = totals[0],
-                    Mana = totals[0]
+                    Energy = totals[1],
+                    Food = totals[2],
+                    Iron = totals[3],
+                    Mana = totals[4]
                 };
         }
 

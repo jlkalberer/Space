@@ -52,7 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DTOExtensionsFacts.cs" />
+    <Compile Include="DTOExtensionsTests.cs" />
+    <Compile Include="GameTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +71,14 @@
     <ProjectReference Include="..\Space.Game\Space.Game.csproj">
       <Project>{91AC2368-ABD5-4360-8F5E-10771D784FAB}</Project>
       <Name>Space.Game</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Space.Infrastructure\Space.Infrastructure.csproj">
+      <Project>{C06BD5FC-4D83-470A-A6FE-77744B42CC41}</Project>
+      <Name>Space.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Space.Repository\Space.Repository.csproj">
+      <Project>{B1E3719F-2086-4819-B4E9-4FF0F7FE0A95}</Project>
+      <Name>Space.Repository</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

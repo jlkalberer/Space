@@ -37,41 +37,32 @@ namespace Space.Repository.EF
                 return;
             }
 
-            var galaxySettings = new GalaxySettings();
-            galaxySettings.Width = 10;
-            galaxySettings.Height = 10;
-            galaxySettings.SystemGenerationProbability = 0.94;
-            galaxySettings.OrbitSpeedMaximum = 100000.0;
-            galaxySettings.OrbitSpeedMaximum = 30000.0;
-            galaxySettings.SolarSystemScalar = 1;
-            galaxySettings.Decay = 0.005;
+            var galaxySettings = new GalaxySettings
+                {
+                    Width = 10,
+                    Height = 10,
+                    SystemGenerationProbability = 0.94,
+                    OrbitSpeedMaximum = 100000.0,
+                    OrbitSpeedMinimum = 30000.0,
+                    SolarSystemScalar = 1,
+                    Decay = 0.005,
+                    PopulationGrowth = 5,
+                    MaxPopulationPerBuildings = 40,
+                    BasePopulation = 250,
+                    CashOutput = 8,
+                    FoodOutput = 100,
+                    PeoplePerLivingQuarter = 650,
+                    ResearchOutput = 20
+                };
 
-            galaxySettings.PopulationGrowth = 5;
-            galaxySettings.MaxPopulationPerBuildings = 40;
-            galaxySettings.BasePopulation = 250;
-            galaxySettings.CashOutput = 8;
-            galaxySettings.FoodOutput = 100;
-            galaxySettings.PeoplePerLivingQuarter = 650;
-            galaxySettings.ResearchOutput = 20;
+            var solarSystemConstants = new SolarSystemConstants { MaximumEntities = 25, MinimumEntities = 10 };
 
-            var solarSystemConstants = new SolarSystemConstants();
-            solarSystemConstants.MaximumEntities = 25;
-            solarSystemConstants.MinimumEntities = 10;
-
-            var planetProbabilities = new List<SpatialEntityProbabilities>();
-
-            foreach (var type in SystemTypes.EnumToList<SpatialEntityType>())
-            {
-                planetProbabilities.Add(new SpatialEntityProbabilities
-                    {
-                        Type = type,
-                        MaximumMass = 1,
-                        MaximumRadius = 1,
-                        MinimumMass = 1,
-                        MinimumRadius = 1,
-                        SpawningProbability = .5
-                    });
-            }
+            var planetProbabilities = SystemTypes.EnumToList<SpatialEntityType>()
+                                        .Select(type => new SpatialEntityProbabilities
+                                            {
+                                                Type = type, MaximumMass = 1, MaximumRadius = 1, 
+                                                MinimumMass = 1, MinimumRadius = 1, SpawningProbability = .5
+                                            }).ToList();
 
             var star = planetProbabilities.First(o => o.Type == SpatialEntityType.Star);
             star.MaximumMass = star.MinimumMass = 2;
@@ -103,27 +94,27 @@ namespace Space.Repository.EF
                             Mana = 0,
                             Time = 12
                         },
-                   new BuildingCosts
+                    new BuildingCosts
                         {
-                            Type = BuildingType.Farm,
-                            Cash = 300,
-                            Energy = 0,
-                            Food = 0,
-                            Iron = 20,
-                            Mana = 0,
-                            Time = 10
+                            Type = BuildingType.Farm, 
+                            Cash = 300, 
+                            Energy = 0, 
+                            Food = 0, 
+                            Iron = 20, 
+                            Mana = 0, 
+                            Time = 10 
                         },
-                new BuildingCosts
+                    new BuildingCosts
                         {
-                            Type = BuildingType.Laser,
-                            Cash = 700,
-                            Energy = 1,
-                            Food = 0,
-                            Iron = 35,
-                            Mana = 0,
-                            Time = 8
+                            Type = BuildingType.Laser, 
+                            Cash = 700, 
+                            Energy = 1, 
+                            Food = 0, 
+                            Iron = 35, 
+                            Mana = 0, 
+                            Time = 8 
                         },
-                   new BuildingCosts
+                    new BuildingCosts
                         {
                             Type = BuildingType.LivingQuarters,
                             Cash = 200,
@@ -133,17 +124,17 @@ namespace Space.Repository.EF
                             Mana = 0,
                             Time = 8
                         },
-                   new BuildingCosts
+                    new BuildingCosts
                         {
                             Type = BuildingType.Mine,
-                            Cash = 200,
-                            Energy = 1,
-                            Food = 5,
-                            Iron = 0,
-                            Mana = 0,
-                            Time = 12
+                            Cash = 200, 
+                            Energy = 1, 
+                            Food = 5, 
+                            Iron = 0, 
+                            Mana = 0, 
+                            Time = 12 
                         },
-                   new BuildingCosts
+                    new BuildingCosts
                         {
                             Type = BuildingType.Portal,
                             Cash = 15000,
@@ -153,7 +144,7 @@ namespace Space.Repository.EF
                             Mana = 80,
                             Time = 40
                         },
-                   new BuildingCosts
+                    new BuildingCosts
                         {
                             Type = BuildingType.ResearchLab,
                             Cash = 100,
@@ -163,7 +154,7 @@ namespace Space.Repository.EF
                             Mana = 0,
                             Time = 14
                         },
-                   new BuildingCosts
+                    new BuildingCosts
                         {
                             Type = BuildingType.TaxOffice,
                             Cash = 200,

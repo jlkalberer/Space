@@ -102,7 +102,6 @@ namespace Space.Game
         /// 1. Explore
         /// 2. Update fleet position/run battle
         /// 3. Update planets
-        /// 4. 
         /// </summary>
         public void Update()
         {
@@ -115,6 +114,11 @@ namespace Space.Game
                                 var user = this.playerRepository.Get(planetSet.Key);
                                 if (user == null)
                                 {
+                                    foreach (var planet in planetSet)
+                                    {
+                                        planet.Owner = null;
+                                    }
+
                                     return;
                                 }
 
@@ -151,11 +155,16 @@ namespace Space.Game
             GalaxySettings settings;
             if (!galaxyID.HasValue)
             {
-                settings = this.galaxySettingsRepository.EagerAll.First();
+                settings = this.galaxySettingsRepository.EagerAll.FirstOrDefault();
             }
             else
             {
                 settings = this.galaxySettingsRepository.EagerGet(galaxyID.GetValueOrDefault());
+            }
+
+            if (settings == null)
+            {
+                return null;
             }
 
             Parallel.For(
@@ -166,7 +175,7 @@ namespace Space.Game
                     settings.Height,
                     j =>
                     {
-                        if (r.NextDouble() <=
+                        if (r.NextDouble() <
                             settings.SystemGenerationProbability)
                         {
                             return;
@@ -215,7 +224,7 @@ namespace Space.Game
         /// <returns>
         /// A new SolarSystemConstants stored in a datastore.
         /// </returns>
-        private SolarSystem CreateSolarSystem(GalaxySettings settings)
+        public SolarSystem CreateSolarSystem(GalaxySettings settings)
         {
             var solarSystem = this.solarSystemRepository.Create();
 
@@ -302,6 +311,11 @@ namespace Space.Game
                 // Random mass * the area of the planet (could use volume but it doesn't really matter)
                 entity.Mass = (r.NextDouble() * (max - min)) + min;
                 entity.Mass *= entity.Radius * entity.Radius * Math.PI;
+            }
+
+            if (solarSystem.SpatialEntities.Count < 1)
+            {
+                return solarSystem;
             }
 
             // find the largest entity to use as the center of the solar system

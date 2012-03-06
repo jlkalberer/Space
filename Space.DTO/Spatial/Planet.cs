@@ -28,7 +28,7 @@ namespace Space.DTO.Spatial
             this.FoodBonus = 1;
             this.CashBonus = 1;
             this.IronBonus = 1;
-            this.PlutoniumBonus = 1;
+            this.EnergyBonus = 1;
         }
 
         /// <summary>
@@ -47,12 +47,12 @@ namespace Space.DTO.Spatial
         public double PopulationGrowth { get; set; }
 
         /// <summary>
-        /// Gets or sets the number of buildings a planet can hold
+        /// Gets or sets the number of buildings a planet can hold.
         /// </summary>
         public int BuildingCapacity { get; set; }
 
         /// <summary>
-        /// Gets or sets the buildings found on the planet
+        /// Gets or sets the buildings found on the planet.
         /// </summary>
         public IQueryable<IUnit> Units { get; set; }
 
@@ -63,24 +63,34 @@ namespace Space.DTO.Spatial
 
         #region Bonuses
         /// <summary>
-        /// Gets or sets the bonus of Food when producing Food
+        /// Gets or sets the bonus of Food when producing Food.
         /// </summary>
         public double FoodBonus { get; set; }
 
         /// <summary>
-        /// Gets or sets the bonus of Cash when producing Cash
+        /// Gets or sets the bonus of Cash when producing Cash.
         /// </summary>
         public double CashBonus { get; set; }
 
         /// <summary>
-        /// Gets or sets the bonus of Iron when producing Iron
+        /// Gets or sets the bonus of Iron when producing Iron.
         /// </summary>
         public double IronBonus { get; set; }
 
         /// <summary>
-        /// Gets or sets the bonus of Plutonium when producing Plutonium
+        /// Gets or sets the bonus of Plutonium when producing Plutonium.
         /// </summary>
-        public double PlutoniumBonus { get; set; }
+        public double EnergyBonus { get; set; }
+
+        /// <summary>
+        /// Gets or sets the bonus of Mana when producing Mana.
+        /// </summary>
+        public double ManaBonus { get; set; }
+
+        /// <summary>
+        /// Gets or sets the bonus of Research when producing Research.
+        /// </summary>
+        public double ResearchBonus { get; set; }
 
         #endregion
 
@@ -145,7 +155,7 @@ namespace Space.DTO.Spatial
             {
                 return this.CashFactoryCount + this.EnergyLabCount + this.FarmCount + this.LaserCount
                        + this.LivingQuartersCount + this.ManaCount + this.MineCount + this.TaxOfficeCount
-                       + this.ResearchLabCount + (HasPortal ? 1 : 0);
+                       + this.ResearchLabCount + (this.HasPortal ? 1 : 0);
             }
         }
 

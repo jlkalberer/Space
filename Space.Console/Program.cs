@@ -225,8 +225,12 @@ namespace Space.Console
                     break;
                 }
 
-                // TODO - Get max number of buildings player can build
-                var maximumBuildings = planet.MaximumBuildings(player, (BuildingType)buildingType);
+                // The maximum buildings for the BuildingType.
+                var maximumBuildings = planet.MaximumToBeBuilt(
+                    player,
+                    player.Galaxy.GalaxySettings.BuildingCosts.FirstOrDefault(
+                        bc => bc.Type == (BuildingType)buildingType));
+
                 Console.WriteLine("Number of buildings - (max is {0}):", maximumBuildings);
 
                 input = Console.ReadLine();
