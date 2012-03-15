@@ -25,6 +25,7 @@ namespace Space.Console
     using Space.Infrastructure;
     using Space.Repository;
     using Space.Repository.EF;
+    using Space.Scheduler.Quartz;
 
     /// <summary>
     /// The Program to run the console version of the game.
@@ -43,7 +44,8 @@ namespace Space.Console
             var kernel = new StandardKernel(new INinjectModule[]
                 {
                     new EntityFrameworkModule(), 
-                    new ConsoleModule()
+                    new ConsoleModule(),
+                    new QuartzModule()
                 });
 
             var initializer = kernel.Get<IDatabaseInitializer<EntityFrameworkDbContext>>();

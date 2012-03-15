@@ -11,7 +11,8 @@
     <RootNamespace>Space.Console</RootNamespace>
     <AssemblyName>Space.Console</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
   </PropertyGroup>
@@ -77,9 +78,17 @@
       <Project>{B1E3719F-2086-4819-B4E9-4FF0F7FE0A95}</Project>
       <Name>Space.Repository</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Space.Scheduler.Quartz\Space.Scheduler.Quartz.csproj">
+      <Project>{C88B01DF-0D54-4CE5-B825-A26F10B0B54C}</Project>
+      <Name>Space.Scheduler.Quartz</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
