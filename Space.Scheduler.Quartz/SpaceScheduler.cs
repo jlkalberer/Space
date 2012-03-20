@@ -9,6 +9,12 @@
 
 namespace Space.Scheduler.Quartz
 {
+    using System;
+
+    using Ninject;
+
+    using Space.Scheduler.Jobs;
+
     using global::Quartz;
 
     using Space.DTO;
@@ -27,14 +33,23 @@ namespace Space.Scheduler.Quartz
         private readonly IScheduler scheduler;
 
         /// <summary>
+        /// The kernel to create job objects.
+        /// </summary>
+        private readonly IKernel kernel;
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SpaceScheduler"/> class. 
         /// </summary>
         /// <param name="scheduler">
         /// The scheduler factory.
         /// </param>
-        public SpaceScheduler(IScheduler scheduler)
+        /// <param name="kernel">
+        /// The kernel.
+        /// </param>
+        public SpaceScheduler(IScheduler scheduler, IKernel kernel)
         {
             this.scheduler = scheduler;
+            this.kernel = kernel;
         }
 
         /// <summary>
@@ -62,6 +77,14 @@ namespace Space.Scheduler.Quartz
                 return false;
             }
 
+            var jobSetup = new JobSetup<BuildBuildingsJob>(this.scheduler);
+            jobSetup.Set(bbj => bbj.PlanetID, planet.ID);
+            jobSetup.Set(bbj => bbj.PlayerID, player.ID);
+            jobSetup.Set(bbj => bbj.Costs, costs);
+            jobSetup.Set(bbj => bbj.BuildingType, type);
+
+            jobSetup.Run(new DateTimeOffset());
+            
             return true;
         }
     }

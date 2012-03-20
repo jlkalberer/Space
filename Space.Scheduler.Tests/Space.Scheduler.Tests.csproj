@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E8C80230-8525-480C-9B6A-C3277140F720}</ProjectGuid>
+    <ProjectGuid>{8D2AD98D-EBB9-462C-951B-1DAFFCBC99D5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Space.Scheduler</RootNamespace>
-    <AssemblyName>Space.Scheduler</AssemblyName>
+    <RootNamespace>Space.Scheduler.Tests</RootNamespace>
+    <AssemblyName>Space.Scheduler.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -31,8 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Common.Logging">
-      <HintPath>..\packages\Common.Logging.1.2.0\lib\1.0\Common.Logging.dll</HintPath>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.0.10827\lib\NET40\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,13 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ISpaceScheduler.cs" />
-    <Compile Include="Jobs\BuildBuildingsJob.cs" />
-    <Compile Include="Jobs\IGameJob.cs" />
+    <Compile Include="Jobs\BuildBuildingsJobTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Space.DTO.Entities\Space.DTO.Entities.csproj">
@@ -60,13 +58,13 @@
       <Project>{F7DCC309-53AC-41F0-ACE8-DD54ED548C58}</Project>
       <Name>Space.DTO</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Space.Game\Space.Game.csproj">
-      <Project>{91AC2368-ABD5-4360-8F5E-10771D784FAB}</Project>
-      <Name>Space.Game</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Space.Repository\Space.Repository.csproj">
       <Project>{B1E3719F-2086-4819-B4E9-4FF0F7FE0A95}</Project>
       <Name>Space.Repository</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Space.Scheduler\Space.Scheduler.csproj">
+      <Project>{E8C80230-8525-480C-9B6A-C3277140F720}</Project>
+      <Name>Space.Scheduler</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

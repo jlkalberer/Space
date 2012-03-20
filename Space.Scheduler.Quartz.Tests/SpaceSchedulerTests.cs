@@ -34,7 +34,7 @@ namespace Space.Scheduler.Quartz.Tests
             [Test]
             public void WillBuildBuildingHasNoSchedulerFactoryTest()
             {
-                var spaceScheduler = new SpaceScheduler(null);
+                var spaceScheduler = new SpaceScheduler(null, null);
 
                 Assert.IsFalse(spaceScheduler.BuildBuildings(null, null, null, default(BuildingType)));
             }
@@ -46,7 +46,7 @@ namespace Space.Scheduler.Quartz.Tests
             public void WillBuildBuildingTest()
             {
                 var scheduler = new Mock<IScheduler>();
-                var spaceScheduler = new SpaceScheduler(scheduler.Object);
+                var spaceScheduler = new SpaceScheduler(scheduler.Object, null);
 
                 Assert.IsTrue(spaceScheduler.BuildBuildings(null, null, null, default(BuildingType)));
             }
