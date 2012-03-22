@@ -13,9 +13,9 @@ namespace Space.Scheduler.Quartz.Tests
 
     using NUnit.Framework;
 
-    using Space.DTO.Buildings;
-
     using global::Quartz;
+
+    using Space.DTO.Buildings;
 
     /// <summary>
     /// All the tests for the Quartz.Net Scheduler
@@ -34,7 +34,7 @@ namespace Space.Scheduler.Quartz.Tests
             [Test]
             public void WillBuildBuildingHasNoSchedulerFactoryTest()
             {
-                var spaceScheduler = new SpaceScheduler(null, null);
+                var spaceScheduler = new SpaceScheduler(null);
 
                 Assert.IsFalse(spaceScheduler.BuildBuildings(null, null, null, default(BuildingType)));
             }
@@ -46,7 +46,7 @@ namespace Space.Scheduler.Quartz.Tests
             public void WillBuildBuildingTest()
             {
                 var scheduler = new Mock<IScheduler>();
-                var spaceScheduler = new SpaceScheduler(scheduler.Object, null);
+                var spaceScheduler = new SpaceScheduler(scheduler.Object);
 
                 Assert.IsTrue(spaceScheduler.BuildBuildings(null, null, null, default(BuildingType)));
             }

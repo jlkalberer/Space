@@ -20,6 +20,9 @@ namespace Space.DTO.Units
     {
         #region Implementation of IDataObject
 
+        /// <summary>
+        /// Gets or sets the primary key for the entity
+        /// </summary>
         public int ID { get; set; }
 
         #endregion

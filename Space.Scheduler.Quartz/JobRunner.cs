@@ -67,7 +67,7 @@ namespace Space.Scheduler.Quartz
                 pi.SetValue(this.Job, data[pi.Name], null);
             }
 
-            Job.Run();
+            this.Job.Run();
         }
 
         #endregion

@@ -8,11 +8,10 @@
 // --------------------------------------------------------------------------------------------------------------------
 namespace Space.Scheduler
 {
-    using Space.Scheduler.Jobs;
-
     /// <summary>
     /// The basic scheduling interface.  
     /// </summary>
     public interface ISpaceScheduler
-    {}
+    {
+    }
 }

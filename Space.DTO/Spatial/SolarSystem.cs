@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------------------------------------------------------------
-// <copyright file="SolarSystemConstants.cs" company="COMPANY_PLACEHOLDER">
+// <copyright file="SolarSystem.cs" company="COMPANY_PLACEHOLDER">
 //   John Kalberer
 // </copyright>
 // <summary>

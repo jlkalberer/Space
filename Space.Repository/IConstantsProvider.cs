@@ -1,14 +1,17 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="IConstantsProvider.cs" company="">
-// TODO: Update copyright text.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="IConstantsProvider.cs" company="COMPANY_PLACEHOLDER">
+//   John Kalberer
 // </copyright>
-// -----------------------------------------------------------------------
+// <summary>
+//   IConstantsProvider is used to grab constants from a datastore
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
-using System.Linq.Expressions;
-using System;
-
-namespace Space.DTO.Entities
+namespace Space.Repository
 {
+    using System;
+    using System.Linq.Expressions;
+
     /// <summary>
     /// IConstantsProvider is used to grab constants from a datastore
     /// </summary>
@@ -67,14 +70,20 @@ namespace Space.DTO.Entities
     /// <summary>
     /// IConstantsProvider is used to grab constants from a datastore
     /// </summary>
+    /// <typeparam name="TObjectType">
+    /// The type of object to grab from the constants provider.
+    /// </typeparam>
     public interface IConstantsProvider<TObjectType>
     {
         /// <summary>
         /// Gets a value by using the Type name of an object as an identifier.
         /// </summary>
-        /// <typeparam name="TObjectType">The name (Foo.Bar.StringProperty) of the object.</typeparam>
-        /// <typeparam name="TType">The type of object you want to cast to.</typeparam>
-        /// <returns>An item from a datastore cast by TType.</returns>
+        /// <typeparam name="TType">
+        /// The type of object you want to cast to.
+        /// </typeparam>
+        /// <returns>
+        /// An item from a datastore cast by TType.
+        /// </returns>
         TType Get<TType>();
 
         /// <summary>
@@ -96,9 +105,12 @@ namespace Space.DTO.Entities
         /// <summary>
         /// Set a value using the Type name of an object as an identifier.
         /// </summary>
-        /// <typeparam name="TObjectType">The type of object to use as a name.</typeparam>
-        /// <typeparam name="TType">The object type to set.</typeparam>
-        /// <param name="value">The object value to set in the datastore.</param>
+        /// <typeparam name="TType">
+        /// The object type to set.
+        /// </typeparam>
+        /// <param name="value">
+        /// The object value to set in the datastore.
+        /// </param>
         void Set<TType>(TType value);
 
         /// <summary>

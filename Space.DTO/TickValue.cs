@@ -1,8 +1,11 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="TickValue.cs" company="">
-// TODO: Update copyright text.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="TickValue.cs" company="COMPANY_PLACEHOLDER">
+//   John Kalberer
 // </copyright>
-// -----------------------------------------------------------------------
+// <summary>
+//   Stored after every tick
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Space.DTO
 {
@@ -17,7 +20,7 @@ namespace Space.DTO
         public int PlayerID { get; set; }
 
         /// <summary>
-        /// Gets or sets if the population starving last tick.  Did the player run out of food?
+        /// Gets or sets a value indicating whether the population is starving or not.
         /// </summary>
         public bool IsPopulationStarving { get; set; }
 

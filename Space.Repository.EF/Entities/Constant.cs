@@ -1,8 +1,11 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="Constant.cs" company="">
-// TODO: Update copyright text.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="Constant.cs" company="COMPANY_PLACEHOLDER">
+//   John Kalberer
 // </copyright>
-// -----------------------------------------------------------------------
+// <summary>
+//   Stores the constants to be used in the game.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Space.Repository.EF.Entities
 {
@@ -12,17 +15,17 @@ namespace Space.Repository.EF.Entities
     public class Constant
     {
         /// <summary>
-        /// The id for the entry
+        /// Gets or sets the id for the entry
         /// </summary>
         public string ID { get; set; }
 
         /// <summary>
-        /// The value stored.
+        /// Gets or sets the value stored.
         /// </summary>
         public string Value { get; set; }
 
         /// <summary>
-        /// Friendly name for easily distinguishing between entries.
+        /// Gets or sets the friendly name for easily distinguishing between entries.
         /// </summary>
         public string FriendlyName { get; set; }
     }

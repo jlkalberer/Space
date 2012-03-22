@@ -13,14 +13,13 @@ namespace Space.Scheduler.Quartz
 
     using Ninject;
 
-    using Space.Scheduler.Jobs;
-
     using global::Quartz;
 
     using Space.DTO;
     using Space.DTO.Buildings;
     using Space.DTO.Players;
     using Space.DTO.Spatial;
+    using Space.Scheduler.Jobs;
 
     /// <summary>
     /// The scheduler using Quarts.Net
@@ -33,23 +32,14 @@ namespace Space.Scheduler.Quartz
         private readonly IScheduler scheduler;
 
         /// <summary>
-        /// The kernel to create job objects.
-        /// </summary>
-        private readonly IKernel kernel;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="SpaceScheduler"/> class. 
         /// </summary>
         /// <param name="scheduler">
         /// The scheduler factory.
         /// </param>
-        /// <param name="kernel">
-        /// The kernel.
-        /// </param>
-        public SpaceScheduler(IScheduler scheduler, IKernel kernel)
+        public SpaceScheduler(IScheduler scheduler)
         {
             this.scheduler = scheduler;
-            this.kernel = kernel;
         }
 
         /// <summary>

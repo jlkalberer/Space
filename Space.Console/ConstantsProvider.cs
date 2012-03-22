@@ -1,94 +1,107 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="ConstantsProvider.cs" company="">
-// TODO: Update copyright text.
+﻿// --------------------------------------------------------------------------------------------------------------------
+// <copyright file="ConstantsProvider.cs" company="COMPANY_PLACEHOLDER">
+//   John Kalberer
 // </copyright>
-// -----------------------------------------------------------------------
-
-using System.Linq.Expressions;
-using Space.DTO.Entities;
-using Space.Infrastructure;
+// <summary>
+//   Used to provide constants when the app isn't being run off a database.
+// </summary>
+// --------------------------------------------------------------------------------------------------------------------
 
 namespace Space.Console
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
+    using System.Linq.Expressions;
+
+    using Space.DTO.Entities;
+    using Space.Infrastructure;
+    using Space.Repository;
 
     /// <summary>
-    /// TODO: Update summary.
+    /// Used to provide constants when the app isn't being run off a database.
     /// </summary>
     public class ConstantsProvider : IConstantsProvider
     {
-        private Dictionary<string, string> _constants;
+        /// <summary>
+        /// Dictionary to store the constants.
+        /// </summary>
+        private readonly Dictionary<string, string> constants;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ConstantsProvider"/> class.
+        /// </summary>
         public ConstantsProvider()
         {
-            _constants = new Dictionary<string, string>
-                             {
-                                 {"SolarSystemConstants.MinimumEntities", "10"},
-                                 {"SolarSystemConstants.MaximumEntities", "25"},
-                                 // Spawning Probability
-                                 {"SolarSystemConstants.SpawningProbability.Planet", "3"},
-                                 {"SolarSystemConstants.SpawningProbability.GasGiant", ".3"},
-                                 {"SolarSystemConstants.SpawningProbability.Nebula", ".02"},
-                                 {"SolarSystemConstants.SpawningProbability.Star", ".2"},
-                                 {"SolarSystemConstants.SpawningProbability.RedGiant", ".1"},
-                                 {"SolarSystemConstants.SpawningProbability.PlanetaryNebula", ".05"},
-                                 {"SolarSystemConstants.SpawningProbability.WhiteDwarf", ".2"},
-                                 {"SolarSystemConstants.SpawningProbability.BlackDwarf", ".2"},
-                                 {"SolarSystemConstants.SpawningProbability.NeutronStar", ".08"},
-                                 {"SolarSystemConstants.SpawningProbability.BlackHole", ".05"},
-                                 {"SolarSystemConstants.SpawningProbability.Supernova", ".02"},
-                                 // Maximum radius
-                                 {"SolarSystemConstants.MaximumRadius.Planet", "1"},
-                                 {"SolarSystemConstants.MaximumRadius.GasGiant", "1"},
-                                 {"SolarSystemConstants.MaximumRadius.Nebula", "1"},
-                                 {"SolarSystemConstants.MaximumRadius.Star", "1"},
-                                 {"SolarSystemConstants.MaximumRadius.RedGiant", "1"},
-                                 {"SolarSystemConstants.MaximumRadius.PlanetaryNebula", "1"},
-                                 {"SolarSystemConstants.MaximumRadius.WhiteDwarf", "1"},
-                                 {"SolarSystemConstants.MaximumRadius.BlackDwarf", "1"},
-                                 {"SolarSystemConstants.MaximumRadius.NeutronStar", "1"},
-                                 {"SolarSystemConstants.MaximumRadius.BlackHole", "1"},
-                                 {"SolarSystemConstants.MaximumRadius.Supernova", "1"},
-                                 // Minimum radius
-                                 {"SolarSystemConstants.MinimumRadius.Planet", "1"},
-                                 {"SolarSystemConstants.MinimumRadius.GasGiant", "1"},
-                                 {"SolarSystemConstants.MinimumRadius.Nebula", "1"},
-                                 {"SolarSystemConstants.MinimumRadius.Star", "1"},
-                                 {"SolarSystemConstants.MinimumRadius.RedGiant", "1"},
-                                 {"SolarSystemConstants.MinimumRadius.PlanetaryNebula", "1"},
-                                 {"SolarSystemConstants.MinimumRadius.WhiteDwarf", "1"},
-                                 {"SolarSystemConstants.MinimumRadius.BlackDwarf", "1"},
-                                 {"SolarSystemConstants.MinimumRadius.NeutronStar", "1"},
-                                 {"SolarSystemConstants.MinimumRadius.BlackHole", "1"},
-                                 {"SolarSystemConstants.MinimumRadius.Supernova", "1"},
-                                 // Maximum Mass
-                                 {"SolarSystemConstants.MaximumMass.Planet", "1"},
-                                 {"SolarSystemConstants.MaximumMass.GasGiant", "2"},
-                                 {"SolarSystemConstants.MaximumMass.Nebula", "2"},
-                                 {"SolarSystemConstants.MaximumMass.Star", "2"},
-                                 {"SolarSystemConstants.MaximumMass.RedGiant", "2"},
-                                 {"SolarSystemConstants.MaximumMass.PlanetaryNebula", "2"},
-                                 {"SolarSystemConstants.MaximumMass.WhiteDwarf", "2"},
-                                 {"SolarSystemConstants.MaximumMass.BlackDwarf", "2"},
-                                 {"SolarSystemConstants.MaximumMass.NeutronStar", "2"},
-                                 {"SolarSystemConstants.MaximumMass.BlackHole", "2"},
-                                 {"SolarSystemConstants.MaximumMass.Supernova", "2"},
-                                 // Minimum Mass
-                                 {"SolarSystemConstants.MinimumMass.Planet", "1"},
-                                 {"SolarSystemConstants.MinimumMass.GasGiant", "1.1"},
-                                 {"SolarSystemConstants.MinimumMass.Nebula", "1.1"},
-                                 {"SolarSystemConstants.MinimumMass.Star", "1.1"},
-                                 {"SolarSystemConstants.MinimumMass.RedGiant", "1.1"},
-                                 {"SolarSystemConstants.MinimumMass.PlanetaryNebula", "1.1"},
-                                 {"SolarSystemConstants.MinimumMass.WhiteDwarf", "1.1"},
-                                 {"SolarSystemConstants.MinimumMass.BlackDwarf", "1.1"},
-                                 {"SolarSystemConstants.MinimumMass.NeutronStar", "1.1"},
-                                 {"SolarSystemConstants.MinimumMass.BlackHole", "1.1"},
-                                 {"SolarSystemConstants.MinimumMass.Supernova", "1.1"},
-                             };
+            this.constants = new Dictionary<string, string>
+                {
+                    { "SolarSystemConstants.MinimumEntities", "10" },
+                    { "SolarSystemConstants.MaximumEntities", "25" },
+
+                    // Spawning Probability
+                    { "SolarSystemConstants.SpawningProbability.Planet", "3" },
+                    { "SolarSystemConstants.SpawningProbability.GasGiant", ".3" },
+                    { "SolarSystemConstants.SpawningProbability.Nebula", ".02" },
+                    { "SolarSystemConstants.SpawningProbability.Star", ".2" },
+                    { "SolarSystemConstants.SpawningProbability.RedGiant", ".1" },
+                    { "SolarSystemConstants.SpawningProbability.PlanetaryNebula", ".05" },
+                    { "SolarSystemConstants.SpawningProbability.WhiteDwarf", ".2" },
+                    { "SolarSystemConstants.SpawningProbability.BlackDwarf", ".2" },
+                    { "SolarSystemConstants.SpawningProbability.NeutronStar", ".08" },
+                    { "SolarSystemConstants.SpawningProbability.BlackHole", ".05" },
+                    { "SolarSystemConstants.SpawningProbability.Supernova", ".02" },
+
+                    // Maximum radius
+                    { "SolarSystemConstants.MaximumRadius.Planet", "1" },
+                    { "SolarSystemConstants.MaximumRadius.GasGiant", "1" },
+                    { "SolarSystemConstants.MaximumRadius.Nebula", "1" },
+                    { "SolarSystemConstants.MaximumRadius.Star", "1" },
+                    { "SolarSystemConstants.MaximumRadius.RedGiant", "1" },
+                    { "SolarSystemConstants.MaximumRadius.PlanetaryNebula", "1" },
+                    { "SolarSystemConstants.MaximumRadius.WhiteDwarf", "1" },
+                    { "SolarSystemConstants.MaximumRadius.BlackDwarf", "1" },
+                    { "SolarSystemConstants.MaximumRadius.NeutronStar", "1" },
+                    { "SolarSystemConstants.MaximumRadius.BlackHole", "1" },
+                    { "SolarSystemConstants.MaximumRadius.Supernova", "1" },
+
+                    // Minimum radius
+                    { "SolarSystemConstants.MinimumRadius.Planet", "1" },
+                    { "SolarSystemConstants.MinimumRadius.GasGiant", "1" },
+                    { "SolarSystemConstants.MinimumRadius.Nebula", "1" },
+                    { "SolarSystemConstants.MinimumRadius.Star", "1" },
+                    { "SolarSystemConstants.MinimumRadius.RedGiant", "1" },
+                    { "SolarSystemConstants.MinimumRadius.PlanetaryNebula", "1" },
+                    { "SolarSystemConstants.MinimumRadius.WhiteDwarf", "1" },
+                    { "SolarSystemConstants.MinimumRadius.BlackDwarf", "1" },
+                    { "SolarSystemConstants.MinimumRadius.NeutronStar", "1" },
+                    { "SolarSystemConstants.MinimumRadius.BlackHole", "1" },
+                    { "SolarSystemConstants.MinimumRadius.Supernova", "1" },
+
+                    // Maximum Mass
+                    { "SolarSystemConstants.MaximumMass.Planet", "1" },
+                    { "SolarSystemConstants.MaximumMass.GasGiant", "2" },
+                    { "SolarSystemConstants.MaximumMass.Nebula", "2" },
+                    { "SolarSystemConstants.MaximumMass.Star", "2" },
+                    { "SolarSystemConstants.MaximumMass.RedGiant", "2" },
+                    { "SolarSystemConstants.MaximumMass.PlanetaryNebula", "2" },
+                    { "SolarSystemConstants.MaximumMass.WhiteDwarf", "2" },
+                    { "SolarSystemConstants.MaximumMass.BlackDwarf", "2" },
+                    { "SolarSystemConstants.MaximumMass.NeutronStar", "2" },
+                    { "SolarSystemConstants.MaximumMass.BlackHole", "2" },
+                    { "SolarSystemConstants.MaximumMass.Supernova", "2" },
+
+                    // Minimum Mass
+                    { "SolarSystemConstants.MinimumMass.Planet", "1" },
+                    { "SolarSystemConstants.MinimumMass.GasGiant", "1.1" },
+                    { "SolarSystemConstants.MinimumMass.Nebula", "1.1" },
+                    { "SolarSystemConstants.MinimumMass.Star", "1.1" },
+                    { "SolarSystemConstants.MinimumMass.RedGiant", "1.1" },
+                    { "SolarSystemConstants.MinimumMass.PlanetaryNebula", "1.1" },
+                    { "SolarSystemConstants.MinimumMass.WhiteDwarf", "1.1" },
+                    { "SolarSystemConstants.MinimumMass.BlackDwarf", "1.1" },
+                    { "SolarSystemConstants.MinimumMass.NeutronStar", "1.1" },
+                    { "SolarSystemConstants.MinimumMass.BlackHole", "1.1" },
+                    { "SolarSystemConstants.MinimumMass.Supernova", "1.1" },
+                };
         }
  
         #region Implementation of IConstantsProvider
@@ -112,7 +125,7 @@ namespace Space.Console
         /// <returns>An item from a datastore cast by TType.</returns>
         public TType Get<TType>(string key)
         {
-            return _constants[key].To<TType>();
+            return this.constants[key].To<TType>();
         }
 
         /// <summary>

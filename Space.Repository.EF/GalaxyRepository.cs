@@ -49,6 +49,17 @@ namespace Space.Repository.EF
         }
 
         /// <summary>
+        /// Gets a queryable collection of items where the returned objects are eagerly loaded.
+        /// </summary>
+        public IQueryable<Galaxy> EagerAll
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        /// <summary>
         /// Creates an item in the datastore.
         /// </summary>
         /// <returns>Item created in the datastore.</returns>
@@ -108,20 +119,7 @@ namespace Space.Repository.EF
         }
 
         #endregion
-
-        #region Implementation of IEager<in int,out Galaxy>
-
-        /// <summary>
-        /// Gets a queryable collection of items where the returned objects are eagerly loaded.
-        /// </summary>
-        public IQueryable<Galaxy> EagerAll
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-        }
-
+        
         /// <summary>
         /// Gets an eagerly loaded item from the datastore using the supplied key.
         /// </summary>
@@ -131,7 +129,5 @@ namespace Space.Repository.EF
         {
             throw new NotImplementedException();
         }
-
-        #endregion
     }
 }
