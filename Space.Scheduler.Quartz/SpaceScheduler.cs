@@ -10,8 +10,10 @@
 namespace Space.Scheduler.Quartz
 {
     using System;
+    using System.Diagnostics;
+    using System.Linq;
 
-    using Ninject;
+    using Space.Game;
 
     using global::Quartz;
 
@@ -64,16 +66,40 @@ namespace Space.Scheduler.Quartz
         {
             if (this.scheduler == null)
             {
+                Trace.WriteLine("this.scheduler is null", "SpaceScheduler.BuildBuildings");
+                return false;
+            }
+
+            if (player.Galaxy == null || player.Galaxy.GalaxySettings == null)
+            {
+                Trace.WriteLine("player.Galaxy is null", "SpaceScheduler.BuildBuildings");
+                return false;
+            }
+            
+            if (player.Galaxy.GalaxySettings == null)
+            {
+                Trace.WriteLine("player.Galaxy.GalaxySettings is null", "SpaceScheduler.BuildBuildings");
+                return false;
+            }
+
+            if (player.Galaxy.GalaxySettings.BuildingCosts == null)
+            {
+                Trace.WriteLine("player.Galaxy.GalaxySettings.BuildingCosts is null", "SpaceScheduler.BuildBuildings");
+                return false;
+            }
+
+            var buildCosts = player.Galaxy.GalaxySettings.BuildingCosts.FirstOrDefault(bc => bc.Type == type);
+            if (buildCosts == null)
+            {
+                Trace.WriteLine("buildCosts is null", "SpaceScheduler.BuildBuildings");
                 return false;
             }
 
             var jobSetup = new JobSetup<BuildBuildingsJob>(this.scheduler);
             jobSetup.Set(bbj => bbj.PlanetID, planet.ID);
-            jobSetup.Set(bbj => bbj.PlayerID, player.ID);
-            jobSetup.Set(bbj => bbj.Costs, costs);
             jobSetup.Set(bbj => bbj.BuildingType, type);
 
-            jobSetup.Run(new DateTimeOffset());
+            jobSetup.Run(DateTimeOffset.UtcNow.AddMilliseconds(buildCosts.Time));
             
             return true;
         }

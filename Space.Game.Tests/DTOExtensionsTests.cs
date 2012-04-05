@@ -10,6 +10,7 @@
 namespace Space.Game.Tests
 {
     using System;
+    using System.Diagnostics.CodeAnalysis;
 
     using NUnit.Framework;
 
@@ -75,10 +76,7 @@ namespace Space.Game.Tests
             [Test]
             public void WillUpdateThePlanetPopulationSize()
             {
-                var planet = new Planet
-                    {
-                        BuildingCapacity = 10
-                    };
+                var planet = new Planet { BuildingCapacity = 10 };
 
                 planet.Update(
                     new GalaxySettings { BasePopulation = 1, PopulationGrowth = 100, MaxPopulationPerBuildings = 1 },
@@ -108,10 +106,7 @@ namespace Space.Game.Tests
             [Test]
             public void WillUpdateThePlanetGrowth()
             {
-                var planet = new Planet
-                {
-                    BuildingCapacity = 10
-                };
+                var planet = new Planet { BuildingCapacity = 10 };
 
                 planet.Update(
                     new GalaxySettings { BasePopulation = 1, PopulationGrowth = 100, MaxPopulationPerBuildings = 1 },
@@ -179,7 +174,8 @@ namespace Space.Game.Tests
             {
                 var planet = new Planet { CashBonus = 1, CashFactoryCount = 1, Population = 1, TaxOfficeCount = 1 };
 
-                var galaxySettings = new GalaxySettings { CashOutput = 2, PopulationCashDivider = 1, BasePopulation = 1, PositiveIncomeCash = 1 };
+                var galaxySettings = new GalaxySettings
+                    { CashOutput = 2, PopulationCashDivider = 1, BasePopulation = 1, PositiveIncomeCash = 1 };
 
                 var playerBonuses = new PlayerBonuses { EconomyBonus = 1 };
 
@@ -560,7 +556,9 @@ namespace Space.Game.Tests
                     new PlanetValue
                         {
                             BuildingCount = 1,
-                            Cash = 2, // since 1 is removed for having the building
+                            Cash = 2,
+
+                            // since 1 is removed for having the building
                             Energy = 1,
                             Food = 1,
                             Iron = 1,
@@ -619,12 +617,18 @@ namespace Space.Game.Tests
             [Test]
             public void WillUpdatePlayerTotalCashMinusUnitsAndBuildings()
             {
-                var player = new Player { TickValue = new TickValue(), TotalNetValue = new NetValue { Cash = 3, BuildingCount = 1 }, UnitCount = 1 };
+                var player = new Player
+                    {
+                        TickValue = new TickValue(),
+                        TotalNetValue = new NetValue { Cash = 3, BuildingCount = 1 },
+                        UnitCount = 1
+                    };
 
                 player.Update(new PlanetValue(), new GalaxySettings());
 
                 Assert.AreEqual(player.TotalNetValue.Cash, 1);
             }
+
             #endregion Update Player
         }
 
@@ -653,16 +657,16 @@ namespace Space.Game.Tests
                     };
 
                 var nv2 = new NetValue
-                {
-                    Cash = 1,
-                    Energy = 1,
-                    Food = 1,
-                    Iron = 1,
-                    Mana = 1,
-                    Population = 1,
-                    Research = 1,
-                    BuildingCount = 1
-                };
+                    {
+                        Cash = 1,
+                        Energy = 1,
+                        Food = 1,
+                        Iron = 1,
+                        Mana = 1,
+                        Population = 1,
+                        Research = 1,
+                        BuildingCount = 1
+                    };
 
                 nv1.Add(nv2);
 
@@ -683,34 +687,34 @@ namespace Space.Game.Tests
             public void WillAddPlanetValue()
             {
                 var nv1 = new PlanetValue
-                {
-                    Cash = 1,
-                    Energy = 1,
-                    Food = 1,
-                    Iron = 1,
-                    Mana = 1,
-                    Population = 1,
-                    Research = 1,
-                    BuildingCount = 1,
-                    CashFactoryCash = 1,
-                    PopulationCash = 1,
-                    TaxOfficeCash = 1,
-                };
+                    {
+                        Cash = 1,
+                        Energy = 1,
+                        Food = 1,
+                        Iron = 1,
+                        Mana = 1,
+                        Population = 1,
+                        Research = 1,
+                        BuildingCount = 1,
+                        CashFactoryCash = 1,
+                        PopulationCash = 1,
+                        TaxOfficeCash = 1,
+                    };
 
                 var nv2 = new PlanetValue
-                {
-                    Cash = 1,
-                    Energy = 1,
-                    Food = 1,
-                    Iron = 1,
-                    Mana = 1,
-                    Population = 1,
-                    Research = 1,
-                    BuildingCount = 1,
-                    CashFactoryCash = 1,
-                    PopulationCash = 1,
-                    TaxOfficeCash = 1,
-                };
+                    {
+                        Cash = 1,
+                        Energy = 1,
+                        Food = 1,
+                        Iron = 1,
+                        Mana = 1,
+                        Population = 1,
+                        Research = 1,
+                        BuildingCount = 1,
+                        CashFactoryCash = 1,
+                        PopulationCash = 1,
+                        TaxOfficeCash = 1,
+                    };
 
                 nv1.Add(nv2);
 
@@ -789,14 +793,8 @@ namespace Space.Game.Tests
             [Test]
             public void WillReturnZeroBuildItems()
             {
-                var planet = new Planet
-                    {
-                        BuildingCapacity = 1
-                    };
-                var player = new Player
-                    {
-                        TotalNetValue = new NetValue()
-                    };
+                var planet = new Planet { BuildingCapacity = 1 };
+                var player = new Player { TotalNetValue = new NetValue() };
                 var buildCosts = new BuildCosts<object>();
 
                 var netValue = planet.MaximumToBeBuilt(player, buildCosts);
@@ -811,29 +809,10 @@ namespace Space.Game.Tests
             [Test]
             public void WillReturnOneBuildItem()
             {
-                var planet = new Planet
-                {
-                    BuildingCapacity = 1
-                };
+                var planet = new Planet { BuildingCapacity = 1 };
                 var player = new Player
-                {
-                    TotalNetValue = new NetValue
-                        {
-                            Cash = 1,
-                            Energy = 1,
-                            Food = 1,
-                            Iron = 1,
-                            Mana = 1
-                        }
-                };
-                var buildCosts = new BuildCosts<object>
-                    {
-                        Cash = 1,
-                        Energy = 1,
-                        Food = 1,
-                        Iron = 1,
-                        Mana = 1
-                    };
+                    { TotalNetValue = new NetValue { Cash = 1, Energy = 1, Food = 1, Iron = 1, Mana = 1 } };
+                var buildCosts = new BuildCosts<object> { Cash = 1, Energy = 1, Food = 1, Iron = 1, Mana = 1 };
 
                 var netValue = planet.MaximumToBeBuilt(player, buildCosts);
 
@@ -848,29 +827,10 @@ namespace Space.Game.Tests
             [Test]
             public void WillTestBuildingCapacityMinimum()
             {
-                var planet = new Planet
-                {
-                    BuildingCapacity = 1
-                };
+                var planet = new Planet { BuildingCapacity = 1 };
                 var player = new Player
-                {
-                    TotalNetValue = new NetValue
-                    {
-                        Cash = 2,
-                        Energy = 2,
-                        Food = 2,
-                        Iron = 2,
-                        Mana = 2
-                    }
-                };
-                var buildCosts = new BuildCosts<object>
-                {
-                    Cash = 1,
-                    Energy = 1,
-                    Food = 1,
-                    Iron = 1,
-                    Mana = 1
-                };
+                    { TotalNetValue = new NetValue { Cash = 2, Energy = 2, Food = 2, Iron = 2, Mana = 2 } };
+                var buildCosts = new BuildCosts<object> { Cash = 1, Energy = 1, Food = 1, Iron = 1, Mana = 1 };
 
                 var netValue = planet.MaximumToBeBuilt(player, buildCosts);
 
@@ -885,29 +845,10 @@ namespace Space.Game.Tests
             [Test]
             public void WillTestBuildingCapacityMaximum()
             {
-                var planet = new Planet
-                {
-                    BuildingCapacity = 1
-                };
+                var planet = new Planet { BuildingCapacity = 1 };
                 var player = new Player
-                {
-                    TotalNetValue = new NetValue
-                    {
-                        Cash = 3,
-                        Energy = 3,
-                        Food = 3,
-                        Iron = 3,
-                        Mana = 3
-                    }
-                };
-                var buildCosts = new BuildCosts<object>
-                {
-                    Cash = 1,
-                    Energy = 1,
-                    Food = 1,
-                    Iron = 1,
-                    Mana = 1
-                };
+                    { TotalNetValue = new NetValue { Cash = 3, Energy = 3, Food = 3, Iron = 3, Mana = 3 } };
+                var buildCosts = new BuildCosts<object> { Cash = 1, Energy = 1, Food = 1, Iron = 1, Mana = 1 };
 
                 var netValue = planet.MaximumToBeBuilt(player, buildCosts);
 
@@ -922,29 +863,27 @@ namespace Space.Game.Tests
             {
                 var r = new Random();
 
-                var planet = new Planet
-                {
-                    BuildingCapacity = r.Next(250)
-                };
+                var planet = new Planet { BuildingCapacity = r.Next(250) };
                 var player = new Player
-                {
-                    TotalNetValue = new NetValue
                     {
-                        Cash = r.Next(1, int.MaxValue),
-                        Energy = r.Next(1, int.MaxValue),
-                        Food = r.Next(1, int.MaxValue),
-                        Iron = r.Next(1, int.MaxValue),
-                        Mana = r.Next(1, int.MaxValue)
-                    }
-                };
+                        TotalNetValue =
+                            new NetValue
+                                {
+                                    Cash = r.Next(1, int.MaxValue),
+                                    Energy = r.Next(1, int.MaxValue),
+                                    Food = r.Next(1, int.MaxValue),
+                                    Iron = r.Next(1, int.MaxValue),
+                                    Mana = r.Next(1, int.MaxValue)
+                                }
+                    };
                 var buildCosts = new BuildCosts<object>
-                {
-                    Cash = 1 * r.NextDouble(),
-                    Energy = 1 * r.NextDouble(),
-                    Food = 1 * r.NextDouble(),
-                    Iron = 1 * r.NextDouble(),
-                    Mana = 1 * r.NextDouble()
-                };
+                    {
+                        Cash = 1 * r.NextDouble(),
+                        Energy = 1 * r.NextDouble(),
+                        Food = 1 * r.NextDouble(),
+                        Iron = 1 * r.NextDouble(),
+                        Mana = 1 * r.NextDouble()
+                    };
 
                 var netValue = planet.MaximumToBeBuilt(player, buildCosts);
 
@@ -964,22 +903,11 @@ namespace Space.Game.Tests
             [Test]
             public void WillSubtractCorrectCosts()
             {
-                var planet = new Planet();
                 var player = new Player
-                    {
-                        TotalNetValue = new NetValue
-                            {
-                                Cash = 2,
-                                Energy = 2,
-                                Food = 2,
-                                Iron = 2,
-                                Mana = 2
-                            }
-                    };
+                    { TotalNetValue = new NetValue { Cash = 2, Energy = 2, Food = 2, Iron = 2, Mana = 2 } };
                 var costs = new NetValue { Cash = 1, Energy = 1, Food = 1, Iron = 1, Mana = 1 };
-                const BuildingType Type = BuildingType.CashFactory;
 
-                planet.BuildBuildings(player, costs, Type);
+                player.BuildBuildings(costs);
 
                 var totalNetValue = player.TotalNetValue;
                 Assert.AreEqual(totalNetValue.Cash, 1);
@@ -988,7 +916,16 @@ namespace Space.Game.Tests
                 Assert.AreEqual(totalNetValue.Iron, 1);
                 Assert.AreEqual(totalNetValue.Mana, 1);
             }
+        }
 
+        /// <summary>
+        /// Contains test for adding buildings.
+        /// </summary>
+        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1606:ElementDocumentationMustHaveSummaryText",
+            Justification = "Reviewed. Suppression is OK here.")]
+        [TestFixture]
+        public class TheAddBuildingsMethod
+        {
             /// <summary>
             /// Test to make sure that the total number of buildings a player has is updated.
             /// </summary>
@@ -996,14 +933,10 @@ namespace Space.Game.Tests
             public void WillAddToBuildingCount()
             {
                 var planet = new Planet();
-                var player = new Player
-                {
-                    TotalNetValue = new NetValue()
-                };
-                var costs = new NetValue { BuildingCount = 5 };
+                var player = new Player { TotalNetValue = new NetValue() };
                 const BuildingType Type = BuildingType.CashFactory;
 
-                planet.BuildBuildings(player, costs, Type);
+                planet.AddBuildings(player, 5, Type);
 
                 Assert.AreEqual(player.TotalNetValue.BuildingCount, 5);
             }
@@ -1016,11 +949,10 @@ namespace Space.Game.Tests
             {
                 var planet = new Planet();
                 var player = new Player { TotalNetValue = new NetValue() };
-                var cost = new NetValue { BuildingCount = 1 };
 
                 const BuildingType Type = BuildingType.CashFactory;
 
-                planet.BuildBuildings(player, cost, Type);
+                planet.AddBuildings(player, 1, Type);
 
                 Assert.AreEqual(planet.CashFactoryCount, 1);
             }
@@ -1033,11 +965,10 @@ namespace Space.Game.Tests
             {
                 var planet = new Planet();
                 var player = new Player { TotalNetValue = new NetValue() };
-                var cost = new NetValue { BuildingCount = 1 };
 
                 const BuildingType Type = BuildingType.EnergyLab;
 
-                planet.BuildBuildings(player, cost, Type);
+                planet.AddBuildings(player, 1, Type);
 
                 Assert.AreEqual(planet.EnergyLabCount, 1);
             }
@@ -1050,11 +981,10 @@ namespace Space.Game.Tests
             {
                 var planet = new Planet();
                 var player = new Player { TotalNetValue = new NetValue() };
-                var cost = new NetValue { BuildingCount = 1 };
 
                 const BuildingType Type = BuildingType.Farm;
 
-                planet.BuildBuildings(player, cost, Type);
+                planet.AddBuildings(player, 1, Type);
 
                 Assert.AreEqual(planet.FarmCount, 1);
             }
@@ -1067,11 +997,10 @@ namespace Space.Game.Tests
             {
                 var planet = new Planet();
                 var player = new Player { TotalNetValue = new NetValue() };
-                var cost = new NetValue { BuildingCount = 1 };
 
                 const BuildingType Type = BuildingType.Laser;
 
-                planet.BuildBuildings(player, cost, Type);
+                planet.AddBuildings(player, 1, Type);
 
                 Assert.AreEqual(planet.LaserCount, 1);
             }
@@ -1084,11 +1013,10 @@ namespace Space.Game.Tests
             {
                 var planet = new Planet();
                 var player = new Player { TotalNetValue = new NetValue() };
-                var cost = new NetValue { BuildingCount = 1 };
 
                 const BuildingType Type = BuildingType.LivingQuarters;
 
-                planet.BuildBuildings(player, cost, Type);
+                planet.AddBuildings(player, 1, Type);
 
                 Assert.AreEqual(planet.LivingQuartersCount, 1);
             }
@@ -1101,11 +1029,10 @@ namespace Space.Game.Tests
             {
                 var planet = new Planet();
                 var player = new Player { TotalNetValue = new NetValue() };
-                var cost = new NetValue { BuildingCount = 1 };
 
                 const BuildingType Type = BuildingType.Mana;
 
-                planet.BuildBuildings(player, cost, Type);
+                planet.AddBuildings(player, 1, Type);
 
                 Assert.AreEqual(planet.ManaCount, 1);
             }
@@ -1118,11 +1045,10 @@ namespace Space.Game.Tests
             {
                 var planet = new Planet();
                 var player = new Player { TotalNetValue = new NetValue() };
-                var cost = new NetValue { BuildingCount = 1 };
 
                 const BuildingType Type = BuildingType.Mine;
 
-                planet.BuildBuildings(player, cost, Type);
+                planet.AddBuildings(player, 1, Type);
 
                 Assert.AreEqual(planet.MineCount, 1);
             }
@@ -1135,11 +1061,10 @@ namespace Space.Game.Tests
             {
                 var planet = new Planet();
                 var player = new Player { TotalNetValue = new NetValue() };
-                var cost = new NetValue { BuildingCount = 1 };
 
                 const BuildingType Type = BuildingType.Portal;
 
-                planet.BuildBuildings(player, cost, Type);
+                planet.AddBuildings(player, 1, Type);
 
                 Assert.IsTrue(planet.HasPortal);
             }
@@ -1152,11 +1077,10 @@ namespace Space.Game.Tests
             {
                 var planet = new Planet();
                 var player = new Player { TotalNetValue = new NetValue() };
-                var cost = new NetValue { BuildingCount = 1 };
 
                 const BuildingType Type = BuildingType.ResearchLab;
 
-                planet.BuildBuildings(player, cost, Type);
+                planet.AddBuildings(player, 1, Type);
 
                 Assert.AreEqual(planet.ResearchLabCount, 1);
             }
@@ -1169,11 +1093,10 @@ namespace Space.Game.Tests
             {
                 var planet = new Planet();
                 var player = new Player { TotalNetValue = new NetValue() };
-                var cost = new NetValue { BuildingCount = 1 };
 
                 const BuildingType Type = BuildingType.TaxOffice;
 
-                planet.BuildBuildings(player, cost, Type);
+                planet.AddBuildings(player, 1, Type);
 
                 Assert.AreEqual(planet.TaxOfficeCount, 1);
             }

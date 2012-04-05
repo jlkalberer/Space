@@ -9,7 +9,6 @@
 
 namespace Space.Scheduler.Jobs
 {
-    using Space.DTO;
     using Space.DTO.Buildings;
     using Space.Game;
     using Space.Repository;
@@ -57,7 +56,7 @@ namespace Space.Scheduler.Jobs
         /// <summary>
         /// Gets or sets Costs.
         /// </summary>
-        public NetValue Costs { get; set; }
+        public int BuildingCount { get; set; }
 
         /// <summary>
         /// Gets or sets BuildingType.
@@ -85,12 +84,12 @@ namespace Space.Scheduler.Jobs
 
             var player = this.playerRepository.Get(this.PlayerID);
 
-            if (this.Costs == null)
+            if (this.BuildingCount == default(int))
             {
                 return;
             }
 
-            planet.BuildBuildings(player, this.Costs, this.BuildingType);
+            planet.AddBuildings(player, this.BuildingCount, this.BuildingType);
             this.planetRepository.SaveChanges();
         }
 

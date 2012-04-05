@@ -53,12 +53,12 @@ namespace Space.Scheduler.Tests.Jobs
             {
                 var planetRepository = new Mock<IPlanetRepository>();
                 var playerRepository = new Mock<IPlayerRepository>();
+
                 var job = new BuildBuildingsJob(planetRepository.Object, playerRepository.Object) { PlanetID = 1 };
 
                 job.Run();
 
                 planetRepository.Verify(pr => pr.Get(It.IsAny<int>()), Times.Once());
-                playerRepository.Verify(pr => pr.Get(It.IsAny<int>()), Times.Never());
                 planetRepository.Verify(pr => pr.SaveChanges(), Times.Never());
             }
 
@@ -66,17 +66,18 @@ namespace Space.Scheduler.Tests.Jobs
             /// Test that the function returns when the planet ID is not passed in.
             /// </summary>
             [Test]
-            public void CostDoesntExist()
+            public void BuildingCountDoesntExist()
             {
                 var planetRepository = new Mock<IPlanetRepository>();
                 var playerRepository = new Mock<IPlayerRepository>();
+                playerRepository.Setup(pr => pr.Get(It.IsAny<int>())).Returns(new Player());
+
                 var job = new BuildBuildingsJob(planetRepository.Object, playerRepository.Object)
                     { PlanetID = 1, PlayerID = 1 };
 
                 job.Run();
 
                 planetRepository.Verify(pr => pr.Get(It.IsAny<int>()), Times.Once());
-                playerRepository.Verify(pr => pr.Get(It.IsAny<int>()), Times.Once());
                 planetRepository.Verify(pr => pr.SaveChanges(), Times.Never());
             }
             
@@ -87,14 +88,16 @@ namespace Space.Scheduler.Tests.Jobs
             public void WillBuildBuildings()
             {
                 var planetRepository = new Mock<IPlanetRepository>();
-                planetRepository.Setup(pr => pr.Get(It.IsAny<int>())).Returns(new Planet());
-
                 var playerRepository = new Mock<IPlayerRepository>();
-                playerRepository.Setup(p => p.Get(It.IsAny<int>())).Returns(
-                    new Player { TotalNetValue = new NetValue() });
+
+                planetRepository.Setup(pr => pr.Get(It.IsAny<int>())).Returns(new Planet());
+                playerRepository.Setup(pr => pr.Get(It.IsAny<int>())).Returns(new Player
+                    {
+                        TotalNetValue = new NetValue()
+                    });
 
                 var job = new BuildBuildingsJob(planetRepository.Object, playerRepository.Object)
-                    { PlanetID = 1, PlayerID = 1, Costs = new NetValue() };
+                    { PlanetID = 1, PlayerID = 1, BuildingCount = 1 };
 
                 job.Run();
 

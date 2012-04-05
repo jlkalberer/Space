@@ -280,60 +280,79 @@ namespace Space.Game
         /// <summary>
         /// Builds buildings on a planet for a player
         /// </summary>
-        /// <param name="planet">
-        /// The planet.
-        /// </param>
         /// <param name="player">
         /// The player.
         /// </param>
         /// <param name="costs">
         /// The costs.
         /// </param>
+        /// <returns>
+        /// True if the buildings were successfully built.
+        /// </returns>
+        public static bool BuildBuildings(this Player player, NetValue costs)
+        {
+            player.TotalNetValue.Subtract(costs);
+
+            // NOTE - add the buildings back to the player since the Subtract function deletes them
+            player.TotalNetValue.BuildingCount += costs.BuildingCount;
+
+            return true;
+        }
+
+        /// <summary>
+        /// Adds buildings to a planet.
+        /// </summary>
+        /// <param name="planet">
+        /// The planet.
+        /// </param>
+        /// <param name="player">
+        /// The player to add the buildings to.
+        /// </param>
+        /// <param name="buildingCount">
+        /// The building count.
+        /// </param>
         /// <param name="type">
         /// The type.
         /// </param>
         /// <returns>
-        /// True if the buildings were successfully built.
+        /// True if building succeeds.
         /// </returns>
-        public static bool BuildBuildings(this Planet planet, Player player, NetValue costs, BuildingType type)
+        public static bool AddBuildings(this Planet planet, Player player, int buildingCount, BuildingType type)
         {
-            player.TotalNetValue.Subtract(costs);
-            
-            // Add the total building count * 2 since we just subtracted it
-            player.TotalNetValue.BuildingCount += costs.BuildingCount * 2;
+            player.TotalNetValue.BuildingCount += buildingCount;
 
             // add buildings to planet
             switch (type)
             {
                 case BuildingType.CashFactory:
-                    planet.CashFactoryCount += costs.BuildingCount;
+                    planet.CashFactoryCount += buildingCount;
                     break;
                 case BuildingType.EnergyLab:
-                    planet.EnergyLabCount += costs.BuildingCount;
+                    planet.EnergyLabCount += buildingCount;
                     break;
                 case BuildingType.Farm:
-                    planet.FarmCount += costs.BuildingCount;
+                    planet.FarmCount += buildingCount;
                     break;
                 case BuildingType.Laser:
-                    planet.LaserCount += costs.BuildingCount;
+                    planet.LaserCount += buildingCount;
                     break;
                 case BuildingType.LivingQuarters:
-                    planet.LivingQuartersCount += costs.BuildingCount;
+                    planet.LivingQuartersCount += buildingCount;
                     break;
                 case BuildingType.Mana:
-                    planet.ManaCount += costs.BuildingCount;
+                    planet.ManaCount += buildingCount;
                     break;
                 case BuildingType.Mine:
-                    planet.MineCount += costs.BuildingCount;
+                    planet.MineCount += buildingCount;
                     break;
                 case BuildingType.Portal:
                     planet.HasPortal = true;
                     break;
                 case BuildingType.ResearchLab:
-                    planet.ResearchLabCount += costs.BuildingCount;
+                    planet.ResearchLabCount += buildingCount;
                     break;
                 case BuildingType.TaxOffice:
-                    planet.TaxOfficeCount += costs.BuildingCount;
+                    planet.TaxOfficeCount += buildingCount;
                     break;
             }
 

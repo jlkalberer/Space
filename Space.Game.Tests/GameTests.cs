@@ -121,6 +121,7 @@ namespace Space.Game.Tests
             public void RepositoryHasGalaxySettings()
             {
                 var galaxyRepository = new Mock<IGalaxyRepository>();
+                galaxyRepository.Setup(gr => gr.Add(It.IsAny<Galaxy>())).Returns<Galaxy>(g => g);
 
                 var galaxySettingsRepository = new Mock<IGalaxySettingsRepository>();
                 galaxySettingsRepository.Setup(gsr => gsr.EagerAll).Returns(new List<GalaxySettings>
@@ -146,6 +147,7 @@ namespace Space.Game.Tests
             public void CanGetGalaxySettingsFromRepository()
             {
                 var galaxyRepository = new Mock<IGalaxyRepository>();
+                galaxyRepository.Setup(gr => gr.Add(It.IsAny<Galaxy>())).Returns<Galaxy>(g => g);
 
                 var galaxySettingsRepository = new Mock<IGalaxySettingsRepository>();
                 galaxySettingsRepository.Setup(gsr => gsr.EagerGet(It.IsAny<int>())).Returns(new GalaxySettings());

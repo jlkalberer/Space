@@ -123,13 +123,13 @@
   <project key="-1549233995">
     <configuration>DEBUG;TRACE</configuration>
   </project>
-  <sourcecode name="Game.cs" parser="StyleCop.CSharp.CsParser">
+  <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>02/17/2012 14:43:39</timestamp>
       <milliseconds>167</milliseconds>
     </settings>
-    <timestamp>03/02/2012 14:01:59</timestamp>
-    <milliseconds>872</milliseconds>
+    <timestamp>03/22/2012 15:03:38</timestamp>
+    <milliseconds>922</milliseconds>
     <violations />
   </sourcecode>
   <sourcecode name="DTOExtensions.cs" parser="StyleCop.CSharp.CsParser">
@@ -141,13 +141,13 @@
     <milliseconds>121</milliseconds>
     <violations />
   </sourcecode>
-  <sourcecode name="AssemblyInfo.cs" parser="StyleCop.CSharp.CsParser">
+  <sourcecode name="Game.cs" parser="StyleCop.CSharp.CsParser">
     <settings>
       <timestamp>02/17/2012 14:43:39</timestamp>
       <milliseconds>167</milliseconds>
     </settings>
-    <timestamp>03/22/2012 15:03:38</timestamp>
-    <milliseconds>922</milliseconds>
+    <timestamp>03/02/2012 14:01:59</timestamp>
+    <milliseconds>872</milliseconds>
     <violations />
   </sourcecode>
 </stylecopresultscache>

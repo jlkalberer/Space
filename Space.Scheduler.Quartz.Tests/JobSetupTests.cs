@@ -31,9 +31,9 @@ namespace Space.Scheduler.Quartz.Tests
             public void WillSucceedOnSettingProperty()
             {
                 var setup = new JobSetup<BuildBuildingsJob>(null);
-                setup.Set(bbj => bbj.PlayerID, 10);
+                setup.Set(bbj => bbj.PlanetID, 10);
 
-                Assert.AreEqual(setup.Get(bbj => bbj.PlayerID), 10);
+                Assert.AreEqual(setup.Get(bbj => bbj.PlanetID), 10);
             }
         }
     }
