@@ -47,11 +47,14 @@ namespace Space.Scheduler.Quartz
         /// <summary>
         /// Used to schedule buildings to be built.
         /// </summary>
+        /// <param name="player">
+        /// The player who is building.
+        /// </param>
         /// <param name="planet">
         /// The planet to build on.
         /// </param>
-        /// <param name="player">
-        /// The player to build for.
+        /// <param name="buildingCosts">
+        /// The building costs for a particular building type.
         /// </param>
         /// <param name="costs">
         /// The costs of building.
@@ -62,44 +65,29 @@ namespace Space.Scheduler.Quartz
         /// <returns>
         /// True if the build was added to the queue.
         /// </returns>
-        public bool BuildBuildings(Planet planet, Player player, NetValue costs, BuildingType type)
+        public bool BuildBuildings(Player player, Planet planet, BuildCosts<BuildingType> buildingCosts, NetValue costs, BuildingType type)
         {
             if (this.scheduler == null)
             {
-                Trace.WriteLine("this.scheduler is null", "SpaceScheduler.BuildBuildings");
+                Trace.WriteLine("this.scheduler is null", "SpaceScheduler.SubtractBuildCosts");
                 return false;
             }
 
-            if (player.Galaxy == null || player.Galaxy.GalaxySettings == null)
+            if (buildingCosts == null)
             {
-                Trace.WriteLine("player.Galaxy is null", "SpaceScheduler.BuildBuildings");
-                return false;
-            }
-            
-            if (player.Galaxy.GalaxySettings == null)
-            {
-                Trace.WriteLine("player.Galaxy.GalaxySettings is null", "SpaceScheduler.BuildBuildings");
+                Trace.WriteLine("buildCosts is null", "SpaceScheduler.SubtractBuildCosts");
                 return false;
             }
 
-            if (player.Galaxy.GalaxySettings.BuildingCosts == null)
-            {
-                Trace.WriteLine("player.Galaxy.GalaxySettings.BuildingCosts is null", "SpaceScheduler.BuildBuildings");
-                return false;
-            }
-
-            var buildCosts = player.Galaxy.GalaxySettings.BuildingCosts.FirstOrDefault(bc => bc.Type == type);
-            if (buildCosts == null)
-            {
-                Trace.WriteLine("buildCosts is null", "SpaceScheduler.BuildBuildings");
-                return false;
-            }
+            // Needs to subtract the cost here. return false if the player tries to build too many buildings.
+            var totalCosts = buildingCosts.CalculateBuildCosts(costs, planet.TotalBuildings, planet.BuildingCapacity);
+            //planet
 
             var jobSetup = new JobSetup<BuildBuildingsJob>(this.scheduler);
             jobSetup.Set(bbj => bbj.PlanetID, planet.ID);
             jobSetup.Set(bbj => bbj.BuildingType, type);
 
-            jobSetup.Run(DateTimeOffset.UtcNow.AddMilliseconds(buildCosts.Time));
+            jobSetup.Run(DateTimeOffset.UtcNow.AddMilliseconds(buildingCosts.Time));
             
             return true;
         }

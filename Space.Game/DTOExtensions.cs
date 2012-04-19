@@ -10,7 +10,6 @@
 namespace Space.Game
 {
     using System;
-    using System.Collections.Generic;
 
     using Space.DTO;
     using Space.DTO.Buildings;
@@ -33,7 +32,7 @@ namespace Space.Game
         {
             var output = new PlanetValue();
             
-            output.BuildingCount = planet.TotalBuildings;
+            output.EntityCount = planet.TotalBuildings;
 
             // Set the base population
             if (Math.Abs(planet.Population - 0) < settings.BasePopulation)
@@ -58,7 +57,7 @@ namespace Space.Game
 
             // so the user always makes cash
             var positiveIncome = settings.PositiveIncomeCash * cashBonus;
-            var buildingCount = Math.Max(output.BuildingCount, 1);
+            var buildingCount = Math.Max(output.EntityCount, 1);
             output.CashFactoryCash = planet.CashFactoryCount * settings.CashOutput * cashBonus;
             output.PopulationCash = planet.Population / settings.PopulationCashDivider * cashBonus;
             output.TaxOfficeCash = (double)planet.TaxOfficeCount / buildingCount
@@ -95,7 +94,7 @@ namespace Space.Game
             tickValue.DecayedMana = player.TotalNetValue.Mana * decay;
 
             // Produced
-            tickValue.Buildings = totalPlanetValue.BuildingCount;
+            tickValue.Buildings = totalPlanetValue.EntityCount;
             tickValue.Units = player.UnitCount;
             tickValue.ProducedCashFactoryCash = totalPlanetValue.CashFactoryCash;
             tickValue.ProducedPopulationCash = totalPlanetValue.PopulationCash;
@@ -130,7 +129,7 @@ namespace Space.Game
             }
 
             // building maintainance & unit upkeep
-            player.TotalNetValue.Cash = Math.Max(0, player.TotalNetValue.Cash - (player.TotalNetValue.BuildingCount + player.UnitCount));
+            player.TotalNetValue.Cash = Math.Max(0, player.TotalNetValue.Cash - (player.TotalNetValue.EntityCount + player.UnitCount));
             
             // TODO - allocate the research points...
         }
@@ -153,7 +152,7 @@ namespace Space.Game
             netValue.Population += value.Population;
             netValue.Iron += value.Iron;
             netValue.Research += value.Research;
-            netValue.BuildingCount += value.BuildingCount;
+            netValue.EntityCount += value.EntityCount;
         }
 
         /// <summary>
@@ -174,7 +173,7 @@ namespace Space.Game
             netValue.Population -= value.Population;
             netValue.Iron -= value.Iron;
             netValue.Research -= value.Research;
-            netValue.BuildingCount -= value.BuildingCount;
+            netValue.EntityCount -= value.EntityCount;
         }
 
         /// <summary>
@@ -200,23 +199,25 @@ namespace Space.Game
         /// <typeparam name="TType">
         /// The type of build cost.
         /// </typeparam>
-        /// <param name="planet">
-        /// The planet.
-        /// </param>
-        /// <param name="player">
-        /// The player.
-        /// </param>
         /// <param name="buildingCost">
         /// The building Cost.
+        /// </param>
+        /// <param name="totalNetValue">
+        /// The total Net Value.
+        /// </param>
+        /// <param name="planetTotalBuildings">
+        /// The total number of buildings on the planet.  This is at the time of the start of the build.
+        /// </param>
+        /// <param name="planetBuildCapacity">
+        /// The number of buildings the planet can natively hold.
         /// </param>
         /// <returns>
         /// The maximum buildings and the cost.
         /// </returns>
-        public static NetValue MaximumToBeBuilt<TType>(this Planet planet, Player player, BuildCosts<TType> buildingCost)
+        public static NetValue CalculateBuildCosts<TType>(this BuildCosts<TType> buildingCost, NetValue totalNetValue, int planetTotalBuildings, int planetBuildCapacity)
         {
-            int output = planet.TotalBuildings;
-
-            var totalNetValue = player.TotalNetValue;
+            int output = planetTotalBuildings;
+            int maximumTobuild = totalNetValue.EntityCount == 0 ? int.MaxValue : totalNetValue.EntityCount + output;
 
             // TODO -- include empire size in calculations
             var calculationArray = new[]
@@ -226,49 +227,39 @@ namespace Space.Game
                     totalNetValue.Mana, buildingCost.Mana
                 };
 
-            var maxCounts = new List<int>();
-
-            for (var i = 0; i < calculationArray.Length; i += 2)
-            {
-                maxCounts.Add((int)Math.Floor(calculationArray[i] / calculationArray[i + 1]));
-            }
-
             var maxFound = false;
             var totals = new double[calculationArray.Length / 2];
-            do
+
+            // Make sure that we actually gave the item building costs or this could be inifinity
+            if (buildingCost.Cash > 0 && buildingCost.Energy > 0 && buildingCost.Food > 0 && buildingCost.Iron > 0 && buildingCost.Mana > 0)
             {
-                output++;
-
-                // This will tell us to kick out of the loop if the totals never get incremented.
-                var totalNotEqualToZero = 0;
-                for (var i = 0; i < calculationArray.Length; i += 2)
+                do
                 {
-                    totals[i / 2] += calculationArray[i + 1] * Math.Max(1, (output / planet.BuildingCapacity));
-                    if (totals[i / 2] > 0)
+                    output++;
+
+                    // This will tell us to kick out of the loop if the totals never get incremented.
+                    for (var i = 0; i < calculationArray.Length; i += 2)
                     {
-                        totalNotEqualToZero += 1;
+                        // Find the total cost for the resource taking into account the planet building max.
+                        totals[i / 2] += calculationArray[i + 1] * Math.Max(1, (output / planetBuildCapacity));
+
+                        // Make sure that one of the resource values hasn't gone past the maximum cash value.
+                        if (totals[i / 2] <= calculationArray[i])
+                        {
+                            continue;
+                        }
+
+                        maxFound = true;
+                        break;
                     }
-
-                    if (totals[i / 2] <= calculationArray[i])
-                    {
-                        continue;
-                    }
-
-                    maxFound = true;
-                    break;
                 }
-
-                if (totalNotEqualToZero == 0)
-                {
-                    maxFound = true;
-                }
+                while (!maxFound && output <= maximumTobuild);
             }
-            while (!maxFound);
 
             return new NetValue
                 {
-                    // Always return 0 or greater
-                    BuildingCount = Math.Max(0, output - planet.TotalBuildings - 1),
+                    // Always return 0 or greater - subtract 1 for the do-while
+                    EntityCount = Math.Max(0, output - planetTotalBuildings - 1),
                     Cash = totals[0],
                     Energy = totals[1],
                     Food = totals[2],
@@ -284,17 +275,43 @@ namespace Space.Game
         /// The player.
         /// </param>
         /// <param name="costs">
-        /// The costs.
+        /// The costs buildings to build.
         /// </param>
         /// <returns>
         /// True if the buildings were successfully built.
         /// </returns>
-        public static bool BuildBuildings(this Player player, NetValue costs)
+        public static bool SubtractBuildCosts(this Player player, NetValue costs)
         {
+            if (costs.EntityCount == 0)
+            {
+                return false;
+            }
+
             player.TotalNetValue.Subtract(costs);
 
             // NOTE - add the buildings back to the player since the Subtract function deletes them
-            player.TotalNetValue.BuildingCount += costs.BuildingCount;
+            player.TotalNetValue.EntityCount += costs.EntityCount;
+
+            return true;
+        }
+
+        /// <summary>
+        /// Starts building the buildings.  This calculates the cost and removes the resources from the user.
+        /// </summary>
+        /// <param name="player">
+        /// The player building.
+        /// </param>
+        /// <param name="planet">
+        /// The planet.
+        /// </param>
+        /// <param name="buildingCount">
+        /// The number of buildings to build.
+        /// </param>
+        /// <returns>
+        /// True if the build process starts.
+        /// </returns>
+        public static bool StartBuildingBuildings(this Player player, Planet planet, int buildingCount)
+        {
 
             return true;
         }
@@ -319,7 +336,7 @@ namespace Space.Game
         /// </returns>
         public static bool AddBuildings(this Planet planet, Player player, int buildingCount, BuildingType type)
         {
-            player.TotalNetValue.BuildingCount += buildingCount;
+            player.TotalNetValue.EntityCount += buildingCount;
 
             // add buildings to planet
             switch (type)

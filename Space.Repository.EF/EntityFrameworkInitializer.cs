@@ -51,8 +51,9 @@ namespace Space.Repository.EF
                     BasePopulation = 250,
                     CashOutput = 8,
                     FoodOutput = 100,
+                    PopulationCashDivider = 30,
                     PeoplePerLivingQuarter = 650,
-                    ResearchOutput = 20
+                    ResearchOutput = 20,
                 };
 
             var solarSystemConstants = new SolarSystemConstants { MaximumEntities = 25, MinimumEntities = 10 };

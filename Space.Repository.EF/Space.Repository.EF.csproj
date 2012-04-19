@@ -49,6 +49,7 @@
     <Compile Include="ConstantsProvider.cs" />
     <Compile Include="EntityFrameworkInitializer.cs" />
     <Compile Include="GalaxySettingsRepository.cs" />
+    <Compile Include="Repository.cs" />
     <Compile Include="SpatialEntityRepository.cs" />
     <Compile Include="EntityFrameworkDBContext.cs" />
     <Compile Include="EntityFrameworkModule.cs" />

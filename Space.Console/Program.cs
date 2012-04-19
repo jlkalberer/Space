@@ -228,22 +228,33 @@ namespace Space.Console
                 }
 
                 // The maximum buildings for the BuildingType.
-                var maximumBuildings = planet.MaximumToBeBuilt(
-                    player,
+                var buildType =
                     player.Galaxy.GalaxySettings.BuildingCosts.FirstOrDefault(
-                        bc => bc.Type == (BuildingType)buildingType));
+                        bc => bc.Type == (BuildingType)buildingType);
 
-                Console.WriteLine("Number of buildings - (max is {0}):", maximumBuildings);
+                // Get the total value and set the number of buildings to zero.
+                var totalValue = new NetValue();
+                totalValue.Add(player.TotalNetValue);
+                totalValue.EntityCount = 0;
+
+                var buildingCosts = buildType.CalculateBuildCosts(totalValue, planet.TotalBuildings, planet.BuildingCapacity);
+
+                Console.WriteLine("Number of buildings - (max is {0}):", buildingCosts.EntityCount);
 
                 input = Console.ReadLine();
                 int buildingCount;
                 if (!int.TryParse(input, out buildingCount))
                 {
+                    Console.WriteLine("Invalid input.");
                     continue;
                 }
-
+                
                 // build buildings on planet.
-                planet.FarmCount = 100;
+                if (!player.SubtractBuildCosts(buildingCosts))
+                {
+                    Console.WriteLine(
+                        "Cannot build {0} buildings.  The maximum is {1}", buildingCount, buildingCosts.EntityCount);
+                }
             }
             while (true);
         }

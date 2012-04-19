@@ -10,7 +10,6 @@
 namespace Space.Game.Tests
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
 
     using NUnit.Framework;
 
@@ -322,7 +321,7 @@ namespace Space.Game.Tests
             {
                 var player = new Player { TickValue = new TickValue(), TotalNetValue = new NetValue() };
 
-                var totalPlanetValue = new PlanetValue { BuildingCount = 1 };
+                var totalPlanetValue = new PlanetValue { EntityCount = 1 };
 
                 player.Update(totalPlanetValue, new GalaxySettings());
 
@@ -555,7 +554,7 @@ namespace Space.Game.Tests
                 player.Update(
                     new PlanetValue
                         {
-                            BuildingCount = 1,
+                            EntityCount = 1,
                             Cash = 2,
 
                             // since 1 is removed for having the building
@@ -569,7 +568,7 @@ namespace Space.Game.Tests
                         },
                     new GalaxySettings());
 
-                Assert.AreEqual(player.TotalNetValue.BuildingCount, 1, "Building Count");
+                Assert.AreEqual(player.TotalNetValue.EntityCount, 1, "Building Count");
                 Assert.AreEqual(player.TotalNetValue.Cash, 1, "Cash");
                 Assert.AreEqual(player.TotalNetValue.Energy, 1, "Energy");
                 Assert.AreEqual(player.TotalNetValue.Food, .9, "Food");
@@ -620,7 +619,7 @@ namespace Space.Game.Tests
                 var player = new Player
                     {
                         TickValue = new TickValue(),
-                        TotalNetValue = new NetValue { Cash = 3, BuildingCount = 1 },
+                        TotalNetValue = new NetValue { Cash = 3, EntityCount = 1 },
                         UnitCount = 1
                     };
 
@@ -653,7 +652,7 @@ namespace Space.Game.Tests
                         Mana = 1,
                         Population = 1,
                         Research = 1,
-                        BuildingCount = 1
+                        EntityCount = 1
                     };
 
                 var nv2 = new NetValue
@@ -665,7 +664,7 @@ namespace Space.Game.Tests
                         Mana = 1,
                         Population = 1,
                         Research = 1,
-                        BuildingCount = 1
+                        EntityCount = 1
                     };
 
                 nv1.Add(nv2);
@@ -677,7 +676,7 @@ namespace Space.Game.Tests
                 Assert.AreEqual(nv1.Mana, 2, "Mana");
                 Assert.AreEqual(nv1.Population, 2, "Population");
                 Assert.AreEqual(nv1.Research, 2, "Research");
-                Assert.AreEqual(nv1.BuildingCount, 2, "BuildingCount");
+                Assert.AreEqual(nv1.EntityCount, 2, "EntityCount");
             }
 
             /// <summary>
@@ -695,7 +694,7 @@ namespace Space.Game.Tests
                         Mana = 1,
                         Population = 1,
                         Research = 1,
-                        BuildingCount = 1,
+                        EntityCount = 1,
                         CashFactoryCash = 1,
                         PopulationCash = 1,
                         TaxOfficeCash = 1,
@@ -710,7 +709,7 @@ namespace Space.Game.Tests
                         Mana = 1,
                         Population = 1,
                         Research = 1,
-                        BuildingCount = 1,
+                        EntityCount = 1,
                         CashFactoryCash = 1,
                         PopulationCash = 1,
                         TaxOfficeCash = 1,
@@ -725,7 +724,7 @@ namespace Space.Game.Tests
                 Assert.AreEqual(nv1.Mana, 2, "Mana");
                 Assert.AreEqual(nv1.Population, 2, "Population");
                 Assert.AreEqual(nv1.Research, 2, "Research");
-                Assert.AreEqual(nv1.BuildingCount, 2, "BuildingCount");
+                Assert.AreEqual(nv1.EntityCount, 2, "EntityCount");
                 Assert.AreEqual(nv1.CashFactoryCash, 2, "CashFactoryCash");
                 Assert.AreEqual(nv1.PopulationCash, 2, "PopulationCash");
                 Assert.AreEqual(nv1.TaxOfficeCash, 2, "TaxOfficeCash");
@@ -753,7 +752,7 @@ namespace Space.Game.Tests
                         Mana = 1,
                         Population = 1,
                         Research = 1,
-                        BuildingCount = 1
+                        EntityCount = 1
                     };
 
                 var nv2 = new NetValue
@@ -765,7 +764,7 @@ namespace Space.Game.Tests
                         Mana = 1,
                         Population = 1,
                         Research = 1,
-                        BuildingCount = 1
+                        EntityCount = 1
                     };
 
                 nv1.Subtract(nv2);
@@ -777,7 +776,7 @@ namespace Space.Game.Tests
                 Assert.AreEqual(nv1.Mana, 0, "Mana");
                 Assert.AreEqual(nv1.Population, 0, "Population");
                 Assert.AreEqual(nv1.Research, 0, "Research");
-                Assert.AreEqual(nv1.BuildingCount, 0, "BuildingCount");
+                Assert.AreEqual(nv1.EntityCount, 0, "EntityCount");
             }
         }
 
@@ -785,7 +784,7 @@ namespace Space.Game.Tests
         /// Contains the tests for finding the maximum number of units/buildings.
         /// </summary>
         [TestFixture]
-        public class TheMaximumToBeBuiltMethod
+        public class TheCalculateBuildCostsMethod
         {
             /// <summary>
             /// Test to make sure that 0 items can be build when the player has no resources.
@@ -793,13 +792,12 @@ namespace Space.Game.Tests
             [Test]
             public void WillReturnZeroBuildItems()
             {
-                var planet = new Planet { BuildingCapacity = 1 };
-                var player = new Player { TotalNetValue = new NetValue() };
+                var totalNetValue = new NetValue();
                 var buildCosts = new BuildCosts<object>();
 
-                var netValue = planet.MaximumToBeBuilt(player, buildCosts);
+                var netValue = buildCosts.CalculateBuildCosts(totalNetValue, 0, 1);
 
-                Assert.AreEqual(netValue.BuildingCount, 0);
+                Assert.AreEqual(netValue.EntityCount, 0);
             }
 
             /// <summary>
@@ -809,14 +807,12 @@ namespace Space.Game.Tests
             [Test]
             public void WillReturnOneBuildItem()
             {
-                var planet = new Planet { BuildingCapacity = 1 };
-                var player = new Player
-                    { TotalNetValue = new NetValue { Cash = 1, Energy = 1, Food = 1, Iron = 1, Mana = 1 } };
+                var totalNetValue = new NetValue { Cash = 1, Energy = 1, Food = 1, Iron = 1, Mana = 1 };
                 var buildCosts = new BuildCosts<object> { Cash = 1, Energy = 1, Food = 1, Iron = 1, Mana = 1 };
 
-                var netValue = planet.MaximumToBeBuilt(player, buildCosts);
+                var netValue = buildCosts.CalculateBuildCosts(totalNetValue, 0, 1);
 
-                Assert.AreEqual(netValue.BuildingCount, 1);
+                Assert.AreEqual(netValue.EntityCount, 1);
             }
 
             /// <summary>
@@ -827,14 +823,12 @@ namespace Space.Game.Tests
             [Test]
             public void WillTestBuildingCapacityMinimum()
             {
-                var planet = new Planet { BuildingCapacity = 1 };
-                var player = new Player
-                    { TotalNetValue = new NetValue { Cash = 2, Energy = 2, Food = 2, Iron = 2, Mana = 2 } };
+                var totalNetValue = new NetValue { Cash = 2, Energy = 2, Food = 2, Iron = 2, Mana = 2 };
                 var buildCosts = new BuildCosts<object> { Cash = 1, Energy = 1, Food = 1, Iron = 1, Mana = 1 };
 
-                var netValue = planet.MaximumToBeBuilt(player, buildCosts);
+                var netValue = buildCosts.CalculateBuildCosts(totalNetValue, 0, 1);
 
-                Assert.AreEqual(netValue.BuildingCount, 1);
+                Assert.AreEqual(netValue.EntityCount, 1);
             }
 
             /// <summary>
@@ -845,14 +839,13 @@ namespace Space.Game.Tests
             [Test]
             public void WillTestBuildingCapacityMaximum()
             {
-                var planet = new Planet { BuildingCapacity = 1 };
-                var player = new Player
-                    { TotalNetValue = new NetValue { Cash = 3, Energy = 3, Food = 3, Iron = 3, Mana = 3 } };
+                var totalNetValue = new NetValue { Cash = 3, Energy = 3, Food = 3, Iron = 3, Mana = 3 };
                 var buildCosts = new BuildCosts<object> { Cash = 1, Energy = 1, Food = 1, Iron = 1, Mana = 1 };
 
-                var netValue = planet.MaximumToBeBuilt(player, buildCosts);
+                var netValue = buildCosts.CalculateBuildCosts(totalNetValue, 0, 1);
 
-                Assert.AreEqual(netValue.BuildingCount, 2);
+                // 2 here because of the building capacity and overbuild cost (x2)
+                Assert.AreEqual(netValue.EntityCount, 2);
             }
 
             /// <summary>
@@ -863,18 +856,13 @@ namespace Space.Game.Tests
             {
                 var r = new Random();
 
-                var planet = new Planet { BuildingCapacity = r.Next(250) };
-                var player = new Player
+                var totalNetValue = new NetValue
                     {
-                        TotalNetValue =
-                            new NetValue
-                                {
-                                    Cash = r.Next(1, int.MaxValue),
-                                    Energy = r.Next(1, int.MaxValue),
-                                    Food = r.Next(1, int.MaxValue),
-                                    Iron = r.Next(1, int.MaxValue),
-                                    Mana = r.Next(1, int.MaxValue)
-                                }
+                        Cash = r.Next(1, int.MaxValue),
+                        Energy = r.Next(1, int.MaxValue),
+                        Food = r.Next(1, int.MaxValue),
+                        Iron = r.Next(1, int.MaxValue),
+                        Mana = r.Next(1, int.MaxValue)
                     };
                 var buildCosts = new BuildCosts<object>
                     {
@@ -885,9 +873,25 @@ namespace Space.Game.Tests
                         Mana = 1 * r.NextDouble()
                     };
 
-                var netValue = planet.MaximumToBeBuilt(player, buildCosts);
+                var netValue = buildCosts.CalculateBuildCosts(totalNetValue, 0, r.Next(250));
 
-                Assert.GreaterOrEqual(netValue.BuildingCount, 1);
+                Assert.GreaterOrEqual(netValue.EntityCount, 1);
+            }
+
+
+            /// <summary>
+            /// Test to that the method will return the correct number of buildings based on the NetValue.EntityCount
+            /// passed in.  This is used when a user wants to build less than their maximum number of buildings.
+            /// </summary>
+            [Test]
+            public void WillTestUser()
+            {
+                var totalNetValue = new NetValue { EntityCount = 2, Cash = 3, Energy = 3, Food = 3, Iron = 3, Mana = 3 };
+                var buildCosts = new BuildCosts<object> { Cash = 1, Energy = 1, Food = 1, Iron = 1, Mana = 1 };
+
+                var netValue = buildCosts.CalculateBuildCosts(totalNetValue, 0, 100);
+
+                Assert.AreEqual(netValue.EntityCount, 2);
             }
         }
 
@@ -895,34 +899,44 @@ namespace Space.Game.Tests
         /// Contains tests for building buildings/units.
         /// </summary>
         [TestFixture]
-        public class TheBuildBuildingsMethod
+        public class TheSubtractBuildCostsMethod
         {
             /// <summary>
-            /// Test to make sure that the player's resources are correctly deleted.
+            /// Test to make sure that the players cannot build if the EntityCount is 0.
+            /// </summary>
+            [Test]
+            public void WillNotSubtractCorrectCostsBecauseThereAreNoBuildingsToBuild()
+            {
+                var player = new Player { TotalNetValue = new NetValue { Cash = 2, Energy = 2, Food = 2, Iron = 2, Mana = 2 } };
+                var costs = new NetValue { Cash = 1, Energy = 1, Food = 1, Iron = 1, Mana = 1 };
+
+                Assert.IsFalse(player.SubtractBuildCosts(costs));
+            }
+
+            /// <summary>
+            /// Test to make sure that the players resources are correctly deleted.
             /// </summary>
             [Test]
             public void WillSubtractCorrectCosts()
             {
                 var player = new Player
                     { TotalNetValue = new NetValue { Cash = 2, Energy = 2, Food = 2, Iron = 2, Mana = 2 } };
-                var costs = new NetValue { Cash = 1, Energy = 1, Food = 1, Iron = 1, Mana = 1 };
+                var costs = new NetValue { EntityCount = 2, Cash = 2, Energy = 2, Food = 2, Iron = 2, Mana = 2 };
 
-                player.BuildBuildings(costs);
+                player.SubtractBuildCosts(costs);
 
                 var totalNetValue = player.TotalNetValue;
-                Assert.AreEqual(totalNetValue.Cash, 1);
-                Assert.AreEqual(totalNetValue.Energy, 1);
-                Assert.AreEqual(totalNetValue.Food, 1);
-                Assert.AreEqual(totalNetValue.Iron, 1);
-                Assert.AreEqual(totalNetValue.Mana, 1);
+                Assert.AreEqual(totalNetValue.Cash, 0);
+                Assert.AreEqual(totalNetValue.Energy, 0);
+                Assert.AreEqual(totalNetValue.Food, 0);
+                Assert.AreEqual(totalNetValue.Iron, 0);
+                Assert.AreEqual(totalNetValue.Mana, 0);
             }
         }
 
         /// <summary>
         /// Contains test for adding buildings.
         /// </summary>
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1606:ElementDocumentationMustHaveSummaryText",
-            Justification = "Reviewed. Suppression is OK here.")]
         [TestFixture]
         public class TheAddBuildingsMethod
         {
@@ -938,7 +952,7 @@ namespace Space.Game.Tests
 
                 planet.AddBuildings(player, 5, Type);
 
-                Assert.AreEqual(player.TotalNetValue.BuildingCount, 5);
+                Assert.AreEqual(player.TotalNetValue.EntityCount, 5);
             }
 
             /// <summary>

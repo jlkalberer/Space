@@ -60,8 +60,8 @@ namespace Space.DTO
         public double Research { get; set; }
 
         /// <summary>
-        /// Gets or sets BuildingCount.
+        /// Gets or sets EntityCount.
         /// </summary>
-        public int BuildingCount { get; set; }
+        public int EntityCount { get; set; }
     }
 }
