@@ -9,7 +9,6 @@
 
 namespace Space.Repository.EF
 {
-    using System;
     using System.Data.Entity;
     using System.Linq;
 
@@ -30,11 +29,6 @@ namespace Space.Repository.EF
         private readonly EntityFrameworkDbContext context;
 
         /// <summary>
-        /// An expression used to select an object.
-        /// </summary>
-        private readonly Func<TKey, TValue, bool> selector;
-
-        /// <summary>
         /// The DbSet we are currently working with.
         /// </summary>
         private readonly DbSet<TValue> dataBaseSet;
@@ -45,13 +39,9 @@ namespace Space.Repository.EF
         /// <param name="context">
         /// The context.
         /// </param>
-        /// <param name="selector">
-        /// Used to select the object via the primary key.
-        /// </param>
-        protected Repository(EntityFrameworkDbContext context, Func<TKey, TValue, bool> selector)
+        protected Repository(EntityFrameworkDbContext context)
         {
             this.context = context;
-            this.selector = selector;
             this.dataBaseSet = this.context.Set<TValue>();
         }
 
@@ -94,7 +84,7 @@ namespace Space.Repository.EF
         /// <returns>The item from the datastore.</returns>
         public virtual TValue Get(TKey key)
         {
-            return this.dataBaseSet.FirstOrDefault(value => this.selector(key, value));
+            return this.dataBaseSet.Find(key);
         }
 
         /// <summary>

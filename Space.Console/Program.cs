@@ -25,6 +25,7 @@ namespace Space.Console
     using Space.Infrastructure;
     using Space.Repository;
     using Space.Repository.EF;
+    using Space.Scheduler;
     using Space.Scheduler.Quartz;
 
     /// <summary>
@@ -53,6 +54,8 @@ namespace Space.Console
 
             var playerRepository = kernel.Get<IPlayerRepository>();
             var galaxyRepository = kernel.Get<IGalaxyRepository>();
+
+            var scheduler = kernel.Get<ISpaceScheduler>();
 
             var game = kernel.Get<Game>();
 
@@ -113,7 +116,7 @@ namespace Space.Console
                                 break;
                             }
 
-                            BuildBuildings(planetToBuildOn, player);
+                            BuildBuildings(planetToBuildOn, player, scheduler);
                         }
 
                         break;
@@ -142,7 +145,7 @@ namespace Space.Console
         private static Player CreatePlayer(IPlayerRepository playerRepository)
         {
             var player = playerRepository.Create();
-            player.TotalNetValue = new NetValue { Iron = player.ID };
+            player.TotalNetValue = new NetValue { Iron = 20000, Cash = 50000, Energy = 20000, Food = 10000, Mana = 10000 };
             player.ResearchPoints = new ResearchPoints { PlayerID = player.ID };
             player.TickValue = new TickValue { PlayerID = player.ID };
             player.Race = new Race();
@@ -193,7 +196,10 @@ namespace Space.Console
         /// <param name="player">
         /// The player.
         /// </param>
-        private static void BuildBuildings(Planet planet, Player player)
+        /// <param name="spaceScheduler">
+        /// The space Scheduler.
+        /// </param>
+        private static void BuildBuildings(Planet planet, Player player, ISpaceScheduler spaceScheduler)
         {
             do
             {
@@ -249,8 +255,9 @@ namespace Space.Console
                     continue;
                 }
                 
+
                 // build buildings on planet.
-                if (!player.SubtractBuildCosts(buildingCosts))
+                if (!spaceScheduler.BuildBuildings(player, planet, buildType, buildingCosts, buildType.Type))
                 {
                     Console.WriteLine(
                         "Cannot build {0} buildings.  The maximum is {1}", buildingCount, buildingCosts.EntityCount);

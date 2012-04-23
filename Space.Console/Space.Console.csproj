@@ -82,6 +82,10 @@
       <Project>{C88B01DF-0D54-4CE5-B825-A26F10B0B54C}</Project>
       <Name>Space.Scheduler.Quartz</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Space.Scheduler\Space.Scheduler.csproj">
+      <Project>{E8C80230-8525-480C-9B6A-C3277140F720}</Project>
+      <Name>Space.Scheduler</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

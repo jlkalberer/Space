@@ -23,7 +23,7 @@ namespace Space.Repository.EF
         /// The context.
         /// </param>
         public PlanetRepository(EntityFrameworkDbContext context)
-            : base(context, (id, planet) => id == planet.ID)
+            : base(context)
         {
         }
     }

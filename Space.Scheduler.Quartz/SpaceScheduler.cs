@@ -81,11 +81,12 @@ namespace Space.Scheduler.Quartz
 
             // Needs to subtract the cost here. return false if the player tries to build too many buildings.
             var totalCosts = buildingCosts.CalculateBuildCosts(costs, planet.TotalBuildings, planet.BuildingCapacity);
-            //planet
+            player.TotalNetValue.Subtract(totalCosts);
 
             var jobSetup = new JobSetup<BuildBuildingsJob>(this.scheduler);
             jobSetup.Set(bbj => bbj.PlanetID, planet.ID);
             jobSetup.Set(bbj => bbj.BuildingType, type);
+            jobSetup.Set(bbj => bbj.BuildingCount, totalCosts.EntityCount);
 
             jobSetup.Run(DateTimeOffset.UtcNow.AddMilliseconds(buildingCosts.Time));
             

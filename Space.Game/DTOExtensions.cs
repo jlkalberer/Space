@@ -231,7 +231,7 @@ namespace Space.Game
             var totals = new double[calculationArray.Length / 2];
 
             // Make sure that we actually gave the item building costs or this could be inifinity
-            if (buildingCost.Cash > 0 && buildingCost.Energy > 0 && buildingCost.Food > 0 && buildingCost.Iron > 0 && buildingCost.Mana > 0)
+            if (buildingCost.Cash > 0 || buildingCost.Energy > 0 || buildingCost.Food > 0 || buildingCost.Iron > 0 || buildingCost.Mana > 0)
             {
                 do
                 {
@@ -241,11 +241,12 @@ namespace Space.Game
                     for (var i = 0; i < calculationArray.Length; i += 2)
                     {
                         // Find the total cost for the resource taking into account the planet building max.
-                        totals[i / 2] += calculationArray[i + 1] * Math.Max(1, (output / planetBuildCapacity));
+                        var costForItem = calculationArray[i + 1] * Math.Max(1, (output / planetBuildCapacity));
 
                         // Make sure that one of the resource values hasn't gone past the maximum cash value.
-                        if (totals[i / 2] <= calculationArray[i])
+                        if (totals[i / 2] + costForItem <= calculationArray[i])
                         {
+                            totals[i / 2] += costForItem;
                             continue;
                         }
 
@@ -291,27 +292,6 @@ namespace Space.Game
 
             // NOTE - add the buildings back to the player since the Subtract function deletes them
             player.TotalNetValue.EntityCount += costs.EntityCount;
-
-            return true;
-        }
-
-        /// <summary>
-        /// Starts building the buildings.  This calculates the cost and removes the resources from the user.
-        /// </summary>
-        /// <param name="player">
-        /// The player building.
-        /// </param>
-        /// <param name="planet">
-        /// The planet.
-        /// </param>
-        /// <param name="buildingCount">
-        /// The number of buildings to build.
-        /// </param>
-        /// <returns>
-        /// True if the build process starts.
-        /// </returns>
-        public static bool StartBuildingBuildings(this Player player, Planet planet, int buildingCount)
-        {
 
             return true;
         }

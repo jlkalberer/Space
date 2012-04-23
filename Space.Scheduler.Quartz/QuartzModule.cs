@@ -33,6 +33,8 @@ namespace Space.Scheduler.Quartz
             Bind<ISchedulerFactory>().ToProvider<QuartzSchedulerFactoryProvider>();
             Bind<IScheduler>().ToProvider<QuartzSchedulerProvider>().InSingletonScope();
             Bind<Func<Type, IJob>>().ToMethod(ctx => t => (IJob)ctx.Kernel.Get(t));
+
+            Bind<ISpaceScheduler>().To<SpaceScheduler>();
         }
 
         #endregion

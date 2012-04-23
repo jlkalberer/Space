@@ -17,6 +17,7 @@ namespace Space.Scheduler.Quartz.Tests
 
     using Space.DTO;
     using Space.DTO.Buildings;
+    using Space.DTO.Players;
     using Space.DTO.Spatial;
 
     /// <summary>
@@ -38,7 +39,7 @@ namespace Space.Scheduler.Quartz.Tests
             {
                 var spaceScheduler = new SpaceScheduler(null);
 
-                Assert.IsFalse(spaceScheduler.BuildBuildings(null, null, null, default(BuildingType)));
+                Assert.IsFalse(spaceScheduler.BuildBuildings(null, null, null, null, default(BuildingType)));
             }
 
             /// <summary>
@@ -50,7 +51,7 @@ namespace Space.Scheduler.Quartz.Tests
                 var scheduler = new Mock<IScheduler>();
                 var spaceScheduler = new SpaceScheduler(scheduler.Object);
 
-                Assert.IsFalse(spaceScheduler.BuildBuildings(null, null, null, default(BuildingType)));
+                Assert.IsFalse(spaceScheduler.BuildBuildings(null, null, null, null, default(BuildingType)));
             }
 
             /// <summary>
@@ -62,8 +63,21 @@ namespace Space.Scheduler.Quartz.Tests
                 var scheduler = new Mock<IScheduler>();
                 var spaceScheduler = new SpaceScheduler(scheduler.Object);
 
-                var planet = new Planet { ID = 1 };
-                var buildCosts = new BuildingCosts { Type = default(BuildingType) };
+                var player = new Player
+                {
+                    ID = 1,
+                    TotalNetValue = new NetValue
+                        {
+                            Cash = 1,
+                            Energy = 1,
+                            Food = 1,
+                            Iron = 1,
+                            Mana = 1
+                        }
+                };
+                var planet = new Planet { ID = 1, BuildingCapacity = 1 };
+                var buildCosts = new BuildingCosts
+                    { Type = default(BuildingType), Cash = 1, Energy = 1, Food = 1, Iron = 1, Mana = 1, Time = 1 };
 
                 var costs = new NetValue
                     {
@@ -75,7 +89,15 @@ namespace Space.Scheduler.Quartz.Tests
                         Mana = 1
                     };
 
-                Assert.IsTrue(spaceScheduler.BuildBuildings(planet, buildCosts, costs, default(BuildingType)));
+                Assert.IsTrue(spaceScheduler.BuildBuildings(player, planet, buildCosts, costs, default(BuildingType)));
+
+                // assert that this succesfully removed from player's values.
+                var totalNetValue = player.TotalNetValue;
+                Assert.Less(totalNetValue.Cash, 1);
+                Assert.Less(totalNetValue.Energy, 1);
+                Assert.Less(totalNetValue.Food, 1);
+                Assert.Less(totalNetValue.Iron, 1);
+                Assert.Less(totalNetValue.Mana, 1);
             }
         }
     }

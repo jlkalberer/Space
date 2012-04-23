@@ -61,7 +61,7 @@ namespace Space.Scheduler.Quartz
             var data = context.JobDetail.JobDataMap;
 
             // iterate over the job and populate the 
-            var properties = typeof(TType).GetProperties(BindingFlags.Static | BindingFlags.Public);
+            PropertyInfo[] properties = typeof(TType).GetProperties();
             foreach (PropertyInfo pi in properties)
             {
                 pi.SetValue(this.Job, data[pi.Name], null);

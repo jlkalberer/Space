@@ -76,6 +76,11 @@ namespace Space.Scheduler.Quartz
                 scheduler.ListenerManager.AddSchedulerListener(listener);
             }
 
+            if (!scheduler.IsStarted)
+            {
+                scheduler.Start();
+            }
+
             return scheduler;
         }
     }
